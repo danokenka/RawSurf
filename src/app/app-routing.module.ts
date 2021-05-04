@@ -28,6 +28,10 @@ const routes: Routes = [
     path: 'settings',
     loadChildren: () => import('./pages/settings/settings.module').then( m => m.SettingsPageModule)
   },
+  {
+    path: 'photographer-portal',
+    loadChildren: () => import('./pages/photographer-portal/photographer-portal.module').then( m => m.PhotographerPortalPageModule)
+  },
   // {
   //   path: 'signup',
   //   loadChildren: () => import('./pages/signup/signup.module').then( m => m.SignupPageModule)

@@ -20,7 +20,12 @@ export class AppComponent implements OnInit{
     {
       title: 'Settings',
       url: '/settings',
-      icon: 'mail'
+      icon: 'settings'
+    },
+    {
+      title: 'Photographer Portal',
+      url: 'photographer-portal',
+      icon: 'person'
     }
   ];
   constructor() {
