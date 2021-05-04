@@ -1,4 +1,6 @@
 <ion-header>
+  <script src="https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.js"></script>
+<link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.css" />
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="login"></ion-back-button>
@@ -7,7 +9,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="ion-padding">
+<!-- <ion-content [fullscreen]="true" class="ion-padding">
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-buttons slot="start">  <ion-back-button></ion-back-button>  </ion-buttons> 
@@ -20,5 +22,27 @@
     <div class="ion-padding">
       <ion-button routerLink="/home" expand="block" routerDirection="forward">  SignUp  </ion-button> 
     </div>
+  </ion-content> -->
 
-</ion-content>
+    <ion-content padding>
+      <ion-list>
+      <ion-item>
+        <ion-label>Email Address</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-input type="text" [(ngModel)]="user.email"></ion-input>
+      </ion-item>
+    
+      <ion-item>
+        <ion-label>Password</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-input type="password" [(ngModel)]="user.password"></ion-input>
+      </ion-item>
+    
+  
+      <ion-button (click)="register()" routerLink="/tabs" expand="block">  Register  </ion-button> 
+    </ion-list>
+    </ion-content>
+
+
