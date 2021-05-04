@@ -1,0 +1,7 @@
+{
+  "name": "RawSurf",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
