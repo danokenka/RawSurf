@@ -30,7 +30,7 @@
         <ion-label>Email Address</ion-label>
       </ion-item>
       <ion-item>
-        <ion-input type="text" [(ngModel)]="user.email"></ion-input>
+        <ion-input name="email" type="email" [(ngModel)]="user.email" required="true"></ion-input>
       </ion-item>
     
       <ion-item>
@@ -41,7 +41,7 @@
       </ion-item>
     
   
-      <ion-button (click)="register()" routerLink="/tabs" expand="block">  Register  </ion-button> 
+      <ion-button (click)="register(user)" routerLink="/tabs" expand="block">  Register  </ion-button> 
     </ion-list>
     </ion-content>
 

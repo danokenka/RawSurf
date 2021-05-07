@@ -32,6 +32,10 @@ const routes: Routes = [
     path: 'photographer-portal',
     loadChildren: () => import('./pages/photographer-portal/photographer-portal.module').then( m => m.PhotographerPortalPageModule)
   },
+  {
+    path: 'profile',
+    loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule)
+  },
   // {
   //   path: 'signup',
   //   loadChildren: () => import('./pages/signup/signup.module').then( m => m.SignupPageModule)

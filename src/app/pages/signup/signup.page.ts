@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-// import { User } from '../../shared/user';
-
-
-export class User {
-  email: string;
-  password: string;
-}
+import { User } from '../../models/user';
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -16,19 +13,31 @@ export class User {
 export class SignupPage {
 
 
-  
-  public user:User = new User();
+  user = {} as User;
 
-  constructor(private authService: AuthService){
+
+  constructor(public router: Router){
   }
 
+  navigate() {
+    this.router.navigate(['/tabs'])
+  }
 
+  async register(user: User){
+    console.log(user.email,
+    user.password);
 
-  register(){
-console.log(this.user.email,
-  this.user.password)
-  this.authService.signupUser(this.user.email,
-    this.user.password);
+    try {
+      const result = await firebase.auth().createUserWithEmailAndPassword(user.email, user.password);
+      console.log(result);
+      if (result) {
+      this.navigate();
+      }
+    }
+    catch (e) {
+      console.log(e);
+    }
+
 
   }
 

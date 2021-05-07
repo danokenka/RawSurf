@@ -26,6 +26,11 @@ export class AppComponent implements OnInit{
       title: 'Photographer Portal',
       url: 'photographer-portal',
       icon: 'person'
+    },
+    {
+      title: 'Profile',
+      url: '/profile',
+      icon: 'person'
     }
   ];
   constructor() {

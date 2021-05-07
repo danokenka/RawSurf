@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="tabs"></ion-back-button>
+    </ion-buttons>
+    <ion-title>profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label>Your Display Name is: {{myName}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-input name="name" type="text" [(ngModel)]="userProfile.name" ></ion-input>
+    </ion-item>
+    <ion-button (click)="changeUserName(userProfile)" routerLink="/tabs" expand="block">  Change User Name  </ion-button> 
+    <ion-item>
+      <ion-label>Your Account Email is: {{myEmail}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <!-- <ion-input type="password" [(ngModel)]="user.password"></ion-input> -->
+    </ion-item>
+  
+    <ion-button expand="block">  Change Email  </ion-button> 
+  </ion-list>
+
+
+<p>Your photoURL is: {{myPhotoUrl}}</p>
+<p>Your uid is: {{myUid}}</p>
+
+</ion-content>

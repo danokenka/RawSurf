@@ -11,7 +11,6 @@ export class AuthService {
 
   constructor() { }
 
- loginSuccess = false;
 
   // loginUser(
   //   email: string,
@@ -28,7 +27,7 @@ export class AuthService {
   .then((userCredential) => {
     // Signed in 
     var user = userCredential.user;
-    this.loginSuccess = true;
+
     // ...
   })
   .catch((error) => {
@@ -46,7 +45,7 @@ loginUser(email: string, password: string){
   .then((userCredential) => {
     // Signed in
      var user = userCredential.user;
-     this.loginSuccess = true;
+
     // this.user.email = email;
     // this.user.password = password;
 
@@ -63,7 +62,7 @@ loginUser(email: string, password: string){
 
 signOut() {
   firebase.auth().signOut().then(() => {
-    this.loginSuccess = false
+
     // Sign-out successful.
   }).catch((error) => {
     // An error happened.

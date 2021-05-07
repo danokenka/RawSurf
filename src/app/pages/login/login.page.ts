@@ -2,14 +2,17 @@ import { TryCatchStmt, variable } from '@angular/compiler/src/output/output_ast'
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-// import { User, EmailPasswordPair, NewAccount } from '../../shared/user';
+import { User } from '../../models/user';
+import firebase from 'firebase/app';
+import 'firebase/auth';
+
 // import { User } from '../../shared/user';
 
 
-export class User {
-  email: string;
-  password: string;
-}
+// export class User {
+//   email: string;
+//   password: string;
+// }
 
 
 @Component({
@@ -18,23 +21,49 @@ export class User {
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  public user:User = new User();
+  user = {} as User;
+  // public user:User = new User();
   constructor(public router: Router, private authService: AuthService) { }
-
+  // email: string;
+  // password: string;
   ngOnInit() {
+  }
+
+// setUser() {
+//   var fireUser = firebase.auth().currentUser;  
+// this.user.email = fireUser.email;
+  
+// }
+
+navigate(){
+  this.router.navigate(['/tabs'])
+}
+
+
+  async loginUser(user: User){
+    try {
+      const result = await firebase.auth().signInWithEmailAndPassword(user.email, user.password);
+      console.log(result);
+      if (result) {
+      this.navigate();
+      }
+    }
+    catch (e) {
+      console.log(e);
+    }
+    
   }
 
 
 
-
-      async signIn() {
+     signIn(user: User) {
        
 
-        console.log(this.user.email,
-          this.user.password)
+        console.log(user.email,
+          user.password)
           
-       this.authService.loginUser(this.user.email,
-            this.user.password);
+       this.authService.signupUser(user.email,
+            user.password);
 
         // if (this.authService.loginSuccess === true) {
         //   console.log("proceed to page");
@@ -61,7 +90,7 @@ export class LoginPage implements OnInit {
 
 checkUser() {
   this.authService.currentUser();
-  console.log(this.user);
+  // console.log(this.user);
   console.log(this.authService.currentUser);
 this.authService.getUserProfile();
 
@@ -77,14 +106,12 @@ this.authService.getUserProfile();
 }
 
 myUser() {
-  console.log(this.user);
+  // console.log(this.user);
 }
 
 
 signOut() {
   this.authService.signOut(); 
-  this.user.email = "";
-  this.user.password = "";
 }
 
 getToken() {
