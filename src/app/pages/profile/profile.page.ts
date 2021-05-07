@@ -3,6 +3,8 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import { UserProfile } from '../../models/user';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
+import { CompileTemplateMetadata } from '@angular/compiler';
 
 @Component({
   selector: 'app-profile',
@@ -14,12 +16,16 @@ public myName: string;
 public myEmail: string;
 public myPhotoUrl: string;
 public myUid: string;
-  constructor(public router: Router) {}
+  constructor(public router: Router, public alertCtrl: AlertController) {}
 
 userProfile = {} as UserProfile;
 public userArray: string[] = [];
   ionViewWillEnter() {
-    console.log("Ion view will enter")
+    console.log("Ion view will enter");
+    this.myName = JSON.stringify(firebase.auth().currentUser.displayName);
+    this.myEmail = JSON.stringify(firebase.auth().currentUser.email);
+    this.myPhotoUrl = JSON.stringify(firebase.auth().currentUser.photoURL);
+    this.myUid = JSON.stringify(firebase.auth().currentUser.uid);
   }
 
 
@@ -34,7 +40,63 @@ public userArray: string[] = [];
  this.myUid = JSON.stringify(firebase.auth().currentUser.uid)
   }
 
+doRefresh(event) {
+  console.log('Begin async operation');
+  this.myName = JSON.stringify(firebase.auth().currentUser.displayName);
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 2000);
+  
 
+}
+
+
+  async showPrompt() {  
+    const prompt = await this.alertCtrl.create({  
+      header: 'Change User Profile Info',  
+      message: 'Enter a new Display name',  
+      inputs: [  
+        {  
+          name: 'name',  
+          type: 'text',  
+          placeholder: 'DisplayName'  
+        },  
+      ],  
+      buttons: [  
+        {  
+          text: 'Cancel',  
+          handler: data => {  
+            console.log('Cancel clicked');  
+          }  
+        },  
+        {  
+          text: 'Save',  
+          handler: data => {  
+            console.log('Saved clicked');  
+            console.log(data.name);  
+            this.changeDisplayFromPrompt(data.name);
+            // this.router.navigate(['/profile']);
+            this.ionViewWillEnter();
+          }  
+        }  
+      ]  
+    });  
+    await prompt.present();  
+  }  
+
+
+  changeDisplayFromPrompt(name: string) {
+    var user = firebase.auth().currentUser;
+  
+  user.updateProfile({
+    displayName: name,
+  }).then(function() {
+    // Update successful.
+  }).catch(function(error) {
+    // An error happened.
+  });
+}
 
 changeUserName(userProfile: UserProfile) {
   var user = firebase.auth().currentUser;

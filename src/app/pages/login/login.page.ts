@@ -5,6 +5,7 @@ import { AuthService } from '../../services/auth.service';
 import { User } from '../../models/user';
 import firebase from 'firebase/app';
 import 'firebase/auth';
+import { AlertController } from '@ionic/angular';
 
 // import { User } from '../../shared/user';
 
@@ -23,7 +24,7 @@ import 'firebase/auth';
 export class LoginPage implements OnInit {
   user = {} as User;
   // public user:User = new User();
-  constructor(public router: Router, private authService: AuthService) { }
+  constructor(public router: Router, private authService: AuthService, public alertCtrl: AlertController) { }
   // email: string;
   // password: string;
   ngOnInit() {
@@ -118,5 +119,37 @@ getToken() {
   var token = this.authService.getToken();
   console.log(token);
 }
+
+
+
+
+async showPrompt() {  
+  const prompt = await this.alertCtrl.create({  
+    header: 'Change User Profile Info',  
+    message: 'Enter a new Display name',  
+    inputs: [  
+      {  
+        name: 'name1',  
+        type: 'text',  
+        placeholder: 'DisplayName'  
+      },  
+    ],  
+    buttons: [  
+      {  
+        text: 'Cancel',  
+        handler: data => {  
+          console.log('Cancel clicked');  
+        }  
+      },  
+      {  
+        text: 'Save',  
+        handler: data => {  
+          console.log('Saved clicked');  
+        }  
+      }  
+    ]  
+  });  
+  await prompt.present();  
+}  
   
 }
