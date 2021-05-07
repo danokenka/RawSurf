@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
  import { User } from '../../models/user';
  import firebase from 'firebase/app';
@@ -10,9 +10,13 @@ import 'firebase/auth';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-
+  public myName: string;
   constructor(private authService: AuthService){
   }
+
+  ngOnInit() {
+    this.myName = JSON.stringify(firebase.auth().currentUser.displayName);
+     }
 
   getUserInfo() {
   console.log(firebase.auth().currentUser.email);

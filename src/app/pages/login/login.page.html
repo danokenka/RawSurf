@@ -29,7 +29,7 @@
       <ion-input type="password" [(ngModel)]="user.password"></ion-input>
     </ion-item>
   </ion-list>
-
+        <ion-button (click)="autoLoginUser()" expand="block"> Auto Login  </ion-button> 
         <ion-button (click)="loginUser(user)" expand="block">  Login  </ion-button> 
         <ion-button routerLink="/signup" expand="block" routerDirection="forward">  SignUp  </ion-button> 
         <ion-button (click)="checkUser()" expand="block">  Check User  </ion-button> 

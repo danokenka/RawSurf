@@ -55,6 +55,21 @@ navigate(){
     
   }
 
+  async autoLoginUser(){
+    try {
+      const result = await firebase.auth().signInWithEmailAndPassword(
+        "test@test.com", "test1234");
+      console.log(result);
+      if (result) {
+      this.navigate();
+      }
+    }
+    catch (e) {
+      console.log(e);
+    }
+    
+  }
+
 
 
      signIn(user: User) {

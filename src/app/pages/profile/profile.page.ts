@@ -4,7 +4,7 @@ import 'firebase/auth';
 import { UserProfile } from '../../models/user';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { CompileTemplateMetadata } from '@angular/compiler';
+
 
 @Component({
   selector: 'app-profile',
@@ -111,6 +111,16 @@ user.updateProfile({
 
 }
 
+
+signOut() {
+  console.log("sign out pressed")
+  firebase.auth().signOut().then(() => {
+
+    // Sign-out successful.
+  }).catch((error) => {
+    // An error happened.
+  });
+}
   // currentUser() {
     
   //   firebase.auth().onAuthStateChanged(function(user) {

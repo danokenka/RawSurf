@@ -3,6 +3,9 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
+    <ion-buttons slot="end" style="color:red" (click)="signOut()" routerLink="/login">
+     Sign Out
+    </ion-buttons>
     <ion-title>
       Home
     </ion-title>
@@ -30,7 +33,8 @@
     <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
   </div> -->
 
-<div>Hello </div>
-  <ion-button (click)="signOut()" routerLink="/login" expand="block">  Sign Out  </ion-button> 
-  <ion-button (click)="getUserInfo()" expand="block">  User email  </ion-button> 
+<div>Hello {{myName}}. Glad to see you!</div>
+<br><br>
+  <!-- <ion-button (click)="signOut()" routerLink="/login" expand="block">  Sign Out  </ion-button>  -->
+  <!-- <ion-button (click)="getUserInfo()" expand="block">  User email  </ion-button>  -->
 </ion-content>

@@ -3,31 +3,39 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="tabs"></ion-back-button>
     </ion-buttons>
+    <ion-buttons slot="end" style="color:red" (click)="signOut()" routerLink="/login">
+      Sign Out
+     </ion-buttons>
     <ion-title>profile</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content></ion-refresher-content>
+    <ion-refresher-content     pullingIcon="arrow-down-outline" 
+    pullingText="Pull to refresh" 
+    refreshingSpinner="crescent"
+    refreshingText="Refreshing..."></ion-refresher-content>
   </ion-refresher>
   <ion-list>
     <ion-item>
-      <ion-label>Your Display Name is: {{myName}}</ion-label>
+      <ion-label>Pull down to Refresh after making changes</ion-label>
     </ion-item>
     <ion-item>
-      <!-- <ion-input name="name" type="text" [(ngModel)]="userProfile.name" ></ion-input> -->
+  
+    </ion-item>
+    <ion-item>
+      <ion-label>Your Display Name is: {{myName}}</ion-label>
     </ion-item>
     <ion-button (click)="showPrompt()" expand="block">  Change User Name  </ion-button> 
     <!-- <ion-button (click)="changeUserName(userProfile)" routerLink="/tabs" expand="block">  Change User Name  </ion-button>  -->
     <ion-item>
       <ion-label>Your Account Email is: {{myEmail}}</ion-label>
     </ion-item>
-    <ion-item>
-      <!-- <ion-input type="password" [(ngModel)]="user.password"></ion-input> -->
-    </ion-item>
-  
     <ion-button expand="block">  Change Email  </ion-button> 
+      <!-- <ion-button (click)="signOut()" routerLink="/login" expand="block">  Sign Out  </ion-button>  -->
+
+    
   </ion-list>
 
 
