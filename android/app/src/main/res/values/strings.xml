@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">RawSurf</string>
+    <string name="title_activity_main">RawSurf</string>
+    <string name="package_name">com.RawSurf.ZuesDevTech</string>
+    <string name="custom_url_scheme">com.RawSurf.ZuesDevTech</string>
+</resources>
