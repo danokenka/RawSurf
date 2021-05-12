@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>account</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content >
+  <ion-grid>
+<br><br>
+      <ion-row>
+        <ion-col>
+          <div>Name</div>
+        </ion-col>
+        <ion-col>
+          <div>Test User</div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <div>Username</div>
+        </ion-col>
+        <ion-col>
+          <div>testuser1234</div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <div>Subscription</div>
+        </ion-col>
+        <ion-col>
+          <div>Basic Free</div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <div>    <ion-buttons slot="end" style="color:red" (click)="signOut()" routerLink="/login">
+            Log Out
+           </ion-buttons></div>
+        </ion-col>
+      </ion-row>
+
+  </ion-grid>
+
+</ion-content>

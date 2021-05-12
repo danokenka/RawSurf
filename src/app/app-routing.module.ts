@@ -26,19 +26,23 @@ const routes: Routes = [
   },
   {
     path: 'settings',
-    loadChildren: () => import('./pages/settings/settings.module').then( m => m.SettingsPageModule)
+    loadChildren: () => import('./pages/menu/settings/settings.module').then( m => m.SettingsPageModule)
   },
   {
     path: 'photographer-portal',
-    loadChildren: () => import('./pages/photographer-portal/photographer-portal.module').then( m => m.PhotographerPortalPageModule)
+    loadChildren: () => import('./pages/menu/photographer-portal/photographer-portal.module').then( m => m.PhotographerPortalPageModule)
   },
   {
     path: 'profile',
-    loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule)
+    loadChildren: () => import('./pages/menu/profile/profile.module').then( m => m.ProfilePageModule)
   },
   {
     path: 'surftrip',
     loadChildren: () => import('./pages/surftrip/surftrip.module').then( m => m.SurftripPageModule)
+  },
+  {
+    path: 'account',
+    loadChildren: () => import('./pages/menu/account/account.module').then( m => m.AccountPageModule)
   },
   // {
   //   path: 'signup',

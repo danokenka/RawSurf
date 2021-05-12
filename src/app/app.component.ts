@@ -31,6 +31,10 @@ export class AppComponent implements OnInit{
       title: 'Profile',
       url: '/profile',
       icon: 'person'
+    },
+    {
+      title: 'Account',
+      url: '/account'
     }
   ];
   constructor() {
