@@ -48,10 +48,10 @@ const routes: Routes = [
   //   path: 'signup',
   //   loadChildren: () => import('./pages/signup/signup.module').then( m => m.SignupPageModule)
   // },
-  // {
-  //   path: 'book',
-  //   loadChildren: () => import('./pages/book/book.module').then( m => m.BookPageModule)
-  // },
+  {
+    path: 'book',
+    loadChildren: () => import('./pages/book/book.module').then( m => m.BookPageModule)
+  },
 ];
 
 @NgModule({

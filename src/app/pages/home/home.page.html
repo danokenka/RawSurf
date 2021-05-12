@@ -33,8 +33,13 @@
     <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
   </div> -->
 
-<div>Hello {{myName}}. Glad to see you!</div>
+<div *ngIf="myName">Hello {{myName}}. Glad to see you!</div>
+<div *ngIf="!myName">Your displayName has not been set. <br>To change it go to menu then profile!</div>
 <br><br>
+
+
+<br><br>
+  <!-- <ion-button (click)="reloadHome()" expand="block">  Reload  </ion-button>  -->
   <!-- <ion-button (click)="signOut()" routerLink="/login" expand="block">  Sign Out  </ion-button>  -->
   <!-- <ion-button (click)="getUserInfo()" expand="block">  User email  </ion-button>  -->
 </ion-content>

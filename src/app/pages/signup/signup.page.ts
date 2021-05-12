@@ -20,26 +20,44 @@ export class SignupPage {
   }
 
   navigate() {
-    this.router.navigate(['/tabs'])
+    this.router.navigate(["/tabs"])
   }
 
-  async register(user: User){
-    console.log(user.email,
-    user.password);
+  // async register(user: User){
+  //   console.log(user.email,
+  //   user.password);
 
-    try {
-      const result = await firebase.auth().createUserWithEmailAndPassword(user.email, user.password);
-      console.log(result);
-      if (result) {
-      this.navigate();
-      }
+  //   try {
+  //     const result = await firebase.auth().createUserWithEmailAndPassword(user.email, user.password);
+  //     console.log(result);
+  //     if (result) {
+  //     this.navigate();
+  //     }
+  //   }
+  //   catch (e) {
+  //     console.log(e);
+  //     console.log(e.a);
+  //     console.log(e.code);
+  //     console.log(e.message);
+  //   }
+
+
+
+    
+
+      register(user: User){
+        console.log(user.email, user.password);
+
+        firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
+        .then((res) => {
+          console.log(res);
+          this.navigate();
+        }).catch((e) =>  {
+          window.alert(e.message)
+      })
+  
+  
     }
-    catch (e) {
-      console.log(e);
-    }
-
-
-  }
 
   // async register() {
   //   try {
