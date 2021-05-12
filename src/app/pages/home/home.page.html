@@ -37,4 +37,14 @@
 <br><br>
   <!-- <ion-button (click)="signOut()" routerLink="/login" expand="block">  Sign Out  </ion-button>  -->
   <!-- <ion-button (click)="getUserInfo()" expand="block">  User email  </ion-button>  -->
+
+
+  <ion-list>
+    <!-- the *ngFor Closure ensure that a separate list entry is created for each region read to database -->
+    <ion-item *ngFor="let user of users">
+      {{ user.firstName }}
+    </ion-item>
+  </ion-list>
+ <!-- <ion-button (click)="getUser()" expand="block">  User email  </ion-button>  -->
+
 </ion-content>

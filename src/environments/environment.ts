@@ -11,9 +11,24 @@ export const environment = {
     storageBucket: "raws-a942e.appspot.com",
     messagingSenderId: "1024438702340",
     appId: "1:1024438702340:web:50e2307752644c4368c051",
-    measurementId: "G-SKHZ0M3L7L"
+    measurementId: "G-SKHZ0M3L7L",
+    databaseURL: "https://raws-a942e-default-rtdb.firebaseio.com/",
   }
 };
+
+// var databaseConfig = {
+//   apiKey: "AIzaSyDnn5mVvbqRL2j77zgMrQX0yYFppGmwP14",
+//   authDomain: "projectId.firebaseapp.com",
+//   // For databases not in the us-central1 location, databaseURL will be of the
+//   // form https://[databaseName].[region].firebasedatabase.app.
+//   // For example, https://your-database-123.europe-west1.firebasedatabase.app
+//   databaseURL: "https://raws-a942e-default-rtdb.firebaseio.com/",
+//   storageBucket: "bucket.appspot.com"
+// };
+// firebase.initializeApp(databaseConfig);
+
+// // Get a reference to the database service
+// var database = firebase.database();
 
 /*
  * For easier debugging in development mode, you can import the following file

@@ -7,6 +7,7 @@ export const environment = {
     storageBucket: "raws-a942e.appspot.com",
     messagingSenderId: "1024438702340",
     appId: "1:1024438702340:web:50e2307752644c4368c051",
-    measurementId: "G-SKHZ0M3L7L"
+    measurementId: "G-SKHZ0M3L7L",
+    databaseURL: "https://raws-a942e-default-rtdb.firebaseio.com/",
   }
 };
