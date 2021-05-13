@@ -32,9 +32,23 @@
     <strong>Ready to create an app?</strong>
     <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
   </div> -->
+  
+<!-- <div *ngIf="displayName">Hello {{displayName}}. Glad to see you!</div> -->
+
+<!-- <div *ngFor="let user of users | async"></div>
+<p>{{currentUser.email}}</p>
+<p>{{currentUser.displayName}}</p>
+<p>{{currentUser.uid}}</p> -->
 
 <div *ngIf="myName">Hello {{myName}}. Glad to see you!</div>
 <div *ngIf="!myName">Your displayName has not been set. <br>To change it go to menu then profile!</div>
+<!-- <div *ngIf="currentUser">Hello {{currentUser.displayName}}. Glad to see you!</div> -->
+<div *ngIf="!currentUser">Your displayName has not been set. <br>To change it go to menu then profile!</div>
+
+
+<!-- <div *ngIf="user$ | async as user">Hello {{ user.displayName}}. Glad to see you!</div> -->
+
+<!-- <div *ngIf="!myName">Your displayName has not been set. <br>To change it go to menu then profile!</div> -->
 <br><br>
 
 

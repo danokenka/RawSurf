@@ -1,10 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
- import { User } from '../../models/user';
+//  import { User } from '../../models/user';
  import firebase from 'firebase/app';
 import 'firebase/auth';
-import { NavController } from '@ionic/angular';
 
+export interface User {
+  uid: string;
+  email: string;
+  displayName: string;
+  photoURL: string;
+
+}
 
 @Component({
   selector: 'app-home',
@@ -12,16 +18,12 @@ import { NavController } from '@ionic/angular';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  public myName: string = null;
-  constructor(private authService: AuthService, public navCtrl: NavController){
+  public myName: string;
+  currentUser: User = null;
+  constructor(private authService: AuthService){
   }
 
   ngOnInit() {
-
-
-    // this.getDisplayName();
-  
-  
      }
 
      ionViewWillEnter() {
@@ -56,23 +58,73 @@ export class HomePage {
   signOut() {
     console.log("sign out pressed")
       this.authService.signOut();
-      this.myName = null;
+      // this.myName = null;
   }
-
+  setUserArr(myDisplayName: string) {
+this.myName = myDisplayName;
+  }
 
 getDisplayName(){
+  // var displayName = "";
   console.log(firebase.auth().currentUser);
-  if (firebase.auth().currentUser.displayName != null) {
-  this.myName = JSON.stringify(firebase.auth().currentUser.displayName)
-  } else {
-    console.log("display name is null");
-  }
+
+
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      this.currentUser = user;
+      // User is signed in.
+      // console.log(JSON.stringify(user.displayName));
+      console.log(this.currentUser.email);
+      console.log(this.currentUser.uid);
+      console.log(this.currentUser.photoURL);
+      console.log(this.currentUser.displayName);
+// var displayName = JSON.stringify(this.currentUser.displayName);
+var displayName =this.currentUser.displayName;
+      this.setUserArr(displayName);
+      // var displayName = user.displayName;
+      // var email = user.email;
+      // var photoURL = user.photoURL;
+      // var emailVerified = user.emailVerified;
+      // var uid = user.uid;
+      
+      // this.displayName = JSON.stringify(user.displayName);
+    } else {
+      // No user is signed in.
+      console.log("No User signed in");
+    }
+
+  });
 }
 
-reloadHome(){
-  // this.navCtrl.navigateBack('/tabs');
-  this.getDisplayName();
-}
+
+  // firebase.auth().onAuthStateChanged(function(user) {
+  //   if (user) {
+  //     // User is signed in.
+  //     console.log(JSON.stringify(user.displayName));
+  //     var displayName = user.displayName;
+  //     var email = user.email;
+  //     var photoURL = user.photoURL;
+  //     var emailVerified = user.emailVerified;
+  //     var uid = user.uid;
+      
+  //     // this.displayName = JSON.stringify(user.displayName);
+  //   } else {
+  //     // No user is signed in.
+  //     console.log("No User signed in");
+  //   }
+
+  // });
+  
+  // if (firebase.auth().currentUser.displayName != null) {
+  // this.myName = JSON.stringify(firebase.auth().currentUser.displayName);
+  // } else {
+  //   console.log("display name is null");
+  // }
+
+// }
+// reloadHome(){
+//   this.getDisplayName();
+// }
 
 
 

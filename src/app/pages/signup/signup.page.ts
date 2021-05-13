@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { User } from '../../models/user';
+import { User, EmailPasswordPair } from '../../models/user';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import { Router } from '@angular/router';
@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 export class SignupPage {
 
 
-  user = {} as User;
+  user = {} as EmailPasswordPair;
 
 
   constructor(public router: Router){
@@ -45,7 +45,7 @@ export class SignupPage {
 
     
 
-      register(user: User){
+      register(user: EmailPasswordPair){
         console.log(user.email, user.password);
 
         firebase.auth().createUserWithEmailAndPassword(user.email, user.password)

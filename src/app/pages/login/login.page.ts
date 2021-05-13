@@ -2,7 +2,7 @@ import { TryCatchStmt, variable } from '@angular/compiler/src/output/output_ast'
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { User } from '../../models/user';
+import { User, EmailPasswordPair } from '../../models/user';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import { AlertController } from '@ionic/angular';
@@ -42,7 +42,7 @@ navigate(){
 }
 
 
-  async loginUser(user: User){
+  async loginUser(user: EmailPasswordPair){
     try {
       const result = await firebase.auth().signInWithEmailAndPassword(user.email, user.password);
       console.log(result);
@@ -73,7 +73,7 @@ navigate(){
 
 
 
-     signIn(user: User) {
+     signIn(user: EmailPasswordPair) {
        
 
         console.log(user.email,

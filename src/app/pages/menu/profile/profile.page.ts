@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import firebase from 'firebase/app';
 import 'firebase/auth';
-import { UserProfile } from '../../../models/user';
+import { User, EmailPasswordPair } from '../../../models/user';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 
@@ -18,7 +18,7 @@ public myPhotoUrl: string;
 public myUid: string;
   constructor(public router: Router, public alertCtrl: AlertController) {}
 
-userProfile = {} as UserProfile;
+userProfile = {} as User;
 public userArray: string[] = [];
   ionViewWillEnter() {
     console.log("Ion view will enter");
@@ -98,11 +98,11 @@ doRefresh(event) {
   });
 }
 
-changeUserName(userProfile: UserProfile) {
+changeUserName(userProfile: User) {
   var user = firebase.auth().currentUser;
 
 user.updateProfile({
-  displayName: userProfile.name,
+  displayName: userProfile.displayName,
 }).then(function() {
   // Update successful.
 }).catch(function(error) {
