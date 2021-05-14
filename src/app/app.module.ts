@@ -12,6 +12,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
 import firebase from 'firebase/app';
+import { HttpClientModule } from '@angular/common/http';
 
   // Initialize Firebase
   export const config = {
@@ -29,6 +30,7 @@ import firebase from 'firebase/app';
   declarations: [AppComponent],
   entryComponents: [],
   imports: [BrowserModule, 
+    HttpClientModule,
     IonicModule.forRoot(), 
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),

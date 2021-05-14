@@ -1,124 +1,166 @@
-import { Injectable } from '@angular/core';
-import firebase from 'firebase/app';
-import 'firebase/auth';
-// import { User, EmailPasswordPair, NewAccount } from '../shared/user';
-// import { User } from '../pages/login/login.page';
+import { Injectable, OnDestroy } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
+import { BehaviorSubject, from } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
+import { User  } from '../models/user.model';
+import { Plugins } from '@capacitor/core';
+
+export interface AuthResponseData {
+  kind: string;
+  idToken: string;
+  email: string;
+  refreshToken: string;
+  localId: string;
+  expiresIn: string;
+  registered?: boolean;
+}
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthService implements OnDestroy{
+  private _user = new BehaviorSubject<User>(null);
+  private activeLogoutTimer: any;
 
-  constructor() { }
-
-
-  // loginUser(
-  //   email: string,
-  //   password: string
-  // ): Promise<firebase.auth.UserCredential> {
-  //   return firebase.auth().signInWithEmailAndPassword(email, password);
-  // }
-
-
-  // DOCUMENATAITON HERE https://firebase.google.com/docs/auth/web/password-auth#create_a_password-based_account
-  // THIS ACTUALLY WORKED
-  signupUser(email: string, password: string) {
-    firebase.auth().createUserWithEmailAndPassword(email, password)
-  .then((userCredential) => {
-    // Signed in 
-    var user = userCredential.user;
-
-    // ...
-  })
-  .catch((error) => {
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    console.log(error.code, error.message);
-    // ..
-  });
+  get userIsAuthenticated() {
+    // !! user.token forces converstion to boolean otherwise one ! would return true if invalid or false if valid
+    return this._user.asObservable().pipe(
+      map(user => {
+        if (user) {
+          return !!user.token;
+        } else {
+          return false;
+        }
+      })
+    );
   }
 
-
-
-loginUser(email: string, password: string){
-  firebase.auth().signInWithEmailAndPassword(email, password)
-  .then((userCredential) => {
-    // Signed in
-     var user = userCredential.user;
-
-    // this.user.email = email;
-    // this.user.password = password;
-
-
-    // ...
-    // user.email = 
-  })
-  .catch((error) => {
-    var errorCode = error.code;
-    var errorMessage = error.message;
-  });
-}
-
-
-signOut() {
-  firebase.auth().signOut().then(() => {
-
-    // Sign-out successful.
-  }).catch((error) => {
-    // An error happened.
-  });
-}
-  
-  // resetPassword(email:string): Promise<void> {
-  //   return firebase.auth().sendPasswordResetEmail(email);
-  // }  
-
-  // logoutUser():Promise<void> {
-  //   return firebase.auth().signOut();
-  // }
-
-
-  currentUser() {
-    
-    firebase.auth().onAuthStateChanged(function(user) {
+  get userId() {
+    return this._user.asObservable().pipe(map(user => {
       if (user) {
-        // User is signed in.
-        console.log("the user is signed in");
-        console.log(JSON.stringify(user));
-        console.log("the users token");
-        console.log(user.getIdToken);
-        console.log(JSON.stringify(user.getIdToken));
-        var user = firebase.auth().currentUser;
-        console.log(user.email);
-   
+        return user.id
       } else {
-        // No user is signed in.
-        console.log("no user logged in");
-        console.log("Here is empty Object " + JSON.stringify(user));
+        return null;
       }
+    }
+      ));
+  }
+  constructor(private http: HttpClient) { }
+
+  ngOnDestroy() {
+    if (this.activeLogoutTimer) {
+      clearTimeout(this.activeLogoutTimer);
+    }
+  }
+
+  autoLogin() {
+    return from(Plugins.Storage.get({key: 'authData'})).pipe(
+      map(storedData => {
+        if(!storedData || !storedData.value) {
+          return null;
+        }
+        const parsedData = JSON.parse(storedData.value) as {
+          token: string; 
+          tokenExpirationDate: string; 
+          userId: string;
+          email: string;
+        };
+        const expirationTime = new Date(parsedData.tokenExpirationDate);
+        if (expirationTime <= new Date()) {
+          return null;
+        }
+        const user = new User(
+          parsedData.userId, 
+          parsedData.email, 
+          parsedData.token, 
+          expirationTime
+        );
+        return user;
+      }),
+      tap(user => {
+        if (user) {
+          this._user.next(user);
+          this.autoLogout(user.tokenDuration);
+        }
+      }),
+      map(user => {
+        return !!user;
+      })
+    );
+  }
+
+  signup(email: string, password: string) {
+    return this.http.post<AuthResponseData>(
+      `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${
+      environment.firebaseAPIKey
+    }`, {email: email, password: password, returnSecureToken: true}
+    ).pipe(tap(this.setUserData.bind(this)));
+
+
+  }
+
+  login(email: string, password: string) {
+    return this.http.post<AuthResponseData>(
+      `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${
+        environment.firebaseAPIKey
+    }`, 
+    {email: email, password: password, returnSecureToken: true}
+    )
+    .pipe(tap(this.setUserData.bind(this)));
+  }
+
+  logout() {
+    if (this.activeLogoutTimer) {
+      clearTimeout(this.activeLogoutTimer);
+    }
+    this._user.next(null);
+    Plugins.Storage.remove({key: 'authData' });
+  }
+
+  private autoLogout(duration: number) {
+    if (this.activeLogoutTimer) {
+      clearTimeout(this.activeLogoutTimer);
+    }
+    this.activeLogoutTimer = setTimeout(() => {
+    this.logout();
+  }, duration);
+  }
+
+  private setUserData(userData: AuthResponseData) {
+      const expirationTime = new Date(new Date().getTime() + (+userData.expiresIn * 1000)
+      );
+      const user = new User(
+        userData.localId, 
+        userData.email, 
+        userData.idToken, 
+        expirationTime
+      );
+      this._user.next(user);
+      this.autoLogout(user.tokenDuration);
+        this.storeAuthData(
+          userData.localId, 
+          userData.idToken, 
+          expirationTime.toISOString(),
+          userData.email
+        );
+  }
+
+  private storeAuthData(
+    userId: string,
+    token: string,
+    tokenExpirationDate: string,
+    email: string
+  ){
+    //change to string because unable to store objects.. but can store strings
+    const data = JSON.stringify({
+      userId: userId, 
+      token: token, 
+      tokenExpirationDat: tokenExpirationDate,
+      email: email
     });
+    Plugins.Storage.set({key: 'authData', value: data});
   }
 
-
-  getUserProfile() {
-    var user = firebase.auth().currentUser;
-  var name, email, photoUrl, uid, emailVerified;
-
-  if (user != null) {
-    name = user.displayName;
-    email = user.email;
-    photoUrl = user.photoURL;
-    emailVerified = user.emailVerified;
-    uid = user.uid;  // The user's ID, unique to the Firebase project. Do NOT use
-                    // this value to authenticate with your backend server, if
-                    // you have one. Use User.getToken() instead.
-                    console.log(name + email)
-  }
-
-  }
-
-  getToken() {
-  firebase.auth().currentUser.getIdToken();
-  }
-
+  
 }

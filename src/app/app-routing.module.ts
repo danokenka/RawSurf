@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
 
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'auth',
     pathMatch: 'full'
   },
   // {
@@ -13,32 +14,33 @@ const routes: Routes = [
   //   loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
   // },
   {
-    path: 'login',
-    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
-  },
-  {
     path: 'signup',
-    loadChildren: () => import('./pages/signup/signup.module').then( m => m.SignupPageModule)
+    loadChildren: () => import('./pages/signup/signup.module').then( m => m.SignupPageModule),
+    canLoad: [AuthGuard]
   },
   {
     path: 'tabs',
-    loadChildren: () => import('./pages/tabs/tabs.module').then(m => m.TabsPageModule)
+    loadChildren: () => import('./pages/tabs/tabs.module').then(m => m.TabsPageModule),
+    canLoad: [AuthGuard]
   },
   {
     path: 'settings',
-    loadChildren: () => import('./pages/settings/settings.module').then( m => m.SettingsPageModule)
-  },
-  {
-    path: 'photographer-portal',
-    loadChildren: () => import('./pages/photographer-portal/photographer-portal.module').then( m => m.PhotographerPortalPageModule)
+    loadChildren: () => import('./pages/settings/settings.module').then( m => m.SettingsPageModule),
+    canLoad: [AuthGuard]
   },
   {
     path: 'profile',
-    loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule)
+    loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule),
+    canLoad: [AuthGuard]
   },
   {
     path: 'surftrip',
-    loadChildren: () => import('./pages/surftrip/surftrip.module').then( m => m.SurftripPageModule)
+    loadChildren: () => import('./pages/surftrip/surftrip.module').then( m => m.SurftripPageModule),
+    canLoad: [AuthGuard]
+  },
+  {
+    path: 'auth',
+    loadChildren: () => import('./pages/auth/auth.module').then( m => m.AuthPageModule)
   },
   // {
   //   path: 'signup',

@@ -12,37 +12,37 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
-public myName: string;
-public myEmail: string;
-public myPhotoUrl: string;
-public myUid: string;
+// public myName: string;
+// public myEmail: string;
+// public myPhotoUrl: string;
+// public myUid: string;
   constructor(public router: Router, public alertCtrl: AlertController) {}
 
-userProfile = {} as UserProfile;
-public userArray: string[] = [];
+// userProfile = {} as UserProfile;
+// public userArray: string[] = [];
   ionViewWillEnter() {
-    console.log("Ion view will enter");
-    this.myName = JSON.stringify(firebase.auth().currentUser.displayName);
-    this.myEmail = JSON.stringify(firebase.auth().currentUser.email);
-    this.myPhotoUrl = JSON.stringify(firebase.auth().currentUser.photoURL);
-    this.myUid = JSON.stringify(firebase.auth().currentUser.uid);
+    // console.log("Ion view will enter");
+    // this.myName = JSON.stringify(firebase.auth().currentUser.displayName);
+    // this.myEmail = JSON.stringify(firebase.auth().currentUser.email);
+    // this.myPhotoUrl = JSON.stringify(firebase.auth().currentUser.photoURL);
+    // this.myUid = JSON.stringify(firebase.auth().currentUser.uid);
   }
 
 
   ngOnInit() {
     
- console.log(firebase.auth().currentUser.email);
+//  console.log(firebase.auth().currentUser.email);
 
- console.log(JSON.stringify(firebase.auth().currentUser.email));
- this.myName = JSON.stringify(firebase.auth().currentUser.displayName);
- this.myEmail = JSON.stringify(firebase.auth().currentUser.email);
- this.myPhotoUrl = JSON.stringify(firebase.auth().currentUser.photoURL);
- this.myUid = JSON.stringify(firebase.auth().currentUser.uid)
+//  console.log(JSON.stringify(firebase.auth().currentUser.email));
+//  this.myName = JSON.stringify(firebase.auth().currentUser.displayName);
+//  this.myEmail = JSON.stringify(firebase.auth().currentUser.email);
+//  this.myPhotoUrl = JSON.stringify(firebase.auth().currentUser.photoURL);
+//  this.myUid = JSON.stringify(firebase.auth().currentUser.uid)
   }
 
 doRefresh(event) {
   console.log('Begin async operation');
-  this.myName = JSON.stringify(firebase.auth().currentUser.displayName);
+  // this.myName = JSON.stringify(firebase.auth().currentUser.displayName);
     setTimeout(() => {
       console.log('Async operation has ended');
       event.target.complete();
@@ -75,9 +75,9 @@ doRefresh(event) {
           handler: data => {  
             console.log('Saved clicked');  
             console.log(data.name);  
-            this.changeDisplayFromPrompt(data.name);
+            // this.changeDisplayFromPrompt(data.name);
             // this.router.navigate(['/profile']);
-            this.ionViewWillEnter();
+            // this.ionViewWillEnter();
           }  
         }  
       ]  
@@ -86,41 +86,41 @@ doRefresh(event) {
   }  
 
 
-  changeDisplayFromPrompt(name: string) {
-    var user = firebase.auth().currentUser;
+//   changeDisplayFromPrompt(name: string) {
+//     var user = firebase.auth().currentUser;
   
-  user.updateProfile({
-    displayName: name,
-  }).then(function() {
-    // Update successful.
-  }).catch(function(error) {
-    // An error happened.
-  });
-}
+//   user.updateProfile({
+//     displayName: name,
+//   }).then(function() {
+//     // Update successful.
+//   }).catch(function(error) {
+//     // An error happened.
+//   });
+// }
 
-changeUserName(userProfile: UserProfile) {
-  var user = firebase.auth().currentUser;
+// changeUserName(userProfile: UserProfile) {
+//   var user = firebase.auth().currentUser;
 
-user.updateProfile({
-  displayName: userProfile.name,
-}).then(function() {
-  // Update successful.
-}).catch(function(error) {
-  // An error happened.
-});
+// user.updateProfile({
+//   displayName: userProfile.name,
+// }).then(function() {
+//   // Update successful.
+// }).catch(function(error) {
+//   // An error happened.
+// });
 
-}
+// }
 
 
-signOut() {
-  console.log("sign out pressed")
-  firebase.auth().signOut().then(() => {
+// signOut() {
+//   console.log("sign out pressed")
+//   firebase.auth().signOut().then(() => {
 
-    // Sign-out successful.
-  }).catch((error) => {
-    // An error happened.
-  });
-}
+//     // Sign-out successful.
+//   }).catch((error) => {
+//     // An error happened.
+//   });
+// }
   // currentUser() {
     
   //   firebase.auth().onAuthStateChanged(function(user) {
