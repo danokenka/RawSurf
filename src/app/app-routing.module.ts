@@ -46,10 +46,29 @@ const routes: Routes = [
   //   path: 'signup',
   //   loadChildren: () => import('./pages/signup/signup.module').then( m => m.SignupPageModule)
   // },
-  // {
-  //   path: 'book',
-  //   loadChildren: () => import('./pages/book/book.module').then( m => m.BookPageModule)
-  // },
+  {
+    path: 'book',
+    loadChildren: () => import('./pages/book/book.module').then( m => m.BookPageModule),
+    canLoad: [AuthGuard]
+  },
+  {
+    path: 'book-photo',
+    loadChildren: () => import('./pages/book-photo/book-photo.module').then( m => m.BookPhotoPageModule),
+    canLoad: [AuthGuard]
+  },
+  {
+    path: 'book-trip',
+    loadChildren: () => import('./pages/book-trip/book-trip.module').then( m => m.BookTripPageModule),
+    canLoad: [AuthGuard]
+  },
+  {
+    path: 'hire-photographer',
+    loadChildren: () => import('./pages/hire-photographer/hire-photographer.module').then( m => m.HirePhotographerPageModule)
+  },
+  {
+    path: 'bookings',
+    loadChildren: () => import('./pages/bookings/bookings.module').then( m => m.BookingsPageModule)
+  },
 ];
 
 @NgModule({

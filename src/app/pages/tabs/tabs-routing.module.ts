@@ -13,7 +13,7 @@ const routes: Routes = [
       },
       {
         path: 'book',
-        loadChildren: () => import('../book/book.module').then( m => m.BookPageModule)
+        loadChildren: () => import('../../pages/book/book.module').then( m => m.BookPageModule)
       },
       {
         path: '',
