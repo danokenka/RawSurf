@@ -24,7 +24,9 @@
 </ion-app> -->
 
 <ion-app>
-  <ion-menu side="start">
+
+    <ion-menu side="start" contentId="main-content">
+    <div id="main-content">
     <ion-header>
       <ion-toolbar>
         <ion-title>
@@ -55,6 +57,7 @@
         </ion-menu-toggle>
       </ion-list>
     </ion-content>
+  </div>
   </ion-menu>
   <ion-router-outlet main></ion-router-outlet>
 </ion-app>

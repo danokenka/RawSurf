@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: BookPage
+  },
+  {
+    path: 'ph-booking',
+    loadChildren: () => import('./ph-booking/ph-booking.module').then( m => m.PhBookingPageModule)
   }
 ];
 
