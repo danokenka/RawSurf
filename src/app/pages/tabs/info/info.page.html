@@ -1,9 +1,15 @@
 <ion-header>
-  <ion-toolbar>
+
+  <ion-toolbar class="myToolBar" color="primary">
     <ion-title>info</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-button (click)="openBrowser()" expand="block" routerDirection="forward" color="tertiary"> Go to Raw Surf webpage  </ion-button> 
+  <ion-searchbar clearIcon="close-sharp" [(ngModel)]="searchTerm"
+    debounce="1500" showCancelButton="true" (ionChange)="onSearch()" (ionCancel)="toggleSearch()">
+  </ion-searchbar>
+
+  <ion-button (click)="openBrowser()" expand="block" routerDirection="forward" color="tertiary"> Raw Surf webpage  </ion-button> 
+  <ion-button (click)="openBrowserInsta()" expand="block" routerDirection="forward" color="tertiary">Raw Surf Instagram  </ion-button> 
 </ion-content>

@@ -1,11 +1,15 @@
 <ion-header >
-  <ion-toolbar color="primary">
+
+
+  <ion-toolbar class="myToolBar" color="primary">
+    <br><br>
     <ion-buttons slot="start">
       <ion-menu-button color="dark"></ion-menu-button>
     </ion-buttons>
 
     <ion-title>
-      Home
+      <p align="right" style="color:white;">Home</p>
+      
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -32,8 +36,39 @@
   </div> -->
 <!-- 
 <div>Hello {{myName}}. Glad to see you!</div> -->
-<div>Hello User. Glad to see you!</div>
 <br><br>
   <!-- <ion-button (click)="signOut()" routerLink="/login" expand="block">  Sign Out  </ion-button>  -->
   <!-- <ion-button (click)="getUserInfo()" expand="block">  User email  </ion-button>  -->
+
+  <ion-grid class="content">
+    <ion-row>   
+      <ion-col></ion-col>
+      <ion-col size="auto">
+        <ion-img src ="assets/img/rawsurf-sticker-ss.png"></ion-img>
+      </ion-col>
+      <ion-col></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col></ion-col>
+   <ion-col size="auto">
+</ion-col>
+   <ion-col size="auto">   
+          <h2>Raw Surf App</h2>
+          </ion-col>
+    <ion-col></ion-col>
+  
+    </ion-row>
+    <ion-row>
+      <ion-col></ion-col>
+      <!-- <ion-col></ion-col> -->
+      <ion-col size="auto"> 
+        Thanks for downloading an early release of The Raw Surf App.
+        Check in frequently to see what new features have been added. 
+     </ion-col>
+      <!-- <ion-col></ion-col> -->
+      <ion-col></ion-col>
+  
+    </ion-row>
+    </ion-grid>
+
 </ion-content>
