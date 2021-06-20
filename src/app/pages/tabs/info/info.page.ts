@@ -24,5 +24,12 @@ export class InfoPage implements OnInit {
     // On iOS, for example, open the URL in SFSafariViewController (the in-app browser)
     await Browser.open({ url: "https://www.instagram.com/raw.surf" });
   }
+  onSearch() {
+    console.log("onSearch CLicked");
+  }
+
+  toggleSearch() {
+    console.log("toggleSearch CLicked");
+  }
 
 }
