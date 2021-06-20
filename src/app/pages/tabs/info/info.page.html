@@ -1,7 +1,17 @@
 <ion-header>
 
-  <ion-toolbar class="myToolBar" color="primary">
-    <ion-title>info</ion-title>
+  <ion-toolbar class="myToolBar">
+    <ion-buttons slot="end">
+      <ion-menu-button color="light"></ion-menu-button>
+    </ion-buttons>
+
+
+    <ion-button routerLink="/tabs/home" routerDirection="forward" color="clear">
+    <ion-thumbnail slot="start">
+      <ion-img src ="assets/img/icon.png"></ion-img>
+    </ion-thumbnail>
+  </ion-button>
+    <!-- <ion-title>info</ion-title> -->
   </ion-toolbar>
 </ion-header>
 
@@ -11,6 +21,25 @@
   </ion-searchbar> -->
   <!-- <ion-searchbar>
   </ion-searchbar> -->
+  <!-- <div>
+    <div class="horizontal">
+      <p class="font-size-16">Like, Follow and Share</p>
+    </div>
+    <div class="horizontal">
+      <div class="social-icons" (click)="socialMedia('FACEBOOK')">
+        <ion-icon name="logo-facebook"></ion-icon>
+      </div>
+      <div class="social-icons" (click)="socialMedia('INSTAGRAM')">
+        <ion-icon name="logo-instagram"></ion-icon>
+      </div>
+      <div class="social-icons" (click)="socialMedia('TWITTER')">
+        <ion-icon name="logo-twitter"></ion-icon>
+      </div>
+<div class="social-icons" (click)="socialMedia('YOUTUBE')">
+        <ion-icon name="logo-youtube"></ion-icon>
+      </div>
+    </div>
+  </div> -->
   <ion-button (click)="openBrowser()" expand="block" routerDirection="forward" color="tertiary"> Raw Surf webpage  </ion-button> 
   <ion-button (click)="openBrowserInsta()" expand="block" routerDirection="forward" color="tertiary">Raw Surf Instagram  </ion-button> 
 </ion-content>

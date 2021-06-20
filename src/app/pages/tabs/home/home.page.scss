@@ -25,6 +25,17 @@
 #container a {
   text-decoration: none;
 }
-.myToolBar {
-  padding-top: 30px;
+// .myToolBar {
+//   padding-top: 30px;
+// }
+
+.social-icons {
+  font-size: 30px;
+}
+.horizontal {
+  display: flex;
+  justify-content: space-evenly;
+}
+.font-size-16 {
+    font-size: 16px;
 }
