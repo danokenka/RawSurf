@@ -1,5 +1,9 @@
 <ion-header>
-  <ion-toolbar class="myToolBar" color="primary">
+  
+  <ion-toolbar class="myToolBar">
+    <ion-thumbnail slot="start" size="auto">
+      <ion-img src ="assets/img/icon.png"></ion-img>
+    </ion-thumbnail>
     <ion-title>{{ isLogin ? 'Login' : 'Signup' }}</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -79,6 +83,7 @@
           </ion-button>
         </ion-col>
       </ion-row>
+
     </ion-grid>
   </form>
 

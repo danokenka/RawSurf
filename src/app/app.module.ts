@@ -14,6 +14,8 @@ import { environment } from '../environments/environment';
 import firebase from 'firebase/app';
 import { HttpClientModule } from '@angular/common/http';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { EmailComposer } from '@ionic-native/email-composer/ngx';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
   // Initialize Firebase
   export const config = {
@@ -38,6 +40,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     AngularFirestoreModule,
+    FormsModule, ReactiveFormsModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable
@@ -45,7 +48,10 @@ import { ServiceWorkerModule } from '@angular/service-worker';
       registrationStrategy: 'registerWhenStable:30000'
     })
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy}],
+  providers: [
+    EmailComposer,
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy}],
   bootstrap: [AppComponent],
+
 })
 export class AppModule {}
