@@ -5,11 +5,11 @@
     </ion-buttons>
 
 
-    <ion-button routerLink="/tabs/home" routerDirection="forward" color="clear">
-    <ion-thumbnail slot="start">
+    <ion-buttons routerLink="/tabs/home" routerDirection="forward" color="clear">
+    <ion-thumbnail slot="start" size="auto">
       <ion-img src ="assets/img/icon.png"></ion-img>
     </ion-thumbnail>
-  </ion-button>
+  </ion-buttons>
     <!-- <ion-title>Book</ion-title> -->
   </ion-toolbar>
 </ion-header>
@@ -41,8 +41,21 @@
     </ion-grid>
 
   <br><br><br>
-  <h1>Surf Photographer</h1>
-  <ion-button routerLink="/tabs/book/ph-booking" expand="block" routerDirection="forward" color="tertiary">  Book a Surf Photographer  </ion-button> 
-  <h1>Surf Trip</h1>
-  <ion-button routerLink="/surftrip" expand="block" routerDirection="forward" color="tertiary">  Book a Surf Trip  </ion-button> 
+  <ion-card color="medium">
+  <div class="ion-text-center">
+    <h1>Surf Photographer</h1>
+    <h2>Stop having your friends capture photos and videos of you on a mobile phone!
+    </h2><br><br>
+  </div>
+    <ion-button routerLink="/tabs/book/ph-booking" expand="block" routerDirection="forward" color="secondary">  Book a Surf Photographer  </ion-button> 
+    
+  </ion-card>
+  <ion-card color="medium">
+    <div class="ion-text-center">
+    <h1>Surf Trip</h1>
+    <h2>Sit back and relax. We got this one!</h2>
+  </div>
+    <ion-button routerLink="/surftrip" expand="block" routerDirection="forward" color="secondary">  Book a Surf Trip  </ion-button> 
+  
+  </ion-card>
 </ion-content>
