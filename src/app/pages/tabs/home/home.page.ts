@@ -4,6 +4,7 @@ import { AuthService } from '../../../services/auth.service';
  import firebase from 'firebase/app';
 import 'firebase/auth';
 import { Plugins } from '@capacitor/core';
+import { UserData } from 'src/app/services/user.data';
 
 const { Browser } = Plugins;
 
@@ -13,13 +14,24 @@ const { Browser } = Plugins;
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  // public myName: string;
-  constructor(private authService: AuthService){
+  public myName: string;
+  constructor(private authService: AuthService, private userData: UserData){
   }
 
   ngOnInit() {
     // this.myName = JSON.stringify(firebase.auth().currentUser.displayName);
+  this.getDisplayName();
+
      }
+
+
+  getDisplayName() {
+    this.userData.getDisplayName().then((displayName) => {
+      this.myName = displayName;
+      // console.log(this.myName);
+    });
+  }
+
 
      async openBrowserInsta() {
   
@@ -80,11 +92,11 @@ export class HomePage {
       }
     }
 
-//   getUserInfo() {
-//   console.log(firebase.auth().currentUser.email);
-//   console.log(firebase.auth().currentUser);
+  getUserInfo() {
+  console.log(firebase.auth().currentUser.email);
+  console.log(firebase.auth().currentUser);
   
-// }
+}
 
 //   signOut() {
 //     console.log("sign out pressed")

@@ -4,6 +4,14 @@ import 'firebase/auth';
 import { UserProfile } from '../../models/user';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { AuthService, AuthResponseData} from 'src/app/services/auth.service';
+import { take, map } from 'rxjs/operators';
+import { User } from 'src/app/models/user.model';
+import { BehaviorSubject, from, Observable } from 'rxjs';
+import { Plugins } from '@capacitor/core';
+import { UserData } from 'src/app/services/user.data';
+
+
 
 
 @Component({
@@ -12,17 +20,21 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
-// public myName: string;
-// public myEmail: string;
-// public myPhotoUrl: string;
-// public myUid: string;
-  constructor(public router: Router, public alertCtrl: AlertController) {}
+  private _user = new BehaviorSubject<User>(null);
+  public myUser;
+public myName: string;
+public myEmail: string;
+public myPhotoUrl: string;
+public myUid: string;
+public myUserId;
+  constructor(public router: Router, public alertCtrl: AlertController, public authService: AuthService, private userData: UserData) {}
 
-// userProfile = {} as UserProfile;
+userProfile = {} as UserProfile;
 // public userArray: string[] = [];
   ionViewWillEnter() {
     // console.log("Ion view will enter");
     // this.myName = JSON.stringify(firebase.auth().currentUser.displayName);
+     
     // this.myEmail = JSON.stringify(firebase.auth().currentUser.email);
     // this.myPhotoUrl = JSON.stringify(firebase.auth().currentUser.photoURL);
     // this.myUid = JSON.stringify(firebase.auth().currentUser.uid);
@@ -30,7 +42,10 @@ export class ProfilePage implements OnInit {
 
 
   ngOnInit() {
-    
+    // this.getObject();
+    this.authUserId();
+   this.getDisplayName();
+   this.getphotoUrl();
 //  console.log(firebase.auth().currentUser.email);
 
 //  console.log(JSON.stringify(firebase.auth().currentUser.email));
@@ -39,10 +54,90 @@ export class ProfilePage implements OnInit {
 //  this.myPhotoUrl = JSON.stringify(firebase.auth().currentUser.photoURL);
 //  this.myUid = JSON.stringify(firebase.auth().currentUser.uid)
   }
+  // async getObject() {
+  //   const ret = await Plugins.Storage.get({ key: 'authData' });
+  //   const user = JSON.parse(ret.value);
+  //   this.myUser = user;
+  //   console.log(user.userId);
+  //   console.log(user.token);
+  //   console.log(user.tokenExpirationDat);
+  //   console.log(this.myUser.email);
+  //   this.showUserInfo()
+  // }
+authUserId() {
+this.authService.user.subscribe(data => {
+  console.log("Received data: ", data);
+  this.myUser = data;
+  console.log(data['id']);
+  console.log(data['_token']);
+  console.log(data['email']);
+  console.log(data['tokenDuration']);
+
+})
+this.showUserInfo() 
+}
+
+getDisplayName() {
+  this.userData.getDisplayName().then((displayName) => {
+    if(displayName != null) {
+      this.myName = displayName;
+    } else {
+      this.myName = "Default Name";
+    }
+    
+    // console.log(this.myName);
+  });
+}
+
+getphotoUrl() {
+  this.userData.getPhotoUrl().then((photoURL) => {
+    if(photoURL != null) {
+      this.myPhotoUrl = photoURL;
+    } else {
+      this.myPhotoUrl = "Not Yet Set";
+    }
+   
+    // console.log(this.myName);
+  });
+}
+
+  // async getDisplayName() {
+  //   const ret = await Plugins.Storage.get({ key: 'userProfile' });
+  //   const user = JSON.parse(ret.value);
+  //   // this.myUser = user;
+  //   console.log(user.name);
+  //   // console.log(user.email);
+  //   this.myName = user.name;
+
+  //   // console.log(user.tokenExpirationDat);
+  //   // console.log(this.myUser.email);
+  //   this.showUserInfo()
+  // }
+
+
+  showUserInfo() {
+
+    this.myUid = this.myUser.id;
+// this.myUid = this.myUser.id;
+this.myEmail = this.myUser['email'];
+console.log(this.myEmail);
+this.myPhotoUrl = this.myUser.photoUrl;
+    // Plugins.Storage.get({key: 'authData', value: data});
+// console.log(JSON.stringify(this.myUser));
+// console.log(JSON.stringify(this.myUser.id));
+// console.log(JSON.stringify(this.myUser.));
+// console.log(JSON.stringify(this.myUser.token));
+// console.log(JSON.stringify(this.myUser.email));
+// console.log(JSON.stringify(this.myUser.tokenDuration));
+  }
+
 
 doRefresh(event) {
   console.log('Begin async operation');
   // this.myName = JSON.stringify(firebase.auth().currentUser.displayName);
+
+
+  
     setTimeout(() => {
       console.log('Async operation has ended');
       event.target.complete();

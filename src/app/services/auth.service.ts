@@ -3,8 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { BehaviorSubject, from } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { User  } from '../models/user.model';
+import { User, UserProfile  } from '../models/user.model';
+// import { UserProfile  } from '../models/user';
 import { Plugins } from '@capacitor/core';
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import { UserData } from './user.data';
 
 export interface AuthResponseData {
   kind: string;
@@ -14,13 +18,22 @@ export interface AuthResponseData {
   localId: string;
   expiresIn: string;
   registered?: boolean;
+
 }
+
+
+export interface TheUser {
+   theUser: {localId:string, email:string,displayName: string, photoUrl:string}[];
+}
+
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService implements OnDestroy{
   private _user = new BehaviorSubject<User>(null);
+  private _userProfile = new BehaviorSubject<UserProfile>(null);
   private activeLogoutTimer: any;
 
   get userIsAuthenticated() {
@@ -46,7 +59,19 @@ export class AuthService implements OnDestroy{
     }
       ));
   }
-  constructor(private http: HttpClient) { }
+
+  get user() {
+    return this._user.asObservable().pipe(map(user => {
+      if (user) {
+        return user
+      } else {
+        return null;
+      }
+    }
+      ));
+  }
+  constructor(private http: HttpClient,
+    private userData: UserData) { }
 
   ngOnDestroy() {
     if (this.activeLogoutTimer) {
@@ -90,14 +115,123 @@ export class AuthService implements OnDestroy{
     );
   }
 
-  signup(email: string, password: string) {
+
+//   myUserData(idToken: string) {
+//     console.log(idToken);
+//     return this.http.post<TheUser>(
+//       `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${
+//       environment.firebaseAPIKey
+//     }`, {idToken: idToken}
+//     ).pipe(
+//       tap(_ => console.log(`User fetched: ${idToken}`)));
+// }
+
+// getUserInfo(name: string) {
+//   //     const user = firebase.auth().currentUser;
+//   console.log("Get User Info called");
+//   // console.log(user);
+//   firebase.auth().onAuthStateChanged((user) => {
+//     if (user) {
+//       // User is signed in, see docs for a list of available properties
+//       // https://firebase.google.com/docs/reference/js/firebase.User
+//       console.log(user);
+//       // var uid = user.uid;
+//       this.userData.setDisplayName(name);
+   
+     
+//       // ...
+//     } else {
+//       // User is signed out
+//       // ...
+//     }
+//   });
+// }
+
+
+
+firstDisplayName(name: string) {
+  console.log(name);
+
+  firebase.auth().onAuthStateChanged((user) => {
+    console.log(user);
+    if (user) {
+      user.updateProfile({
+        displayName: name,
+        photoURL: "https://drive.google.com/file/d/1Txek7LjvPK6p72QvPptQ-IhxYBAeACsL/view?usp=sharing"
+      }).then(function() {
+        console.log(user.displayName);
+        
+        // Profile updated successfully!
+        // "Jane Q. User"
+        var displayName = user.displayName;
+        console.log(displayName);
+        // "https://example.com/jane-q-user/profile.jpg"
+        console.log(user.photoURL);
+        var photoURL = user.photoURL;
+        console.log(user.photoURL);
+      }, function(error) {
+        // An error happened.
+      });
+      
+      // User is signed in, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/firebase.User
+      console.log(user);
+      // var uid = user.uid;
+      // this.userData.setDisplayName(user.displayName);
+      // this.userData.setPhotoUrl(user.photoURL);
+      // this.userData.setUid(user.uid);
+     
+      // ...
+    } else {
+      // User is signed out
+      // ...
+    }
+  });
+
+// Passing a null value will delete the current attribute's value, but not
+// passing a property won't change the current attribute's value:
+// Let's say we're using the same user than before, after the update.
+// user.updateProfile({photoURL: null}).then(function() {
+//   // Profile updated successfully!
+//   // "Jane Q. User", hasn't changed.
+//   var displayName = user.displayName;
+//   // Now, this is null.
+//   var photoURL = user.photoURL;
+// }, function(error) {
+//   // An error happened.
+// });
+
+
+
+
+
+  // user.updateProfile({
+  //   displayName : name,
+  //   photoURL: "https://drive.google.com/file/d/1Txek7LjvPK6p72QvPptQ-IhxYBAeACsL/view?usp=sharing"
+  // }).then(() => {
+  //   // Update successful
+  //   // ...
+  //   var displayName = user.displayName;
+  //   // "https://example.com/jane-q-user/profile.jpg"
+  //   var photoURL = user.photoURL;
+  // }).catch((error) => {
+  //   // An error occurred
+  //   // ...
+  // }); 
+  
+  
+}
+
+  signup(email: string, password: string, name?: string) {
+    console.log(name);
     return this.http.post<AuthResponseData>(
       `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${
       environment.firebaseAPIKey
-    }`, {email: email, password: password, returnSecureToken: true}
-    ).pipe(tap(this.setUserData.bind(this)));
-
-
+    }`, {email: email, password: password, returnSecureToken: true}, 
+    ).pipe(tap(this.setUserData.bind(this) + this.firstDisplayName(name))
+    );
+    
+   
   }
 
   login(email: string, password: string) {
@@ -137,6 +271,7 @@ export class AuthService implements OnDestroy{
         expirationTime
       );
       this._user.next(user);
+      // this.myUserData(user.id);
       this.autoLogout(user.tokenDuration);
         this.storeAuthData(
           userData.localId, 
@@ -160,7 +295,49 @@ export class AuthService implements OnDestroy{
       email: email
     });
     Plugins.Storage.set({key: 'authData', value: data});
+    // console.log(this.myUserData(JSON.stringify(userId)))
+    // this.myUserData(userId);
   }
+  // private storeUserData(
+  //   userId: string,
+  //   email: string,
+  //   displayName: string,
+  //   photoUrl: string
+  // ){
+  //   //change to string because unable to store objects.. but can store strings
+  //   const data = JSON.stringify({
+  //     userId: userId,
+  //     email: email, 
+  //     displayName: displayName,
+  //     photoUrl: photoUrl
+  //   });
+  //   Plugins.Storage.set({key: 'userProfile', value: data});
+  //   console.log(JSON.stringify(data));
+  //   console.log(userId);
+  //   // this.myUserData(userId);
+  // }
+//   private setUserProfileData(userData: UserProfileData) {
+//     console.log("set User Profile called");
+//     console.log(userData);
+//     console.log(JSON.stringify(userData.email));
+//     const userProfile = new UserProfile(
+//       userData.localId, 
+//       userData.email, 
+//       userData.displayName, 
+//        userData.photoUrl
+//     );
+//     console.log(userData.email);
+//     // this._userProfile.next(userProfile);
+//     this.storeUserData(
+//       userData.localId, 
+//       userData.email, 
+//       userData.displayName, 
+//        userData.photoUrl
+//     );
+
+  
+// }
+
 
   
 }

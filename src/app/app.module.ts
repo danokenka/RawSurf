@@ -16,6 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { EmailComposer } from '@ionic-native/email-composer/ngx';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Storage } from '@ionic/storage-angular';
 
   // Initialize Firebase
   export const config = {
@@ -50,6 +51,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   ],
   providers: [
     EmailComposer,
+    Storage,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy}],
   bootstrap: [AppComponent],
 

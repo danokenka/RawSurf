@@ -22,20 +22,23 @@
   
     </ion-item>
     <ion-item>
-      <ion-label>Your Display Name is: </ion-label>
+      <ion-label>Your Display Name is: {{ myName  }}</ion-label>
     </ion-item>
     <!-- <ion-button (click)="showPrompt()" expand="block">  Change User Name  </ion-button>  -->
     <!-- <ion-button (click)="changeUserName(userProfile)" routerLink="/tabs" expand="block">  Change User Name  </ion-button>  -->
     <ion-item>
-      <ion-label>Your Account Email is: </ion-label>
+      <ion-label>Your Account Email is: {{ myEmail }}</ion-label>
     </ion-item>
     <!-- <ion-button expand="block">  Change Email  </ion-button>  -->
       <!-- <ion-button (click)="signOut()" routerLink="/login" expand="block">  Sign Out  </ion-button>  -->
       <ion-item>
-        <ion-label>Your photoURL is: </ion-label>
+        <ion-label>Your photoURL is: {{ myPhotoUrl }} </ion-label>
+        <ion-thumbnail slot="start" size="auto">
+          <ion-img src = 'https://drive.google.com/file/d/1Txek7LjvPK6p72QvPptQ-IhxYBAeACsL/view?usp=sharing'></ion-img>
+        </ion-thumbnail>
       </ion-item>
       <ion-item>
-        <ion-label>Your uid is: </ion-label>
+        <ion-label>Your uid is: <br>{{ myUid }}</ion-label>
       </ion-item>
     
   </ion-list>
