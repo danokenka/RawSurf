@@ -39,6 +39,7 @@ currentUser = [];
       // https://firebase.google.com/docs/reference/js/firebase.User
       console.log(user);
       // var uid = user.uid;
+      console.log(user.displayName);
       this.userData.setDisplayName(user.displayName);
       this.userData.setPhotoUrl(user.photoURL);
       this.userData.setUid(user.uid);
@@ -97,6 +98,7 @@ currentUser = [];
           this.userData.setIdToken(resData.idToken);
           this.userData.setKind(resData.kind);
           this.userData.setRefreshToken(resData.refreshToken);
+     
           this.getUserInfo();
           this.isLoading = false;
           loadingEl.dismiss();
@@ -179,9 +181,9 @@ currentUser = [];
     }
   }
 
-  quickLog() {
-    this.authenticate("test@test.com", "test1234");
-  }
+  // quickLog() {
+  //   this.authenticate("test@test.com", "test1234");
+  // }
 
 private showAlert(message: string) {
   this.alertCtrl

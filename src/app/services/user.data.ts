@@ -80,6 +80,7 @@ export class UserData {
 
   getDisplayName(): Promise<string> {
     return this.storage.get('displayName').then((value) => {
+      console.log(value)
       return value;
     });
   }
