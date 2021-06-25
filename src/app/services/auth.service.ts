@@ -157,7 +157,7 @@ firstDisplayName(name: string) {
     if (user) {
       user.updateProfile({
         displayName: name,
-        photoURL: "https://drive.google.com/file/d/1Txek7LjvPK6p72QvPptQ-IhxYBAeACsL/view?usp=sharing"
+        // photoURL: "assets/img/logo.png"
       }).then(function() {
         console.log(user.displayName);
         
@@ -223,18 +223,29 @@ firstDisplayName(name: string) {
 }
 
   signup(email: string, password: string, name?: string) {
+    if(name !== undefined) { 
+console.log(name);
+this.firstDisplayName(name)
+    }
+    if (name) {
+      console.log(name);
+    }
     console.log(name);
     return this.http.post<AuthResponseData>(
       `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${
       environment.firebaseAPIKey
     }`, {email: email, password: password, returnSecureToken: true}, 
-    ).pipe(tap(this.setUserData.bind(this) + this.firstDisplayName(name))
+    ).pipe(tap(this.setUserData.bind(this))
     );
-    
+  
    
   }
 
   login(email: string, password: string) {
+    if(name !== undefined) { 
+      console.log(name);
+      // this.firstDisplayName(name)
+          }
     return this.http.post<AuthResponseData>(
       `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${
         environment.firebaseAPIKey

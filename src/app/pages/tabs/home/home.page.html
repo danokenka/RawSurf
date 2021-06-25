@@ -1,22 +1,131 @@
 <ion-header >
 
+  <ion-toolbar class="toolProfile3" >
+<!-- 
+    <ion-buttons slot="start">
+      <ion-menu-button color="light"></ion-menu-button>
+    </ion-buttons> 
 
-  <ion-toolbar class="myToolBar">
+    <ion-row>
+      <ion-col size="3">  
+  
+
+      </ion-col>
+      <ion-col size="auto"><p class="toolProfile">Raw Surf</p></ion-col>
+      <ion-col size="3"></ion-col>
+      <ion-col>  <ion-buttons routerLink="/tabs/home" routerDirection="forward" color="clear">
+        <ion-thumbnail class="toolProfile">
+          <ion-img src ="assets/img/icon.png"></ion-img>
+        </ion-thumbnail>
+      </ion-buttons></ion-col>
+
+      <ion-col size="3"></ion-col>
+
+ 
+    </ion-row> -->
     <ion-buttons slot="end">
       <ion-menu-button color="light"></ion-menu-button>
-    </ion-buttons>
+    </ion-buttons> 
+<!-- 
+    <ion-row>
+  
+      <ion-col>
+       <ion-row>
+        <ion-buttons routerLink="/tabs/home" routerDirection="forward" color="clear">
+          <ion-thumbnail >
+            <ion-img src ="assets/img/icon.png"></ion-img>
+          </ion-thumbnail>
+        </ion-buttons>
+       </ion-row>
+       <ion-row>
+         Raw Surf
+       </ion-row>
+       </ion-col>
+    </ion-row>
+    
+
+      </ion-toolbar>
 
 
-    <ion-buttons routerLink="/tabs/home" routerDirection="forward" color="clear">
-    <ion-thumbnail slot="start" size="auto">
+      <ion-toolbar> -->
+
+        
+        
+    
+              <ion-col sixe="auto">
+               <ion-row>
+                <ion-buttons routerLink="/profile" routerDirection="forward" color="clear">
+             
+                    <ion-avatar>
+                      <ion-img src ="assets/img/userProfilePic1.png"></ion-img>
+                    </ion-avatar>
+           
+                </ion-buttons>
+               </ion-row>
+               <ion-row>
+                {{ myName }}
+               </ion-row>
+               </ion-col>
+       
+            
+        
+              </ion-toolbar>
+
+
+  <!-- <ion-toolbar>
+    <ion-title>Welcome</ion-title>
+  </ion-toolbar> -->
+  <!-- <ion-toolbar class="myToolBar"> -->
+    <!-- <ion-buttons slot="start">
+      <ion-menu-button color="light"></ion-menu-button>
+    </ion-buttons> -->
+
+<!-- <ion-row>
+  <ion-col><p class="toolProfile">Raw Surf</p></ion-col>
+  <ion-col class="superTop">  <ion-buttons routerLink="/tabs/home" routerDirection="forward" color="clear">
+    <ion-thumbnail  size="auto">
       <ion-img src ="assets/img/icon.png"></ion-img>
     </ion-thumbnail>
-  </ion-buttons>
+  </ion-buttons></ion-col>
+  <ion-col></ion-col>
+</ion-row> -->
+
+  <!-- <ion-buttons routerLink="/profile" routerDirection="forward" color="clear">
+    <ion-icon name="person-circle-outline" class="toolProfile"></ion-icon>
+  </ion-buttons> -->
+
+
     <!-- <ion-title>
       <p align="right" style="color:white;">Home</p>
       
     </ion-title> -->
-  </ion-toolbar>
+  <!-- </ion-toolbar> -->
+<!-- 
+    <ion-toolbar>
+<ion-row>
+    <ion-col>  
+      <ion-row>  
+        <ion-buttons routerLink="/tabs/home" routerDirection="forward" expand="block" color="clear">
+
+          <ion-avatar>
+              <ion-img src ="assets/img/userProfilePic1.png"></ion-img>
+          </ion-avatar>
+          </ion-buttons>
+      </ion-row>
+      <ion-row>
+
+          <ion-buttons routerLink="/profile" routerDirection="forward" color="primary">
+          <ion-button color="primary" expand="block">   {{ myName}}</ion-button>
+        </ion-buttons>
+      </ion-row>
+</ion-col>
+</ion-row>
+      
+
+  </ion-toolbar> -->
+
+
+
   <!-- <ion-toolbar> <p align="left" style="color:white;">Good Day Mate!</p></ion-toolbar> -->
 </ion-header>
 
@@ -47,6 +156,8 @@
   <!-- <ion-button (click)="getUserInfo()" expand="block">  User email  </ion-button>  -->
 
 
+  <div class="theRest">
+
 <ion-card color="secondary">
 
 
@@ -54,7 +165,7 @@
     <ion-row>
       <ion-col></ion-col>
    <ion-col size="auto"></ion-col>
-   <ion-col size="auto">   
+   <ion-col size="auto" class="theRest">   
           <h1>Raw Surf App</h1>
           </ion-col>
     <ion-col></ion-col>
@@ -68,11 +179,23 @@
       <ion-col size="auto"> 
         <!-- <ion-text color="secondary"> -->
           <ion-text>
-            Hello {{ myName }}
+            <ion-row>            <ion-col class="theRest" size="auto"> Hello </ion-col>
+              <ion-col size="auto">
+                <ion-buttons routerLink="/profile" routerDirection="forward" color="clear">
+                  <div class="userName">{{ myName }}</div>
+                </ion-buttons>
+              
+              
+              </ion-col>
+              <ion-col></ion-col>
+              <ion-col></ion-col>
+              <ion-col></ion-col>
+            </ion-row>
 
-            <br><br>
+            
+
           </ion-text>
-          <ion-text>
+          <ion-text class="theRest">
         Thanks for downloading an early release of The Raw Surf App. <br><br>
         Check in frequently to see what new features have been added. 
       </ion-text>
@@ -150,5 +273,6 @@
   </ion-row>
 
   </ion-grid>
+</div>
 
 </ion-content>

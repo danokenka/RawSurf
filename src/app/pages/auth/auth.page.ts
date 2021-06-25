@@ -32,9 +32,7 @@ currentUser = [];
   }
 
     getUserInfo() {
-  //     const user = firebase.auth().currentUser;
-  // // console.log(firebase.auth().currentUser.email);
-  // console.log(user);
+
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       // User is signed in, see docs for a list of available properties
@@ -49,6 +47,7 @@ currentUser = [];
     } else {
       // User is signed out
       // ...
+      console.log(user);
     }
   });
 }
@@ -99,6 +98,9 @@ currentUser = [];
           this.userData.setKind(resData.kind);
           this.userData.setRefreshToken(resData.refreshToken);
           this.getUserInfo();
+          this.isLoading = false;
+          loadingEl.dismiss();
+          this.router.navigateByUrl('/tabs/home');
      
           // this.userData.createStorage(resData.email);
           // this.authService.myUserData(resData.idToken).subscribe(data => {
@@ -134,9 +136,7 @@ currentUser = [];
           //   });
           //   // Plugins.Storage.set({key: 'userProfile', value: data});
           // })
-          this.isLoading = false;
-          loadingEl.dismiss();
-          this.router.navigateByUrl('/tabs/home');
+         
           
         }, errRes => {
           console.log(errRes);
@@ -166,10 +166,17 @@ currentUser = [];
     }
     const email = form.value.email;
     const password = form.value.password;
-    const name = form.value.name;
-    console.log(email, password, name);
 
-    this.authenticate(email, password, name);
+    if (this.isLogin) {
+      console.log("this is login");
+      this.authenticate(email, password);
+    } else {
+      console.log("this is signup");
+      const name = form.value.name;
+      console.log(email, password, name);
+  
+      this.authenticate(email, password, name);
+    }
   }
 
   quickLog() {

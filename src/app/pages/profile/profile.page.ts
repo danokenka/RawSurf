@@ -10,6 +10,7 @@ import { User } from 'src/app/models/user.model';
 import { BehaviorSubject, from, Observable } from 'rxjs';
 import { Plugins } from '@capacitor/core';
 import { UserData } from 'src/app/services/user.data';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 
 
@@ -38,6 +39,8 @@ userProfile = {} as UserProfile;
     // this.myEmail = JSON.stringify(firebase.auth().currentUser.email);
     // this.myPhotoUrl = JSON.stringify(firebase.auth().currentUser.photoURL);
     // this.myUid = JSON.stringify(firebase.auth().currentUser.uid);
+
+    this.getDisplayName();
   }
 
 
@@ -78,15 +81,37 @@ this.showUserInfo()
 }
 
 getDisplayName() {
-  this.userData.getDisplayName().then((displayName) => {
-    if(displayName != null) {
-      this.myName = displayName;
+  firebase.auth().onAuthStateChanged((user) => {
+    console.log(user);
+    if (user) {
+      console.log(user);
+      // User is signed in, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/firebase.User
+      var uid = user.uid;
+      this.myName = user.displayName;
+      console.log(uid);
+      console.log(user.displayName);
+      // ...
     } else {
-      this.myName = "Default Name";
+      console.log(user);
+      // User is signed out
+      // ...
     }
-    
-    // console.log(this.myName);
   });
+
+
+
+  // this.userData.getDisplayName().then((displayName) => {
+  //   console.log(displayName);
+  //   if(displayName) {
+  //     console.log("Display name true");
+  //     this.myName = displayName;
+  //   } else {
+  //    console.log("Display name is null");
+  //   }
+    
+  //   // console.log(this.myName);
+  // });
 }
 
 getphotoUrl() {
@@ -136,7 +161,7 @@ doRefresh(event) {
   console.log('Begin async operation');
   // this.myName = JSON.stringify(firebase.auth().currentUser.displayName);
 
-
+  this.getDisplayName();
   
     setTimeout(() => {
       console.log('Async operation has ended');

@@ -28,7 +28,21 @@
 // .myToolBar {
 //   padding-top: 30px;
 // }
+.myPadding {
+  padding-right: 10px;
+}
+.toolProfile2 {
+  font-size: 16x;
+}
+.toolProfile3 {
+  // max-height: 40px !important;
+     min-height: 100px !important;
+}
 
+.toolProfile {
+  font-size: 20px;
+  padding: 5px;
+}
 .social-icons {
   font-size: 30px;
 }
@@ -41,4 +55,25 @@
 }
 .center {
   text-align: center;
+}
+.userName {
+  text-shadow:rgb(23, 7, 1);
+  background-color: rgb(37, 162, 137);
+  color:black;
+  font-size: 16px;
+}
+.theRest {
+  text-shadow:rgb(255, 255, 255);
+  color:black;
+ font-size: 16px;
+}
+.superTop {
+  padding-top: 60px;
+}
+
+.myToolbarTop {
+
+}
+.avatarPadding {
+  padding-left: 5px;
 }
