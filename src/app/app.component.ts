@@ -5,6 +5,7 @@ import { Platform } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { AuthService } from './services/auth.service';
+// import { AppVersion } from '@ionic-native/app-version/ngx';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,14 @@ import { AuthService } from './services/auth.service';
 //   constructor() {}
 // }
 
+
+
 export class AppComponent implements OnInit{
+  ionAppName: string;
+  ionPackageName: string;
+  ionVersionNumber: string;
+  ionVersionCode: string|number;
+
   private authSub: Subscription;
   private previousAuthState = false;
   // public selectedIndex = 0;
@@ -43,11 +51,40 @@ export class AppComponent implements OnInit{
   // ];
   constructor(  private platform: Platform,
     private authService: AuthService,
-    private router: Router) {
+    private router: Router,
+    // private appVersion: AppVersion
+    ) {
     this.initializeApp();
-  }
+    }
+
+  
 
   initializeApp() {
+  //   this.platform.ready().then(() => {
+  //     this.appVersion.getAppName().then(res => {
+  //       this.ionAppName = res;
+  //     }).catch(error => {
+  //       alert(error);
+  //     });
+
+  //     this.appVersion.getPackageName().then(res => {
+  //       this.ionPackageName = res;
+  //     }).catch(error => {
+  //       alert(error);
+  //     });
+
+  //     this.appVersion.getVersionNumber().then(res => {
+  //       this.ionVersionNumber = res;
+  //     }).catch(error => {
+  //       alert(error);
+  //     });
+
+  //     this.appVersion.getVersionCode().then(res => {
+  //       this.ionVersionCode = res;
+  //     }).catch(error => {
+  //       alert(error);
+  //     });
+  // });
     // SplashScreen.hide();
   }
 

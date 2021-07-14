@@ -20,6 +20,7 @@ import { UserData } from 'src/app/services/user.data';
 export class AuthPage implements OnInit {
   isLoading = false;
   isLogin = true;
+  public myDisplayName;
 currentUser = [];
   constructor(
     private authService: AuthService,
@@ -29,28 +30,28 @@ currentUser = [];
     private userData: UserData
   ) {}
   ngOnInit() {
-  }
+  // }
 
-    getUserInfo() {
+  //   getUserInfo() {
 
-  firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/firebase.User
-      console.log(user);
-      // var uid = user.uid;
-      console.log(user.displayName);
-      this.userData.setDisplayName(user.displayName);
-      this.userData.setPhotoUrl(user.photoURL);
-      this.userData.setUid(user.uid);
+  // firebase.auth().onAuthStateChanged((user) => {
+  //   if (user) {
+  //     // User is signed in, see docs for a list of available properties
+  //     // https://firebase.google.com/docs/reference/js/firebase.User
+  //     console.log(user);
+  //     // var uid = user.uid;
+  //     console.log(user.displayName);
+  //     this.userData.setDisplayName(user.displayName);
+  //     this.userData.setPhotoUrl(user.photoURL);
+  //     this.userData.setUid(user.uid);
      
-      // ...
-    } else {
-      // User is signed out
-      // ...
-      console.log(user);
-    }
-  });
+  //     // ...
+  //   } else {
+  //     // User is signed out
+  //     // ...
+  //     console.log("No User" + user);
+  //   }
+  // });
 }
 
 
@@ -74,6 +75,10 @@ currentUser = [];
 //   });
 // }
 
+getTheDisplayName() {
+return this.myDisplayName;
+}
+
   authenticate(email: string, password: string, name?: string) {
     this.isLoading = true;
     this.loadingCtrl
@@ -81,6 +86,7 @@ currentUser = [];
       .then(loadingEl => {
         loadingEl.present();
         let authObs: Observable<AuthResponseData>
+        console.log(authObs);
         if (this.isLogin) {
           authObs = this.authService.login(email, password);
           // this.firebaseLogin(email, password);
@@ -91,6 +97,11 @@ currentUser = [];
         authObs.subscribe(resData => {
           console.log(resData);
           console.log(resData.localId);
+          console.log(resData.displayName);
+         
+          this.myDisplayName = resData.displayName;
+          // this.setTheDisplayName(this.myDisplayName);
+          console.log(this.myDisplayName);
           this.userData.createStorage();
           this.userData.setEmail(resData.email);
           this.userData.setlocalId(resData.localId);
@@ -98,8 +109,21 @@ currentUser = [];
           this.userData.setIdToken(resData.idToken);
           this.userData.setKind(resData.kind);
           this.userData.setRefreshToken(resData.refreshToken);
+          if (name) {
+            console.log("this is the name" + name);
+            this.userData.setDisplayName(name);
+          } else {
+            this.userData.setDisplayName(resData.displayName);
+          //   this.userData.setDisplayName(resData.displayName);
+          //   this.userData.getDisplayName().then((result) => {
+          //     console.log(result);
+          // });
+            console.log("there is no name")
+          }
+        
+          
      
-          this.getUserInfo();
+          // this.getUserInfo();
           this.isLoading = false;
           loadingEl.dismiss();
           this.router.navigateByUrl('/tabs/home');
@@ -156,11 +180,46 @@ currentUser = [];
         });
 
       });
+      // this.getUserInfo();
+      // console.log("get User Info called");
   }
 
   onSwitchAuthMode() {
     this.isLogin = !this.isLogin;
   }
+
+
+  // ***** Original onSubmit to revert to if neccessary *****
+
+  // onSubmit(form: NgForm) {
+  //   if (!form.valid) {
+  //     return;
+  //   }
+  //   const email = form.value.email;
+  //   const password = form.value.password;
+
+  //   if (this.isLogin) {
+  //     console.log("this is login");
+  //     this.authenticate(email, password);
+  //   } else {
+  //     console.log("this is signup");
+  //     const name = form.value.name;
+     
+  //     if(name != "") {
+  //       this.userData.setDisplayName(name);
+  //       console.log("this was called");
+  //       this.userData.getDisplayName().then((result) => {
+  //         console.log(result);
+  //     });
+  //       console.log("this is signup");
+  //     }
+  //     console.log(email, password, name);
+  
+  //     this.authenticate(email, password, name);
+  //   }
+  // }
+
+
 
   onSubmit(form: NgForm) {
     if (!form.valid) {
@@ -175,15 +234,25 @@ currentUser = [];
     } else {
       console.log("this is signup");
       const name = form.value.name;
+     
+      if(name != "") {
+        console.log("OnSubmit if Name !=")
+        // this.userData.setDisplayName(name);
+        console.log("this was called");
+      //   this.userData.getDisplayName().then((result) => {
+      //     console.log(result);
+      // });
+        console.log("this is signup");
+      }
       console.log(email, password, name);
   
       this.authenticate(email, password, name);
     }
   }
 
-  // quickLog() {
-  //   this.authenticate("test@test.com", "test1234");
-  // }
+  quickLog() {
+    this.authenticate("test@test.com", "test1234");
+  }
 
 private showAlert(message: string) {
   this.alertCtrl

@@ -28,7 +28,7 @@ export class UserProfile {
     constructor(
         public id: string, 
         public email: string, 
-        private displayName: string,
+        public displayName: string,
         private photoUrl: string
         
         ) {}

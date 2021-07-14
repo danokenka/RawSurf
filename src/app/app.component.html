@@ -68,8 +68,35 @@
             <ion-icon name="exit" slot="start"></ion-icon>
             <ion-label>Logout</ion-label>
           </ion-item>
+
+
+
+          
         </ion-menu-toggle>
+        <div id="container">
+        <ion-item>
+          <br><br><br><br><br>
+        </ion-item>
+        <ion-item>
+          <strong>App Name:</strong> {{ ionAppName }} <br>
+        </ion-item>
+        <ion-item>
+          <strong>Pacakge name:</strong> {{ ionPackageName }} <br>
+        </ion-item>
+        <ion-item>
+          <strong>Version number:</strong> {{ ionVersionNumber }} <br>
+        </ion-item>
+        <ion-item>
+          <strong>Version code:</strong> {{ ionVersionCode }}
+        </ion-item>
+
+        <!-- <ion-item>     
+          <p>App Version</p>
+        </ion-item> -->
+      </div>
+       
       </ion-list>
+   
     </ion-content>
   </ion-menu>
   <ion-router-outlet id="main"></ion-router-outlet>

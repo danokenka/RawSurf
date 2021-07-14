@@ -85,6 +85,13 @@ export class UserData {
     });
   }
 
+
+//   getFromStorageStandard(){
+
+//     return this.storage.get('displayName');
+
+// }
+
   setKind(kind: string): Promise<any> {
     return this.storage.set('kind', kind);
   } 

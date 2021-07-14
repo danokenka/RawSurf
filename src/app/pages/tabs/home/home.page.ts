@@ -4,7 +4,7 @@ import { AuthService } from '../../../services/auth.service';
  import firebase from 'firebase/app';
 import 'firebase/auth';
 import { Plugins } from '@capacitor/core';
-import { UserData } from 'src/app/services/user.data';
+// import { UserData } from 'src/app/services/user.data';
 
 const { Browser } = Plugins;
 
@@ -15,19 +15,38 @@ const { Browser } = Plugins;
 })
 export class HomePage {
   public myName: string;
-  constructor(private authService: AuthService, private userData: UserData){
+  constructor(private authService: AuthService, 
+    // private userData: UserData
+    ){
   }
 
   ngOnInit() {
     // this.myName = JSON.stringify(firebase.auth().currentUser.displayName);
-  this.getDisplayName();
+//   this.userData.getDisplayName().then((result) => {
+//     this.myName = result;
+//     console.log(this.myName);
+// });
+
+
 
      }
 
+  //    async getFromStorageAsync(){
 
-  getDisplayName() {
+  //     return await this.userData.getDisplayName('displayName');
 
+  // }
 
+  // getDisplayName() {
+
+  //   this.getFromStorageStandard().then((result) => {
+  //     this.apple = result;
+  // });
+
+// this.getFromStorageAsync();
+// console.log(JSON.stringify(this.getFromStorageAsync()));
+
+// this.userData.getDisplayName
     //   firebase.auth().onAuthStateChanged((user) => {
     //     if (user) {
     //       // User is signed in, see docs for a list of available properties
@@ -49,7 +68,8 @@ export class HomePage {
     // }
     
     
-  }
+  // }
+
 
 
      async openBrowserInsta() {
@@ -111,11 +131,11 @@ export class HomePage {
       }
     }
 
-  getUserInfo() {
-  console.log(firebase.auth().currentUser.email);
-  console.log(firebase.auth().currentUser);
+//   getUserInfo() {
+//   console.log(firebase.auth().currentUser.email);
+//   console.log(firebase.auth().currentUser);
   
-}
+// }
 
 //   signOut() {
 //     console.log("sign out pressed")

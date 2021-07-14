@@ -8,7 +8,8 @@ import { User, UserProfile  } from '../models/user.model';
 import { Plugins } from '@capacitor/core';
 import firebase from 'firebase/app';
 import 'firebase/auth';
-import { UserData } from './user.data';
+// import { AuthPage } from '../pages/auth/auth.page';
+// import { UserData } from './user.data';
 
 export interface AuthResponseData {
   kind: string;
@@ -18,12 +19,18 @@ export interface AuthResponseData {
   localId: string;
   expiresIn: string;
   registered?: boolean;
+  displayName: string;
+  photoUrl: string;
 
 }
 
 
 export interface TheUser {
-   theUser: {localId:string, email:string,displayName: string, photoUrl:string}[];
+   theUser: {
+     localId:string, 
+     email:string, 
+     displayName: string, 
+     photoUrl:string}[];
 }
 
 
@@ -60,6 +67,7 @@ export class AuthService implements OnDestroy{
       ));
   }
 
+
   get user() {
     return this._user.asObservable().pipe(map(user => {
       if (user) {
@@ -70,8 +78,22 @@ export class AuthService implements OnDestroy{
     }
       ));
   }
+
+
+  get userProfile() {
+    return this._userProfile.asObservable().pipe(map(userProfile => {
+      if (userProfile) {
+        return userProfile
+      } else {
+        return null;
+      }
+    }
+      ));
+  }
   constructor(private http: HttpClient,
-    private userData: UserData) { }
+    // public authPage: AuthPage
+    // private userData: UserData
+    ) { }
 
   ngOnDestroy() {
     if (this.activeLogoutTimer) {
@@ -149,6 +171,17 @@ export class AuthService implements OnDestroy{
 
 
 
+
+// theDisplayName() {
+//   console.log(this.authPage.getTheDisplayName);
+// this.authPage.getTheDisplayName;
+
+
+// }
+
+
+
+
 firstDisplayName(name: string) {
   console.log(name);
 
@@ -223,10 +256,10 @@ firstDisplayName(name: string) {
 }
 
   signup(email: string, password: string, name?: string) {
-    if(name !== undefined) { 
-console.log(name);
-this.firstDisplayName(name)
-    }
+//     if(name !== undefined) { 
+// console.log(name);
+// this.firstDisplayName(name)
+//     }
     if (name) {
       console.log(name);
     }
@@ -271,6 +304,27 @@ this.firstDisplayName(name)
     this.logout();
   }, duration);
   }
+
+
+  private setUserProfileData(userData: AuthResponseData) {
+    const expirationTime = new Date(new Date().getTime() + (+userData.expiresIn * 1000)
+    );
+    const userProfile = new UserProfile(
+      userData.localId, 
+      userData.email, 
+      userData.displayName, 
+      userData.photoUrl
+    );
+    this._userProfile.next(userProfile);
+    // this.myUserData(user.id);
+    // this.autoLogout(userProfile.tokenDuration);
+      this.storeAuthData(
+        userData.localId, 
+        userData.email, 
+        userData.displayName, 
+        userData.photoUrl
+      );
+}
 
   private setUserData(userData: AuthResponseData) {
       const expirationTime = new Date(new Date().getTime() + (+userData.expiresIn * 1000)
