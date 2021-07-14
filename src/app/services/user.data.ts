@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
-
+import firebase from 'firebase/app';
+import 'firebase/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -76,6 +77,42 @@ export class UserData {
   } 
   setDisplayName(displayName: string): Promise<any> {
     return this.storage.set('displayName', displayName);
+  } 
+
+  setFirebaseName(name: string){
+    console.log(name);
+    console.log(JSON.stringify(name));
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/firebase.User
+        var uid = user.uid;
+
+        user.updateProfile({
+          displayName: name,
+        // displayName: JSON.stringify(name),
+        // photoURL: "https://example.com/jane-q-user/profile.jpg"
+      }).then(() => {
+        console.log("name updated succesfully");
+        console.log(user.displayName);
+        // Update successful
+        // ...
+      }).catch((error) => {
+        console.log("name update failed")
+        // An error occurred
+        // ...
+      });  
+
+
+        // ...
+      } else {
+        // User is signed out
+        // ...
+      }
+    });
+  
+    
+
   } 
 
   getDisplayName(): Promise<string> {

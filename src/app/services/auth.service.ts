@@ -21,6 +21,22 @@ export interface AuthResponseData {
   registered?: boolean;
   displayName: string;
   photoUrl: string;
+  users: any;
+
+}
+
+export interface UserInfo {
+
+  kind: string;
+  idToken: string;
+  email: string;
+  refreshToken: string;
+  localId: string;
+  expiresIn: string;
+  registered?: boolean;
+  displayName: string;
+  photoUrl: string;
+  users: [];
 
 }
 
@@ -42,6 +58,7 @@ export class AuthService implements OnDestroy{
   private _user = new BehaviorSubject<User>(null);
   private _userProfile = new BehaviorSubject<UserProfile>(null);
   private activeLogoutTimer: any;
+  myUserData: any;
 
   get userIsAuthenticated() {
     // !! user.token forces converstion to boolean otherwise one ! would return true if invalid or false if valid
@@ -78,7 +95,16 @@ export class AuthService implements OnDestroy{
     }
       ));
   }
-
+  get displayName() {
+    return this._userProfile.asObservable().pipe(map(userProfile => {
+      if (userProfile) {
+        return userProfile.displayName
+      } else {
+        return null;
+      }
+    }
+      ));
+  }
 
   get userProfile() {
     return this._userProfile.asObservable().pipe(map(userProfile => {
@@ -255,12 +281,37 @@ firstDisplayName(name: string) {
   
 }
 
+getUserData(token: string) {
+  return this.http.post<AuthResponseData>(
+    `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${
+    environment.firebaseAPIKey
+  }`, {idToken: token}, 
+  ).pipe(tap(this.setUserProfileData.bind(this))
+  );
+}
+
+updateTheUser(token: string, displayName: string){
+console.log(token);
+  if (displayName) {
+ 
+    console.log(displayName);
+  }
+  console.log(displayName);
+  return this.http.post<AuthResponseData>(
+    `https://identitytoolkit.googleapis.com/v1/accounts:update?key=${
+    environment.firebaseAPIKey
+  }`, {idToken: token, displayName: displayName, returnSecureToken: true}, 
+  ).pipe(tap(this.setUserProfileData.bind(this))
+  );
+}
+
   signup(email: string, password: string, name?: string) {
 //     if(name !== undefined) { 
 // console.log(name);
 // this.firstDisplayName(name)
 //     }
     if (name) {
+      this.firstDisplayName(name);
       console.log(name);
     }
     console.log(name);
@@ -359,6 +410,7 @@ firstDisplayName(name: string) {
       tokenExpirationDat: tokenExpirationDate,
       email: email
     });
+    this.myUserData = data;
     Plugins.Storage.set({key: 'authData', value: data});
     // console.log(this.myUserData(JSON.stringify(userId)))
     // this.myUserData(userId);

@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../../services/auth.service';
+import { AuthService, AuthResponseData } from '../../../services/auth.service';
  import { User } from '../../../models/user.model';
  import firebase from 'firebase/app';
+ import { Observable } from 'rxjs';
 import 'firebase/auth';
 import { Plugins } from '@capacitor/core';
+import { LoadingController, AlertController } from '@ionic/angular';
 // import { UserData } from 'src/app/services/user.data';
 
 const { Browser } = Plugins;
@@ -16,7 +18,9 @@ const { Browser } = Plugins;
 export class HomePage {
   public myName: string;
   public myUid: string;
-  constructor(private authService: AuthService, 
+  public myToken;
+  public userInfo: any;
+  constructor(private authService: AuthService, public alertCtrl: AlertController
     // private userData: UserData
     ){
   }
@@ -39,30 +43,114 @@ export class HomePage {
         this.myUid = data.id;
         console.log(data['id']);
         console.log(data['_token']);
+        this.myToken = data.token
         console.log(data['email']);
         console.log(data['tokenDuration']);
       
       })
       
       // this.showUserInfo();
-      this.getDisplayName();
+    this.retrieveUserInfo();
       // this.getUserStuff();
       }
       
+      checkForName() {
+        firebase.auth().onAuthStateChanged((user) => {
+          if (user) {
+            // User is signed in, see docs for a list of available properties
+            // https://firebase.google.com/docs/reference/js/firebase.User
+            var uid = user.uid;
+            console.log(user.uid);
+            console.log(user.displayName);
+            // ...
+          } else {
+            // User is signed out
+            // ...
+          }
+        });
+      }
+
 
      getDisplayName() {
       console.log("get Disoplay Name called");
       // console.log(firebase.auth().currentUser.uid);
       console.log(this.myUid);
-    
+  
     
     return firebase.database().ref('/users/' + this.myUid).once('value').then((snapshot) => {
        this.myName = (snapshot.val() && snapshot.val().username) || 'Anonymous';
+       if (this.myName == 'Anonymous') {
+        console.log("this is Anynonmous!!!!!!!!")
+        this.authService.userProfile.subscribe(data => {
+          console.log("Received data: ", data);
+          console.log(data['displayName']);
+          // console.log(data['_token']);
+          // console.log(data['email']);
+          // console.log(data['tokenDuration']);
+          
+        })
+      
+       
+       }
        console.log(this.myName);
       // ...
     });
     }
+    doRefresh(event) {
+      console.log('Begin async operation');
+      //  this.myName = JSON.stringify(firebase.auth().currentUser.displayName);
+    
+      this.retrieveUserInfo();
+      
+        setTimeout(() => {
+          console.log('Async operation has ended');
+          event.target.complete();
+        }, 2000);
+      
+    
+    }
 
+    retrieveUserInfo() {
+      
+      let authObs: Observable<AuthResponseData>
+  authObs = this.authService.getUserData(this.myToken);
+  authObs.subscribe(resData => {
+    this.userInfo = resData.users[0];
+    console.log(resData.users[0]);
+    console.log(resData.users[0].localId);
+    console.log(resData.users[0].displayName);
+    this.myName = resData.users[0].displayName;
+   
+   
+    // this.myDisplayName = resData.displayName;
+    // // this.setTheDisplayName(this.myDisplayName);
+    // console.log(this.myDisplayName);
+    
+
+  
+    
+
+    // this.router.navigateByUrl('/tabs/home');
+
+
+   
+    
+  }, errRes => {
+    console.log(errRes);
+    // loadingEl.dismiss();
+    const code = errRes.error.error.message;
+    let message = 'No Token Passed';
+    if (code === 'INVALID_ID_TOKEN') {
+      message = 'This email address already exists!';
+    } else if (code === 'EMAIL_NOT_FOUND') {
+      message = 'E-Mail address could not be found.';
+    } else if (code === 'INVALID_PASSWORD') {
+      message = 'The password is not correct.';
+    }
+    this.showAlert(message);
+  });
+
+    }
   //    async getFromStorageAsync(){
 
   //     return await this.userData.getDisplayName('displayName');
@@ -101,6 +189,16 @@ export class HomePage {
     
     
   // }
+
+  private showAlert(message: string) {
+    this.alertCtrl
+      .create({
+        header: 'Authentication failed', 
+        message: message, 
+        buttons: ['Okay']
+      }).then(alertEl => alertEl.present());
+  }
+  
 
 
 

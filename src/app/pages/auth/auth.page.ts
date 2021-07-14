@@ -138,10 +138,14 @@ return this.myDisplayName;
           this.userData.setKind(resData.kind);
           this.userData.setRefreshToken(resData.refreshToken);
           if (name) {
-            console.log("this is the name" + name);
-            this.userData.setDisplayName(name);
+            console.log("this is the name " + name);
+            this.writeUserData(resData.localId, name, resData.email);
+            this.authService.updateTheUser(resData.idToken, name);
+            // this.userData.setFirebaseName(name);
           } else {
-            this.userData.setDisplayName(resData.displayName);
+            
+            // this.writeUserData(resData.localId, resData.displayName, resData.email);
+            // this.userData.setDisplayName(resData.displayName);
           //   this.userData.setDisplayName(resData.displayName);
           //   this.userData.getDisplayName().then((result) => {
           //     console.log(result);
@@ -154,7 +158,7 @@ return this.myDisplayName;
           // this.getUserInfo();
           this.isLoading = false;
           loadingEl.dismiss();
-          this.writeUserData(resData.localId, resData.displayName, resData.email);
+          // this.writeUserData(resData.localId, resData.displayName, resData.email);
           // this.add(resData);
           this.router.navigateByUrl('/tabs/home');
      

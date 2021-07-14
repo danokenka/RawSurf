@@ -26,6 +26,8 @@
     <ion-buttons slot="end">
       <ion-menu-button color="light"></ion-menu-button>
     </ion-buttons> 
+
+    <ion-title>Raw Surf </ion-title>
 <!-- 
     <ion-row>
   
@@ -130,6 +132,12 @@
 </ion-header>
 
 <ion-content class="ion-padding">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content     pullingIcon="arrow-down-outline" 
+    pullingText="Pull to refresh" 
+    refreshingSpinner="crescent"
+    refreshingText="Refreshing..."></ion-refresher-content>
+  </ion-refresher>
   <!-- <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Blank</ion-title>
@@ -157,11 +165,28 @@
 
 
   <div class="theRest">
+    <ion-grid class="content">
+    <ion-text>
+      <ion-row>            <ion-col class="hello" size="auto"> Hello, </ion-col>
+        <ion-col size="auto">
+          <ion-buttons routerLink="/profile" routerDirection="forward" color="clear">
+            <div class="userName">{{ myName }}</div>
+          </ion-buttons>
+        
+        
+        </ion-col>
+     
+      </ion-row>
 
-<ion-card color="secondary">
+  
+
+    </ion-text>
+  </ion-grid>
+
+<!-- <ion-card color="secondary"> -->
 
 
-  <ion-grid class="content">
+  <!-- <ion-grid class="content">
     <ion-row>
       <ion-col></ion-col>
    <ion-col size="auto"></ion-col>
@@ -175,9 +200,9 @@
    
     <ion-row>
       <ion-col></ion-col>
-      <!-- <ion-col></ion-col> -->
+  
       <ion-col size="auto"> 
-        <!-- <ion-text color="secondary"> -->
+  
           <ion-text>
             <ion-row>            <ion-col class="theRest" size="auto"> Hello </ion-col>
               <ion-col size="auto">
@@ -200,12 +225,12 @@
         Check in frequently to see what new features have been added. 
       </ion-text>
      </ion-col>
-      <!-- <ion-col></ion-col> -->
+ 
       <ion-col></ion-col>
   
     </ion-row>
   </ion-grid>
-</ion-card>
+</ion-card> -->
 
 <ion-card color="tertiary">
   <ion-grid>

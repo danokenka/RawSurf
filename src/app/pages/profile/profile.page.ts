@@ -29,6 +29,8 @@ public myEmail: string;
 public myPhotoUrl: string;
 public myUid: string;
 public myUserId;
+public myToken;
+public userInfo;
   constructor(public router: Router, public alertCtrl: AlertController, public authService: AuthService, private loadingCtrl: LoadingController
     // private userData: UserData
     ) {}
@@ -78,6 +80,7 @@ this.authService.user.subscribe(data => {
   this.myUser = data;
   this.myUid = data.id;
   console.log(data['id']);
+  this.myToken = data.token
   console.log(data['_token']);
   console.log(data['email']);
   this.myEmail = data['email'];
@@ -86,7 +89,7 @@ this.authService.user.subscribe(data => {
 })
 
 // this.showUserInfo();
-this.getDisplayName();
+this.retrieveUserInfo();
 // this.getUserStuff();
 }
 
@@ -176,20 +179,103 @@ private showAlert(message: string) {
 //       // console.log("get User Info called");
   
 // }
+resetDisplayName(displayName: string) {
+  let authObs: Observable<AuthResponseData>
+  authObs = this.authService.updateTheUser(this.myToken, displayName);
+  authObs.subscribe(resData => {
+    console.log(resData);
+    console.log(resData.localId);
+    console.log(resData.displayName);
+    this.myName = resData.displayName;
+   
+   this.retrieveUserInfo();
+    // this.myDisplayName = resData.displayName;
+    // // this.setTheDisplayName(this.myDisplayName);
+    // console.log(this.myDisplayName);
+    
+
+  
+    
+
+    // this.router.navigateByUrl('/tabs/home');
 
 
-getDisplayName() {
-  console.log("get Disoplay Name called");
-  // console.log(firebase.auth().currentUser.uid);
-  console.log(this.myUid);
+   
+    
+  }, errRes => {
+    console.log(errRes);
+    // loadingEl.dismiss();
+    const code = errRes.error.error.message;
+    let message = 'No Token Passed';
+    if (code === 'INVALID_ID_TOKEN') {
+      message = 'This email address already exists!';
+    } else if (code === 'EMAIL_NOT_FOUND') {
+      message = 'E-Mail address could not be found.';
+    } else if (code === 'INVALID_PASSWORD') {
+      message = 'The password is not correct.';
+    }
+    this.showAlert(message);
+  });
 
 
-return firebase.database().ref('/users/' + this.myUid).once('value').then((snapshot) => {
-   this.myName = (snapshot.val() && snapshot.val().username) || 'Anonymous';
-   console.log(this.myName);
-  // ...
-});
 }
+
+retrieveUserInfo() {
+      
+  let authObs: Observable<AuthResponseData>
+authObs = this.authService.getUserData(this.myToken);
+authObs.subscribe(resData => {
+this.userInfo = resData.users[0];
+console.log(resData.users[0]);
+console.log(resData.users[0].localId);
+console.log(resData.users[0].displayName);
+this.myName = resData.users[0].displayName;
+
+
+// this.myDisplayName = resData.displayName;
+// // this.setTheDisplayName(this.myDisplayName);
+// console.log(this.myDisplayName);
+
+
+
+
+
+// this.router.navigateByUrl('/tabs/home');
+
+
+
+
+}, errRes => {
+console.log(errRes);
+// loadingEl.dismiss();
+const code = errRes.error.error.message;
+let message = 'No Token Passed';
+if (code === 'INVALID_ID_TOKEN') {
+  message = 'This email address already exists!';
+} else if (code === 'EMAIL_NOT_FOUND') {
+  message = 'E-Mail address could not be found.';
+} else if (code === 'INVALID_PASSWORD') {
+  message = 'The password is not correct.';
+}
+this.showAlert(message);
+});
+
+}
+
+
+// getDisplayName() {
+//   console.log("get Disoplay Name called");
+//   // console.log(firebase.auth().currentUser.uid);
+//   console.log(this.myUid);
+
+
+// return firebase.database().ref('/users/' + this.myUid).once('value').then((snapshot) => {
+//    this.myName = (snapshot.val() && snapshot.val().username) || 'Anonymous';
+
+//    console.log(this.myName);
+//   // ...
+// });
+// }
 
 getEmail() {
   console.log("get Disoplay Name called");
@@ -295,7 +381,7 @@ doRefresh(event) {
   console.log('Begin async operation');
   //  this.myName = JSON.stringify(firebase.auth().currentUser.displayName);
 
-  this.getDisplayName();
+  this.retrieveUserInfo();
   
     setTimeout(() => {
       console.log('Async operation has ended');
@@ -330,6 +416,8 @@ doRefresh(event) {
             console.log('Saved clicked');  
             console.log(data.name);  
             // this.changeDisplayFromPrompt(data.name);
+            // this.authService.updateTheUser(data.name);
+            this.resetDisplayName(data.name);
             // this.router.navigate(['/profile']);
             // this.ionViewWillEnter();
           }  
@@ -341,15 +429,22 @@ doRefresh(event) {
 
 
 //   changeDisplayFromPrompt(name: string) {
-//     var user = firebase.auth().currentUser;
+//     // var user = firebase.auth().currentUser;
+
+//     // if (user) {
+//     //   user.updateProfile({
+//     //     displayName: name,
+//     //   }).then(function() {
+//     //     // Update successful.
+//     //   }).catch(function(error) {
+//     //     // An error happened.
+//     //   });
+//     // } else {
+//     //   console.log("no User !!!!!!!!")
+//     // }
   
-//   user.updateProfile({
-//     displayName: name,
-//   }).then(function() {
-//     // Update successful.
-//   }).catch(function(error) {
-//     // An error happened.
-//   });
+//     this.authService.updateTheUser(name);
+
 // }
 
 // changeUserName(userProfile: UserProfile) {
@@ -364,6 +459,7 @@ doRefresh(event) {
 // });
 
 // }
+
 
 
 // signOut() {

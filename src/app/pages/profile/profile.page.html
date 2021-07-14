@@ -35,14 +35,20 @@
   
 
     </ion-row>
+    <ion-row>
+     
+      <ion-button (click)="showPrompt()" expand="block">  Change User Name  </ion-button> 
+    </ion-row>
  
  
 
     <ion-row>
-      <ion-col>    <ion-item>
-        <ion-label>Account Email: </ion-label>
-      </ion-item></ion-col>
-      <ion-col></ion-col>
+      <ion-col>    
+        <ion-item>
+          <ion-label>Email: </ion-label>
+        </ion-item>
+      </ion-col>
+     
       <ion-col></ion-col>
       <ion-col>      <ion-item>
         <ion-label> {{ myEmail }}</ion-label>
@@ -52,10 +58,10 @@
     </ion-row>
  
 
-
+    <!-- <ion-button (click)="changeUserName(userProfile)" routerLink="/tabs" expand="block">  Change User Name  </ion-button>  -->
 
     <!-- <ion-button (click)="showPrompt()" expand="block">  Change User Name  </ion-button>  -->
-    <!-- <ion-button (click)="changeUserName(userProfile)" routerLink="/tabs" expand="block">  Change User Name  </ion-button>  -->
+   
     <!-- <ion-item>
       <ion-label>Account Email: </ion-label>      <ion-label> {{ myEmail }}</ion-label>
     </ion-item> -->
