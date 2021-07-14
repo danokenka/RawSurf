@@ -15,12 +15,14 @@ const { Browser } = Plugins;
 })
 export class HomePage {
   public myName: string;
+  public myUid: string;
   constructor(private authService: AuthService, 
     // private userData: UserData
     ){
   }
 
   ngOnInit() {
+    this.authUserId();
     // this.myName = JSON.stringify(firebase.auth().currentUser.displayName);
 //   this.userData.getDisplayName().then((result) => {
 //     this.myName = result;
@@ -30,6 +32,36 @@ export class HomePage {
 
 
      }
+
+     authUserId() {
+      this.authService.user.subscribe(data => {
+        console.log("Received data: ", data);
+        this.myUid = data.id;
+        console.log(data['id']);
+        console.log(data['_token']);
+        console.log(data['email']);
+        console.log(data['tokenDuration']);
+      
+      })
+      
+      // this.showUserInfo();
+      this.getDisplayName();
+      // this.getUserStuff();
+      }
+      
+
+     getDisplayName() {
+      console.log("get Disoplay Name called");
+      // console.log(firebase.auth().currentUser.uid);
+      console.log(this.myUid);
+    
+    
+    return firebase.database().ref('/users/' + this.myUid).once('value').then((snapshot) => {
+       this.myName = (snapshot.val() && snapshot.val().username) || 'Anonymous';
+       console.log(this.myName);
+      // ...
+    });
+    }
 
   //    async getFromStorageAsync(){
 

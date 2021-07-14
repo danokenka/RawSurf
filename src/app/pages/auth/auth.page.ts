@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Plugins } from '@capacitor/core';
-import { LoadingController,AlertController } from '@ionic/angular';
+import { LoadingController,AlertController, ToastController } from '@ionic/angular';
 // import * as firebase from 'firebase';
 import { Observable } from 'rxjs';
 import firebase from 'firebase/app';
@@ -11,6 +11,7 @@ import 'firebase/auth';
 import { AuthService, AuthResponseData } from 'src/app/services/auth.service';
 
 import { UserData } from 'src/app/services/user.data';
+import { FirebaseService } from 'src/app/services/firebase.service';
 
 @Component({
   selector: 'app-auth',
@@ -21,8 +22,12 @@ export class AuthPage implements OnInit {
   isLoading = false;
   isLogin = true;
   public myDisplayName;
+  database = firebase.database();
+
 currentUser = [];
   constructor(
+    private firebaseService: FirebaseService,
+    private toastCtrl: ToastController,
     private authService: AuthService,
     private router: Router,
     private loadingCtrl: LoadingController,
@@ -79,6 +84,29 @@ getTheDisplayName() {
 return this.myDisplayName;
 }
 
+
+  // add(data: AuthResponseData){
+  //   this.firebaseService.addUser(data)
+  //   .then( async res => {
+  //     let toast = this.toastCtrl.create({
+  //       message: 'User was created successfully',
+  //       duration: 3000
+  //     });
+  //     (await toast).present();
+  //   }, err => {
+  //     console.log(err)
+  //   })
+  // }    
+
+   writeUserData(userId, name, email) {
+    firebase.database().ref('users/' + userId).set({
+      username: name,
+      email: email,
+    });
+  }
+
+
+
   authenticate(email: string, password: string, name?: string) {
     this.isLoading = true;
     this.loadingCtrl
@@ -126,6 +154,8 @@ return this.myDisplayName;
           // this.getUserInfo();
           this.isLoading = false;
           loadingEl.dismiss();
+          this.writeUserData(resData.localId, resData.displayName, resData.email);
+          // this.add(resData);
           this.router.navigateByUrl('/tabs/home');
      
           // this.userData.createStorage(resData.email);

@@ -44,7 +44,7 @@ public myUserId;
     // this.myPhotoUrl = JSON.stringify(firebase.auth().currentUser.photoURL);
     // this.myUid = JSON.stringify(firebase.auth().currentUser.uid);
 
-    // this.getDisplayName();
+    //  this.getDisplayName();
     // this.getUserStuff();
   }
 
@@ -76,14 +76,17 @@ authUserId() {
 this.authService.user.subscribe(data => {
   console.log("Received data: ", data);
   this.myUser = data;
+  this.myUid = data.id;
   console.log(data['id']);
   console.log(data['_token']);
   console.log(data['email']);
+  this.myEmail = data['email'];
   console.log(data['tokenDuration']);
 
 })
 
-this.showUserInfo();
+// this.showUserInfo();
+this.getDisplayName();
 // this.getUserStuff();
 }
 
@@ -177,8 +180,29 @@ private showAlert(message: string) {
 
 getDisplayName() {
   console.log("get Disoplay Name called");
+  // console.log(firebase.auth().currentUser.uid);
+  console.log(this.myUid);
+
+
+return firebase.database().ref('/users/' + this.myUid).once('value').then((snapshot) => {
+   this.myName = (snapshot.val() && snapshot.val().username) || 'Anonymous';
+   console.log(this.myName);
+  // ...
+});
 }
 
+getEmail() {
+  console.log("get Disoplay Name called");
+  // console.log(firebase.auth().currentUser.uid);
+  console.log(this.myEmail);
+
+  
+return firebase.database().ref('/users/' + this.myEmail).once('value').then((snapshot) => {
+   this.myEmail = (snapshot.val() && snapshot.val().email) || 'Anonymous';
+   console.log(this.myEmail);
+  // ...
+});
+}
 // getDisplayName() {
 //   let authObs: Observable<AuthResponseData>
 //   authObs.subscribe(resData => {
@@ -250,21 +274,21 @@ getDisplayName() {
   // }
 
 
-  showUserInfo() {
+//   showUserInfo() {
 
-    this.myUid = this.myUser.id;
-// this.myUid = this.myUser.id;
-this.myEmail = this.myUser['email'];
-console.log(this.myEmail);
-this.myPhotoUrl = this.myUser.photoUrl;
-    // Plugins.Storage.get({key: 'authData', value: data});
-// console.log(JSON.stringify(this.myUser));
-// console.log(JSON.stringify(this.myUser.id));
-// console.log(JSON.stringify(this.myUser.));
-// console.log(JSON.stringify(this.myUser.token));
-// console.log(JSON.stringify(this.myUser.email));
-// console.log(JSON.stringify(this.myUser.tokenDuration));
-  }
+//     this.myUid = this.myUser.id;
+// // this.myUid = this.myUser.id;
+// this.myEmail = this.myUser['email'];
+// console.log(this.myEmail);
+// this.myPhotoUrl = this.myUser.photoUrl;
+//     // Plugins.Storage.get({key: 'authData', value: data});
+// // console.log(JSON.stringify(this.myUser));
+// // console.log(JSON.stringify(this.myUser.id));
+// // console.log(JSON.stringify(this.myUser.));
+// // console.log(JSON.stringify(this.myUser.token));
+// // console.log(JSON.stringify(this.myUser.email));
+// // console.log(JSON.stringify(this.myUser.tokenDuration));
+//   }
 
 
 doRefresh(event) {
