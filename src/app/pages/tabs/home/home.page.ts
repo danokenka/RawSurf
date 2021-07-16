@@ -20,8 +20,10 @@ export class HomePage {
   public myUid: string;
   public myToken;
   public userInfo: any;
+  displayNameFlag = true;
+  // private userData: UserData
   constructor(private authService: AuthService, public alertCtrl: AlertController
-    // private userData: UserData
+ 
     ){
   }
 
@@ -33,24 +35,40 @@ export class HomePage {
 //     console.log(this.myName);
 // });
 
+  }
+ionViewDidEnter() {
+  // this.authUserId();
+  console.log("this was triggered");
+}
 
-
-     }
+// getToken() {
+//  return this.userData.getIdToken();
+// }
+     
 
      authUserId() {
       this.authService.user.subscribe(data => {
-        console.log("Received data: ", data);
-        this.myUid = data.id;
-        console.log(data['id']);
-        console.log(data['_token']);
-        this.myToken = data.token
-        console.log(data['email']);
-        console.log(data['tokenDuration']);
+        if (data != null) {
+          console.log("Received data: ", data);
+          this.myUid = data.id;
+          console.log(data['id']);
+          console.log(data['_token']);
+          this.myToken = data.token
+          console.log(this.myToken);
+          console.log(data['email']);
+          console.log(data['tokenDuration']);
+        } else {
+          // console.log("data was null");
+          // this.authService.autoLogin();
+          // this.userData.getIdToken();
+          // console.log( this.userData.getIdToken());
+        }
+
       
       })
       
       // this.showUserInfo();
-    this.retrieveUserInfo();
+     this.retrieveUserInfo();
       // this.getUserStuff();
       }
       
@@ -113,14 +131,21 @@ export class HomePage {
     retrieveUserInfo() {
       
       let authObs: Observable<AuthResponseData>
+      
   authObs = this.authService.getUserData(this.myToken);
   authObs.subscribe(resData => {
     this.userInfo = resData.users[0];
     console.log(resData.users[0]);
     console.log(resData.users[0].localId);
     console.log(resData.users[0].displayName);
+
     this.myName = resData.users[0].displayName;
-   
+
+
+
+    if (this.myName === "") {
+      this.displayNameFlag = false;
+    }
    
     // this.myDisplayName = resData.displayName;
     // // this.setTheDisplayName(this.myDisplayName);
@@ -190,6 +215,7 @@ export class HomePage {
     
   // }
 
+  
   private showAlert(message: string) {
     this.alertCtrl
       .create({

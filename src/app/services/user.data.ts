@@ -137,6 +137,12 @@ export class UserData {
     return this.storage.set('idToken', idToken);
   } 
 
+  getIdToken(): Promise<string> {
+    return this.storage.get('idToken').then((value) => {
+      return value;
+    });
+  }
+
   setExpiresIn(expiresIn: string): Promise<any> {
     return this.storage.set('expiresIn', expiresIn);
   } 

@@ -114,7 +114,6 @@ return this.myDisplayName;
       .then(loadingEl => {
         loadingEl.present();
         let authObs: Observable<AuthResponseData>
-        console.log(authObs);
         if (this.isLogin) {
           authObs = this.authService.login(email, password);
           // this.firebaseLogin(email, password);
@@ -128,7 +127,6 @@ return this.myDisplayName;
           console.log(resData.displayName);
          
           this.myDisplayName = resData.displayName;
-          // this.setTheDisplayName(this.myDisplayName);
           console.log(this.myDisplayName);
           this.userData.createStorage();
           this.userData.setEmail(resData.email);
@@ -285,7 +283,7 @@ return this.myDisplayName;
   }
 
   quickLog() {
-    this.authenticate("test@test.com", "test1234");
+    this.authenticate("danokenka@me.com", "Tru2theSol");
   }
 
 private showAlert(message: string) {

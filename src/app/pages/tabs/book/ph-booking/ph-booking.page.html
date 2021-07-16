@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar >
+  <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="tabs"></ion-back-button>
     </ion-buttons>
@@ -104,7 +104,207 @@
 </ion-content> -->
 
 <ion-content padding>
-<h1>Coming Soon...</h1>
+
   <!-- <ion-button (click)="sendEmail()" expand="block" color="tertiary"> Book </ion-button>  -->
   <!-- <ion-button expand="block" color="tertiary"> Book </ion-button>  -->
+
+  <!-- <ul>
+    <li *ngFor="let photoPeep of photoPeeps">
+      <h2>{{photoPeep.name}}</h2>
+    </li>
+  </ul> -->
+  <!-- <ion-button (click)="findPhotographers()" expand="block" color="tertiary"> Get Photo Peeps Object </ion-button>
+  <ion-button (click)="listPhotographersRegionally()" expand="block" color="tertiary"> Show a list of Photographers by
+    Region </ion-button> -->
+<!-- 
+
+  <div *ngIf="photographerFlag === true">
+    <ion-button (click)="unListPhotographers()" expand="block" color="tertiary"> Show a list of Photographers
+    </ion-button>
+  </div>
+
+  <ion-button (click)="listPhotographers()" expand="block" color="tertiary"> {{ showPhotographers ? 'Remove the list of
+    Photographers' : 'Show a list of Photographers' }} </ion-button> -->
+
+<!--     
+  <div *ngIf="regionFlag === false">
+    <ion-button (click)="listRegions()" expand="block" color="tertiary"> Show a list of Regions </ion-button>
+  </div>
+  <div *ngIf="regionFlag === true">
+    <ion-button (click)="removeRegions()" expand="block" color="tertiary"> Remove a list of Regions </ion-button>
+  </div> -->
+
+
+  <div *ngIf="regionFlag === true">
+    <ion-list>
+
+      <ion-list-header>
+        View Photographers by Region
+      </ion-list-header>
+      <div *ngFor="let region of regions">
+
+        <ion-item>
+          <ion-buttons (click)="showPhotographersInRegion(region.ID)">
+            <ion-label>
+              <h2>{{region.Name}}</h2>
+              <!-- <h3>{{region.ID}}</h3> -->
+              <!--   <p>Region: {{photoPeep.Region}}</p> -->
+            </ion-label>
+          </ion-buttons>
+        </ion-item>
+
+      </div>
+    </ion-list>
+
+  </div>
+
+
+  <div *ngIf="showPhotographers === true">
+    <ion-list>
+
+
+      <ion-list-header>
+        Click on a Photographer
+      </ion-list-header>
+
+      <div *ngFor="let photoPeep of photoPeeps">
+        <ion-buttons (click)="showPhotographer(photoPeep)">
+
+          <ion-item>
+            <ion-avatar slot="start">
+              <!-- <div *ngIf="{{photoPeep.name}} === 'Bobby Whittemore'"> -->
+              <img src="../../../../../assets/img/photographers/boredgator.png">
+              <!-- </div> -->
+            </ion-avatar>
+            <ion-label>
+              <h2>{{photoPeep.Company}}</h2>
+              <h3>{{photoPeep.name}}</h3>
+              <p>Region: {{photoPeep.Region}}</p>
+            </ion-label>
+          </ion-item>
+        </ion-buttons>
+      </div>
+
+    </ion-list>
+  </div>
+
+
+
+
+
+  <ion-card>
+
+  </ion-card>
+
+  <div *ngIf="singlePhotoBool === true">
+
+
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-subtitle>
+          <ion-grid>
+            <ion-row>
+              <ion-col>{{photographerName}}
+
+              </ion-col>
+              <ion-col>
+
+              </ion-col>
+              <ion-col>@{{photographerUserName}}</ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-subtitle>
+        <ion-card-title>{{photographerCompany}}</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <p>Region: {{photographerRegion}}</p>
+        <br>
+        <p>Price: {{photographerPrice}}/hr</p>
+        <br>
+        <p>Email: {{photographerEmail}}</p>
+        <br>
+        <p>Phone: {{photographerPhone}}</p>
+        <br>
+        <p>Website: {{photographerWebsite}}</p>
+        <br>
+        <ion-button (click)="showPrompt(photographerName, photographerCompany)" expand="block" routerDirection="forward"
+          color="secondary"> Book {{photographerName}} </ion-button>
+      </ion-card-content>
+    </ion-card>
+</div>
+
+
+    <div *ngIf="displayByRegion === true">
+      <ion-list>
+
+
+        <ion-list-header>
+          {{selectedRegion}}
+        </ion-list-header>
+
+
+        <div *ngFor="let regArr of newRegArr">
+          <!-- <div *ngIf="photographerRegion  === selectedRegion"> -->
+
+
+          <ion-item>
+            <ion-avatar slot="start">
+              <!-- <div *ngIf="{{photoPeep.name}} === 'Bobby Whittemore'"> -->
+              <img src="../../../../../assets/img/photographers/boredgator.png">
+              <!-- </div> -->
+            </ion-avatar>
+            <ion-label>
+              <h2>{{regArr.name}}</h2>
+              <h2>{{regArr.Company}}</h2>
+              <h3>{{regArr.name}}</h3>
+              <p>Region: {{regArr.Region}}</p>
+            </ion-label>
+          </ion-item>
+
+          <!-- </div> -->
+        </div>
+
+      </ion-list>
+    </div>
+
+    <!-- <ion-card>
+    <ion-item>
+      <ion-icon name="pin" slot="start"></ion-icon>
+      <ion-label>ion-item in a card, icon left, button right</ion-label>
+      <ion-button fill="outline" slot="end">View</ion-button>
+    </ion-item>
+  
+    <ion-card-content>
+      This is content, without any paragraph or header tags,
+      within an ion-card-content element.
+    </ion-card-content>
+  </ion-card>
+  
+  <ion-card>
+    <ion-item href="#" class="ion-activated">
+      <ion-icon name="wifi" slot="start"></ion-icon>
+      <ion-label>Card Link Item 1 activated</ion-label>
+    </ion-item>
+  
+    <ion-item href="#">
+      <ion-icon name="wine" slot="start"></ion-icon>
+      <ion-label>Card Link Item 2</ion-label>
+    </ion-item>
+  
+    <ion-item class="ion-activated">
+      <ion-icon name="warning" slot="start"></ion-icon>
+      <ion-label>Card Button Item 1 activated</ion-label>
+    </ion-item>
+  
+    <ion-item>
+      <ion-icon name="walk" slot="start"></ion-icon>
+      <ion-label>Card Button Item 2</ion-label>
+    </ion-item>
+  </ion-card> -->
+
+
+
+
 </ion-content>

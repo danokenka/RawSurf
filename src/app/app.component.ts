@@ -1,11 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppState, Plugins } from '@capacitor/core';
+import { AppState, Capacitor, Plugins } from '@capacitor/core';
 import { Platform } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { AuthService } from './services/auth.service';
 // import { AppVersion } from '@ionic-native/app-version/ngx';
+// import sampleData from './data/sampleUserInfo.json';
+
+
 
 @Component({
   selector: 'app-root',
@@ -18,7 +21,7 @@ import { AuthService } from './services/auth.service';
 
 
 
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit, OnDestroy {
   ionAppName: string;
   ionPackageName: string;
   ionVersionNumber: string;
@@ -26,6 +29,11 @@ export class AppComponent implements OnInit{
 
   private authSub: Subscription;
   private previousAuthState = false;
+
+
+  // JsonUsers: any = sampleData;
+
+
   // public selectedIndex = 0;
   // public appPages = [
   //   {
@@ -51,7 +59,7 @@ export class AppComponent implements OnInit{
   // ];
   constructor(  private platform: Platform,
     private authService: AuthService,
-    private router: Router,
+    private router: Router
     // private appVersion: AppVersion
     ) {
     this.initializeApp();
@@ -60,6 +68,11 @@ export class AppComponent implements OnInit{
   
 
   initializeApp() {
+    this.platform.ready().then(() => {
+      if (Capacitor.isPluginAvailable('SplashScreen')) {
+        Plugins.SplashScreen.hide();
+      }
+    });
   //   this.platform.ready().then(() => {
   //     this.appVersion.getAppName().then(res => {
   //       this.ionAppName = res;

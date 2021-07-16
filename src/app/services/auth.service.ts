@@ -73,6 +73,18 @@ export class AuthService implements OnDestroy{
     );
   }
 
+  get token() {
+    return this._user.asObservable().pipe(
+      map(user => {
+        if (user) {
+          return user.token;
+        } else {
+          return null;
+        }
+      })
+    );
+  }
+
   get userId() {
     return this._user.asObservable().pipe(map(user => {
       if (user) {
@@ -326,10 +338,6 @@ console.log(token);
   }
 
   login(email: string, password: string) {
-    if(name !== undefined) { 
-      console.log(name);
-      // this.firstDisplayName(name)
-          }
     return this.http.post<AuthResponseData>(
       `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${
         environment.firebaseAPIKey
@@ -369,52 +377,95 @@ console.log(token);
     this._userProfile.next(userProfile);
     // this.myUserData(user.id);
     // this.autoLogout(userProfile.tokenDuration);
-      this.storeAuthData(
-        userData.localId, 
-        userData.email, 
-        userData.displayName, 
-        userData.photoUrl
-      );
+      // this.storeAuthData(
+      //   userData.localId, 
+      //   userData.email, 
+      //   userData.displayName, 
+      //   userData.photoUrl
+      // );
 }
 
+  // private setUserData(userData: AuthResponseData) {
+  //     const expirationTime = new Date(
+  //       new Date().getTime() + +userData.expiresIn * 1000
+  //     );
+  //     const user = new User(
+  //       userData.localId, 
+  //       userData.email, 
+  //       userData.idToken, 
+  //       expirationTime
+  //     );
+  //     this._user.next(user);
+  //     // this.myUserData(user.id);
+  //     this.autoLogout(user.tokenDuration);
+  //       this.storeAuthData(
+  //         userData.localId, 
+  //         userData.idToken, 
+  //         expirationTime.toISOString(),
+  //         userData.email
+  //       );
+  // }
+
   private setUserData(userData: AuthResponseData) {
-      const expirationTime = new Date(new Date().getTime() + (+userData.expiresIn * 1000)
-      );
-      const user = new User(
-        userData.localId, 
-        userData.email, 
-        userData.idToken, 
-        expirationTime
-      );
-      this._user.next(user);
-      // this.myUserData(user.id);
-      this.autoLogout(user.tokenDuration);
-        this.storeAuthData(
-          userData.localId, 
-          userData.idToken, 
-          expirationTime.toISOString(),
-          userData.email
-        );
+    const expirationTime = new Date(
+      new Date().getTime() + +userData.expiresIn * 1000
+    );
+    const user = new User(
+      userData.localId,
+      userData.email,
+      userData.idToken,
+      expirationTime
+    );
+    this._user.next(user);
+    this.autoLogout(user.tokenDuration);
+    this.storeAuthData(
+      userData.localId,
+      userData.idToken,
+      expirationTime.toISOString(),
+      userData.email
+    );
   }
+
+
+  
+
+  // private storeAuthData(
+  //   userId: string,
+  //   token: string,
+  //   tokenExpirationDate: string,
+  //   email: string
+  // ){
+  //   //change to string because unable to store objects.. but can store strings
+  //   const data = JSON.stringify({
+  //     userId: userId, 
+  //     token: token, 
+  //     tokenExpirationDat: tokenExpirationDate,
+  //     email: email
+  //   });
+  //   // this.myUserData = data;
+  //   Plugins.Storage.set({key: 'authData', value: data});
+  //   // console.log(this.myUserData(JSON.stringify(userId)))
+  //   // this.myUserData(userId);
+  // }
+
 
   private storeAuthData(
     userId: string,
     token: string,
     tokenExpirationDate: string,
     email: string
-  ){
-    //change to string because unable to store objects.. but can store strings
+  ) {
     const data = JSON.stringify({
-      userId: userId, 
-      token: token, 
-      tokenExpirationDat: tokenExpirationDate,
+      userId: userId,
+      token: token,
+      tokenExpirationDate: tokenExpirationDate,
       email: email
     });
-    this.myUserData = data;
-    Plugins.Storage.set({key: 'authData', value: data});
-    // console.log(this.myUserData(JSON.stringify(userId)))
-    // this.myUserData(userId);
+    Plugins.Storage.set({ key: 'authData', value: data });
   }
+
+
+
   // private storeUserData(
   //   userId: string,
   //   email: string,
