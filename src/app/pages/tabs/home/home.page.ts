@@ -22,9 +22,15 @@ export class HomePage {
   public userInfo: any;
   displayNameFlag = true;
   // private userData: UserData
-  constructor(private authService: AuthService, public alertCtrl: AlertController
- 
-    ){
+
+  AppName:string;
+PackageName:string;
+VersionCode:string|number;
+VersionNumber:string;
+
+  constructor(private authService: AuthService, public alertCtrl: AlertController)
+  {
+
   }
 
   ngOnInit() {

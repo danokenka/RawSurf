@@ -26,6 +26,7 @@ export class AppComponent implements OnInit, OnDestroy {
   ionPackageName: string;
   ionVersionNumber: string;
   ionVersionCode: string|number;
+  versionNumber: string;
 
   private authSub: Subscription;
   private previousAuthState = false;
@@ -65,6 +66,18 @@ export class AppComponent implements OnInit, OnDestroy {
     this.initializeApp();
     }
 
+
+  getAppDetails() {
+    console.log('ionViewWillEnter');
+    const aux: any = document.getElementsByTagName('META');
+    // tslint:disable-next-line:prefer-for-of
+    for (let i = 0; i < aux.length; i++) {
+     if (aux[i].name === 'version') {
+       this.versionNumber = aux[i].content;
+      }
+    }
+  }
+
   
 
   initializeApp() {
@@ -99,6 +112,7 @@ export class AppComponent implements OnInit, OnDestroy {
   //     });
   // });
     // SplashScreen.hide();
+    this.getAppDetails();
   }
 
   ngOnInit() {

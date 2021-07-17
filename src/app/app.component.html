@@ -83,17 +83,26 @@
           </ul> -->
         </ion-item>
         <ion-item>
-          <strong>App Name:</strong> {{ ionAppName }} <br>
+          <strong>App Name: &nbsp; &nbsp;</strong>  <ion-text color="dark">
+            <p>Raw Surf</p>
+          </ion-text><br>
         </ion-item>
-        <ion-item>
+        <!-- <ion-item>
           <strong>Pacakge name:</strong> {{ ionPackageName }} <br>
-        </ion-item>
+        </ion-item> -->
         <ion-item>
-          <strong>Version number:</strong> {{ ionVersionNumber }} <br>
+          <strong>Version number: &nbsp; &nbsp;</strong>      <div *ngIf="versionNumber">
+            <ion-text color="dark">
+              <p>{{versionNumber}}</p>
+            </ion-text>
+          </div> <br>
         </ion-item>
-        <ion-item>
+        <!-- <ion-item>
           <strong>Version code:</strong> {{ ionVersionCode }}
         </ion-item>
+        <ion-item>
+     
+        </ion-item> -->
 
         <!-- <ion-item>     
           <p>App Version</p>

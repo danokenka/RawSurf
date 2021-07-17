@@ -31,6 +31,9 @@ public myUid: string;
 public myUserId;
 public myToken;
 public userInfo;
+
+
+
   constructor(public router: Router, public alertCtrl: AlertController, public authService: AuthService, private loadingCtrl: LoadingController
     // private userData: UserData
     ) {}
@@ -49,6 +52,7 @@ public userInfo;
     //  this.getDisplayName();
     // this.getUserStuff();
   }
+
 
 
   ngOnInit() {

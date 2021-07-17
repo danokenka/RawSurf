@@ -53,7 +53,6 @@ import { Storage } from '@ionic/storage-angular';
   ],
   providers: [
     EmailComposer,
-    // AppVersion,
     Storage,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy}],
     
