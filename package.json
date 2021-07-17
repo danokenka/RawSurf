@@ -1,8 +1,8 @@
 {
   "name": "RawSurf",
   "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "https://ionicframework.com/",
+  "author": "Daniel Okenka",
+  "homepage": "https://www.linkedin.com/in/danielokenka/",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -19,6 +19,7 @@
     "@angular/forms": "~11.2.0",
     "@angular/platform-browser": "~11.2.0",
     "@angular/platform-browser-dynamic": "~11.2.0",
+    "@angular/pwa": "~12.1.2",
     "@angular/router": "~11.2.0",
     "@angular/service-worker": "~11.2.0",
     "@capacitor/android": "^2.4.7",

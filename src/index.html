@@ -19,7 +19,41 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
   <link rel="manifest" href="manifest.webmanifest">
   <meta name="theme-color" content="#1976d2">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#1976d2">
+	<link rel="apple-touch-icon" href="assets/icons/icon.png">
+
+  <title>Raw Surf Application</title>
+	<style>
+		body {
+			background: #fafafa;
+		}
+		#splash-screen {
+			color:white;
+			text-align:center;
+		}
+	</style>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js')
+        .then(() => console.log('service worker installed'))
+        .catch(err => console.log('Error', err));
+    }
+  </script>
+
 </head>
+
+
+<!-- <body id="body" class="sapUiBody">
+  <app-root></app-root>
+	<div id="splash-screen">
+		<h1>Raw Surf as a Progressive Web Application</h1>
+		<img src="src/assets/img/logo.png">
+		<p>Welcome to Raw Surf. Stop having your friends stay outa the water and capture your waves with a mobile phone.</p>
+	</div>
+</body> -->
+
 
 <body>
   <app-root></app-root>

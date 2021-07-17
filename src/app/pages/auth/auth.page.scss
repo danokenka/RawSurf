@@ -1,3 +1,18 @@
 // .myToolBar {
 //     padding-top: 30px;
 // }
+
+// ion-input::shadow input {
+//     color: var(--ion-color-primary);
+//   }
+
+ion-input {
+    --placeholder-color: white;
+}
+
+// .warning {
+//     padding-left: 15px;
+// }
+.ion-text-center {
+    padding-left: 15px;
+}

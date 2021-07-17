@@ -22,6 +22,7 @@ export interface AuthResponseData {
   displayName: string;
   photoUrl: string;
   users: any;
+  password: string;
 
 }
 
@@ -316,6 +317,37 @@ console.log(token);
   ).pipe(tap(this.setUserProfileData.bind(this))
   );
 }
+
+updateUserPassword(token: string, password: string){
+  console.log(token);
+    if (password) {
+   
+      console.log(password);
+    }
+    console.log(password);
+    return this.http.post<AuthResponseData>(
+      `https://identitytoolkit.googleapis.com/v1/accounts:update?key=${
+      environment.firebaseAPIKey
+    }`, {idToken: token, password: password, returnSecureToken: true}, 
+    ).pipe(tap(this.setUserProfileData.bind(this))
+    );
+  }
+  
+  passwordReset(requestType: string, email: string){
+    console.log(requestType);
+    console.log(email);
+      if (email) {
+     
+        console.log(email);
+      }
+      console.log(email);
+      return this.http.post<AuthResponseData>(
+        `https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=${
+        environment.firebaseAPIKey
+      }`, {requestType: requestType, email: email}, 
+      ).pipe(tap(this.setUserProfileData.bind(this))
+      );
+    }
 
   signup(email: string, password: string, name?: string) {
 //     if(name !== undefined) { 

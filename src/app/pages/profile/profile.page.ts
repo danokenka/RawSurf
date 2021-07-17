@@ -428,6 +428,85 @@ doRefresh(event) {
   }  
 
 
+  async showPasswordPrompt() {  
+    const prompt = await this.alertCtrl.create({  
+      header: 'Change Your Password',  
+      message: 'Enter a new Password',  
+      inputs: [  
+        {  
+          name: 'password',  
+          type: 'text',  
+          placeholder: 'New Password'  
+        },  
+      ],  
+      buttons: [  
+        {  
+          text: 'Cancel',  
+          handler: data => {  
+            console.log('Cancel clicked');  
+          }  
+        },  
+        {  
+          text: 'Save',  
+          handler: data => {  
+            console.log('Saved clicked');  
+            console.log(data.name);  
+            // this.changeDisplayFromPrompt(data.name);
+            // this.authService.updateTheUser(data.name);
+            this.resetPassword(data.password);
+            // this.router.navigate(['/profile']);
+            // this.ionViewWillEnter();
+          }  
+        }  
+      ]  
+    });  
+    await prompt.present();  
+  }  
+
+
+  resetPassword(password: string) {
+    let authObs: Observable<AuthResponseData>
+    authObs = this.authService.updateUserPassword(this.myToken, password);
+    authObs.subscribe(resData => {
+      console.log(resData);
+      console.log(resData.localId);
+      console.log(resData.password);
+      // this.myName = resData.displayName;
+     
+    //  this.retrieveUserInfo();
+      // this.myDisplayName = resData.displayName;
+      // // this.setTheDisplayName(this.myDisplayName);
+      // console.log(this.myDisplayName);
+      
+  
+    
+      
+  
+      // this.router.navigateByUrl('/tabs/home');
+  
+  
+     
+      
+    }, errRes => {
+      console.log(errRes);
+      // loadingEl.dismiss();
+      const code = errRes.error.error.message;
+      let message = 'No Token Passed';
+      if (code === 'INVALID_ID_TOKEN') {
+        message = 'This email address already exists!';
+      } else if (code === 'EMAIL_NOT_FOUND') {
+        message = 'E-Mail address could not be found.';
+      } else if (code === 'INVALID_PASSWORD') {
+        message = 'The password is not correct.';
+      }
+      this.showAlert(message);
+    });
+  
+  
+  }
+
+
+
 //   changeDisplayFromPrompt(name: string) {
 //     // var user = firebase.auth().currentUser;
 

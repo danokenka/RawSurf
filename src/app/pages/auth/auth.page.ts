@@ -296,6 +296,76 @@ private showAlert(message: string) {
 }
 
 
+
+async forgotPasswordPrompt() {  
+  const prompt = await this.alertCtrl.create({  
+    header: 'Forgot Password',  
+    message: 'To reset password please enter the email which was used to register',  
+    inputs: [  
+      {  
+        name: 'email',  
+        type: 'email',  
+        placeholder: 'email'  
+      },  
+    ],  
+    buttons: [  
+      {  
+        text: 'Cancel',  
+        handler: data => {  
+          console.log('Cancel clicked');  
+        }  
+      },  
+      {  
+        text: 'Send',  
+        handler: data => {  
+          console.log('Saved clicked');  
+          console.log(data.name);  
+          // this.changeDisplayFromPrompt(data.name);
+          // this.authService.updateTheUser(data.name);
+          this.forgotPassword(data.email)
+          // this.router.navigate(['/profile']);
+          // this.ionViewWillEnter();
+        }  
+      }  
+    ]  
+  });  
+  await prompt.present();  
+}  
+
+async presentToast() {
+  const toast = await this.toastCtrl.create({
+    message: 'Successfully sent email password reset',
+    duration: 4000
+  });
+  toast.present();
+}
+
+forgotPassword(email: string) {
+
+  let authObs: Observable<AuthResponseData>
+  authObs = this.authService.passwordReset("PASSWORD_RESET", email);
+  authObs.subscribe(resData => {
+    console.log(resData);
+    console.log(resData.email);
+    this.presentToast()
+  }, errRes => {
+    console.log(errRes);
+    // loadingEl.dismiss();
+    const code = errRes.error.error.message;
+    let message = 'No Token Passed';
+    if (code === 'EMAIL_NOT_FOUND') {
+      message = 'E-Mail address could not be found.';
+    } else if (code === 'INVALID_EMAIL') {
+      message = 'Please enter a valid email';
+    }
+    this.showAlert(message);
+  });
+
+
+
+  
+}
+
 // saveAuthData(resData: any) {
 //   console.log(resData);
 
