@@ -1,0 +1,32 @@
+.photographer-card {
+
+    // left: 0;
+    // top: 0;
+    // width: 100%;
+    // height: 100%;
+    // opacity: 0.2;
+    // background-image: url('../../../../../assets/img/background-wave.png');
+    // background-repeat: repeat;
+    // background-position: 50% 0;
+    // background-size: cover;
+}
+
+.demo-bg {
+    opacity: 0.6;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: auto;
+    background-size: cover;
+  }
+  :host {
+    ion-content {
+       --background: url('../../../../../assets/img/background-wave.png');
+
+        // background-image: url('../../../../../assets/img/background-wave.png');
+    // --background-repeat: repeat;
+    // --background-position: 50% 0;
+    // --background-size: cover;
+    }
+  }

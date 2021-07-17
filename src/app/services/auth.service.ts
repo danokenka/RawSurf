@@ -347,7 +347,9 @@ updateUserPassword(token: string, password: string){
       }`, {requestType: requestType, email: email}, 
       ).pipe(tap(this.setUserProfileData.bind(this))
       );
+      
     }
+    
 
   signup(email: string, password: string, name?: string) {
 //     if(name !== undefined) { 

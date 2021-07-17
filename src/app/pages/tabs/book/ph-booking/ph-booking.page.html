@@ -173,7 +173,7 @@
           <ion-item>
             <ion-avatar slot="start">
               <!-- <div *ngIf="{{photoPeep.name}} === 'Bobby Whittemore'"> -->
-              <img src="../../../../../assets/img/photographers/boredgator.png">
+              <img src="{{photoPeep.pic}}">
               <!-- </div> -->
             </ion-avatar>
             <ion-label>
@@ -198,9 +198,16 @@
 
   <div *ngIf="singlePhotoBool === true">
 
+    <div class="photographer-card">
 
-
-    <ion-card>
+    <ion-card >
+<!--    
+        <img
+        class="demo-bg"
+        src="../../../../../assets/img/background-wave.png"
+        alt=""
+      > -->
+ 
       <ion-card-header>
         <ion-card-subtitle>
           <ion-grid>
@@ -227,12 +234,90 @@
         <br>
         <p>Phone: {{photographerPhone}}</p>
         <br>
-        <p>Website: {{photographerWebsite}}</p>
-        <br>
         <ion-button (click)="showPrompt(photographerName, photographerCompany)" expand="block" routerDirection="forward"
-          color="secondary"> Book {{photographerName}} </ion-button>
+        color="secondary"> Book {{photographerName}} </ion-button>
+        <br>
+        <ion-item> <img src="{{photographerPic}}"></ion-item>
+        <br>
+
+    
+        <ion-item color="clear">
+
+          <ion-grid>
+            <ion-row>
+             <ion-col></ion-col>
+             <ion-col></ion-col>
+             <ion-col></ion-col>
+             <ion-col size="auto"> <p>Connect with {{photographerName}}</p>
+            </ion-col>
+            <ion-col></ion-col>
+              <ion-col></ion-col>
+              <ion-col></ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col></ion-col>
+              <ion-col>
+                <div class="social-icons" (click)="socialMedia('FACEBOOK')">
+                  <ion-icon name="logo-facebook"></ion-icon>
+                </div>
+            </ion-col>
+            <ion-col></ion-col>
+              <ion-col>
+                <div class="social-icons" (click)="socialMedia('INSTAGRAM')">
+                <ion-icon name="logo-instagram"></ion-icon>
+              </div>
+            </ion-col>
+            <ion-col></ion-col>
+              <ion-col>  <div class="social-icons" (click)="socialMedia('TWITTER')">
+                <ion-icon name="logo-twitter"></ion-icon>
+              </div>
+            </ion-col>
+            <ion-col></ion-col>
+              <ion-col> 
+                <div class="social-icons" (click)="socialMedia('YOUTUBE')">
+                <ion-icon name="logo-youtube"></ion-icon>
+              </div>
+            </ion-col>
+            <ion-col></ion-col>
+              <ion-col><div class="social-icons" (click)="socialMedia('VENMO')">
+                <ion-icon name="logo-venmo"></ion-icon>
+              </div>
+            </ion-col>
+              <ion-col></ion-col>
+        
+            </ion-row>
+        
+            <!-- <ion-row>   
+              <ion-col></ion-col>
+              <ion-col size="auto">
+                <ion-img src ="assets/img/icon.png"></ion-img>
+              </ion-col>
+              <ion-col></ion-col>
+            </ion-row> -->
+        
+            </ion-grid>
+        </ion-item>
+        <ion-item color="clear">
+          
+          <ion-grid>
+            <ion-row>
+             <ion-col></ion-col>
+             <ion-col><ion-button (click)="openWebsite(photographerWebsiteWebsite)" fill="clear"
+              color="secondary"> <ion-text color="light">{{photographerName}}'s &nbsp;</ion-text> Website </ion-button></ion-col>
+             <ion-col></ion-col>
+             </ion-row>
+             </ion-grid>
+             
+             <p></p></ion-item>
+  <br>
+ 
+  <br>
+
+          
       </ion-card-content>
+  
     </ion-card>
+  </div>
 </div>
 
 
@@ -252,7 +337,7 @@
           <ion-item>
             <ion-avatar slot="start">
               <!-- <div *ngIf="{{photoPeep.name}} === 'Bobby Whittemore'"> -->
-              <img src="../../../../../assets/img/photographers/boredgator.png">
+              <img src="../../../../../assets/img/photographers/{{regArr}}">
               <!-- </div> -->
             </ion-avatar>
             <ion-label>

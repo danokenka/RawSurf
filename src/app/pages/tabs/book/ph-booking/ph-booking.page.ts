@@ -7,6 +7,9 @@ import { EmailComposer } from '@ionic-native/email-composer/ngx';
 import photographerData from '../../../../data/Photographer-test-data.json';
 //  import { PhotographerObject } from "/Users/dano/Hybrid Dev/IonicDev/RawSurf/src/app/interfaces/photographer";
  import { PhotographersArray } from "/Users/dano/Hybrid Dev/IonicDev/RawSurf/src/app/interfaces/photographer";
+ import { Plugins } from '@capacitor/core';
+
+ const { Browser } = Plugins;
 
  export enum RegionEnum {
   "CF" = "Central Florida",
@@ -56,6 +59,8 @@ this.listPhotographers();
   displayByRegion = false;
   selectedRegion: string;
   selectedRegionCode: string;
+  photographerPic: string;
+
   regionalArray : Array<{Company: string,
     id: string,
     Image: string,
@@ -183,6 +188,7 @@ this.listPhotographers();
     this.photographerCompany = selectedPhotographer['Company'];
     this.photographerPrice = selectedPhotographer['Price'];
     this.photographerRegionCode = selectedPhotographer['Region'];
+    this.photographerPic = selectedPhotographer['pic'];
     console.log(this.photographerRegionCode);
     // console.log(RegionEnum.CF);
     // console.log(RegionEnum["CF"]);
@@ -302,6 +308,16 @@ this.listPhotographers();
     console.log( this.regionalArray);
     console.log( this.restoreRegionalArray);
   }
+
+
+
+  async openWebsite(websiteUrl: string) {
+  
+    // On iOS, for example, open the URL in SFSafariViewController (the in-app browser)
+    await Browser.open({ url: websiteUrl });
+  }
+
+
 }
 
 //    /**

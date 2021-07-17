@@ -82,3 +82,25 @@
 .avatarPadding {
   padding-left: 5px;
 }
+:host {
+  ion-content {
+     --background: url('../../../../assets/img/homenbackground.png');
+      // background-image: url('../../../../../assets/img/background-wave.png');
+  // --background-repeat: repeat;
+  // --background-position: 50% 0;
+  // --background-size: cover;
+  }
+}
+.twitter {
+  color:#5DA9DD;
+}
+.venmo {
+  color: #3F94D0;
+}
+.youtube {
+  color: #FF0100;
+  opacity: .5;
+}
+.insta{
+  color: #C83A9A
+}

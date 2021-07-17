@@ -165,16 +165,21 @@
 
 
   <div class="theRest">
+    <ion-card>
     <ion-grid class="content">
     <ion-text>
-      <ion-row>            <ion-col class="hello" size="auto"> Hello, </ion-col>
+      <ion-row>     <ion-col></ion-col>       <ion-col class="hello" size="auto"> Hello, </ion-col>
         <ion-col size="auto">
           <ion-buttons routerLink="/profile" routerDirection="forward" color="clear">
-            <div class="userName">{{ myName }}</div>
+            <div *ngIf="myName">
+              <div class="userName">{{ myName }}</div>
+            </div>
+          
           </ion-buttons>
         
         
         </ion-col>
+        <ion-col></ion-col>    
      
       </ion-row>
 
@@ -182,6 +187,7 @@
 
     </ion-text>
   </ion-grid>
+  </ion-card>
 
 <!-- <ion-card color="secondary"> -->
 
@@ -232,13 +238,13 @@
   </ion-grid>
 </ion-card> -->
 
-<ion-card color="tertiary">
+<ion-card >
   <ion-grid>
     <ion-row>
      <ion-col></ion-col>
      <ion-col></ion-col>
      <ion-col></ion-col>
-     <ion-col size="auto"> <p>Raw Surf Links:</p>
+     <ion-col size="auto"> <h2><ion-text color="tertiary">Raw Surf Links:</ion-text></h2>
     </ion-col>
     <ion-col></ion-col>
       <ion-col></ion-col>
@@ -248,29 +254,29 @@
       <ion-col></ion-col>
       <ion-col>
         <div class="social-icons" (click)="socialMedia('FACEBOOK')">
-          <ion-icon name="logo-facebook"></ion-icon>
+          <ion-icon name="logo-facebook" color="blue"></ion-icon>
         </div>
     </ion-col>
     <ion-col></ion-col>
       <ion-col>
         <div class="social-icons" (click)="socialMedia('INSTAGRAM')">
-        <ion-icon name="logo-instagram"></ion-icon>
+        <ion-icon class="insta" name="logo-instagram"></ion-icon>
       </div>
     </ion-col>
     <ion-col></ion-col>
       <ion-col>  <div class="social-icons" (click)="socialMedia('TWITTER')">
-        <ion-icon name="logo-twitter"></ion-icon>
+        <ion-icon class="twitter" name="logo-twitter"></ion-icon>
       </div>
     </ion-col>
     <ion-col></ion-col>
       <ion-col> 
         <div class="social-icons" (click)="socialMedia('YOUTUBE')">
-        <ion-icon name="logo-youtube"></ion-icon>
+        <ion-icon name="logo-youtube" class="youtube" ></ion-icon>
       </div>
     </ion-col>
     <ion-col></ion-col>
       <ion-col><div class="social-icons" (click)="socialMedia('VENMO')">
-        <ion-icon name="logo-venmo"></ion-icon>
+        <ion-icon class="venmo" name="logo-venmo"></ion-icon>
       </div>
     </ion-col>
       <ion-col></ion-col>
@@ -299,5 +305,6 @@
 
   </ion-grid>
 </div>
+
 
 </ion-content>
