@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { BehaviorSubject, from } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { User, UserProfile  } from '../models/user.model';
+import { MyUser, User, UserProfile  } from '../models/user.model';
 // import { UserProfile  } from '../models/user';
 import { Plugins } from '@capacitor/core';
 import firebase from 'firebase/app';
@@ -50,7 +50,10 @@ export interface TheUser {
      photoUrl:string}[];
 }
 
-
+export interface MyUserResponse {
+    email:string, 
+    displayName: string, 
+}
 
 @Injectable({
   providedIn: 'root'
@@ -58,6 +61,7 @@ export interface TheUser {
 export class AuthService implements OnDestroy{
   private _user = new BehaviorSubject<User>(null);
   private _userProfile = new BehaviorSubject<UserProfile>(null);
+  private _myuser = new BehaviorSubject<MyUser>(null);
   private activeLogoutTimer: any;
   myUserData: any;
 
@@ -123,6 +127,17 @@ export class AuthService implements OnDestroy{
     return this._userProfile.asObservable().pipe(map(userProfile => {
       if (userProfile) {
         return userProfile
+      } else {
+        return null;
+      }
+    }
+      ));
+  }
+
+  get myUser() {
+    return this._myuser.asObservable().pipe(map(myUser => {
+      if (myUser) {
+        return myUser
       } else {
         return null;
       }
@@ -224,41 +239,53 @@ export class AuthService implements OnDestroy{
 firstDisplayName(name: string) {
   console.log(name);
 
-  firebase.auth().onAuthStateChanged((user) => {
-    console.log(user);
-    if (user) {
-      user.updateProfile({
-        displayName: name,
-        // photoURL: "assets/img/logo.png"
-      }).then(function() {
-        console.log(user.displayName);
+  var user = firebase.auth().currentUser;
+user.updateProfile({
+  displayName: name
+}).then(function(response) {
+  //Success
+  console.log('the displayName was successfully written');
+}, function(error) {
+  //Error
+  console.log('the displayName was NOT successfully written');
+  console.log(error);
+});
+
+  // firebase.auth().onAuthStateChanged((user) => {
+  //   console.log(user);
+  //   if (user) {
+  //     user.updateProfile({
+  //       displayName: name,
+  //       // photoURL: "assets/img/logo.png"
+  //     }).then(function() {
+  //       console.log(user.displayName);
         
-        // Profile updated successfully!
-        // "Jane Q. User"
-        var displayName = user.displayName;
-        console.log(displayName);
-        // "https://example.com/jane-q-user/profile.jpg"
-        console.log(user.photoURL);
-        var photoURL = user.photoURL;
-        console.log(user.photoURL);
-      }, function(error) {
-        // An error happened.
-      });
+  //       // Profile updated successfully!
+  //       // "Jane Q. User"
+  //       var displayName = user.displayName;
+  //       console.log(displayName);
+  //       // "https://example.com/jane-q-user/profile.jpg"
+  //       console.log(user.photoURL);
+  //       var photoURL = user.photoURL;
+  //       console.log(user.photoURL);
+  //     }, function(error) {
+  //       // An error happened.
+  //     });
       
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/firebase.User
-      console.log(user);
-      // var uid = user.uid;
-      // this.userData.setDisplayName(user.displayName);
-      // this.userData.setPhotoUrl(user.photoURL);
-      // this.userData.setUid(user.uid);
+  //     // User is signed in, see docs for a list of available properties
+  //     // https://firebase.google.com/docs/reference/js/firebase.User
+  //     console.log(user);
+  //     // var uid = user.uid;
+  //     // this.userData.setDisplayName(user.displayName);
+  //     // this.userData.setPhotoUrl(user.photoURL);
+  //     // this.userData.setUid(user.uid);
      
-      // ...
-    } else {
-      // User is signed out
-      // ...
-    }
-  });
+  //     // ...
+  //   } else {
+  //     // User is signed out
+  //     // ...
+  //   }
+  // });
 
 // Passing a null value will delete the current attribute's value, but not
 // passing a property won't change the current attribute's value:
@@ -351,16 +378,15 @@ updateUserPassword(token: string, password: string){
     }
     
 
-  signup(email: string, password: string, name?: string) {
+  signup(email: string, password: string) {
 //     if(name !== undefined) { 
 // console.log(name);
 // this.firstDisplayName(name)
 //     }
-    if (name) {
-      this.firstDisplayName(name);
-      console.log(name);
-    }
-    console.log(name);
+    // if (name) {
+    //   this.firstDisplayName(name);
+    //   console.log(name);
+    // }
     return this.http.post<AuthResponseData>(
       `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${
       environment.firebaseAPIKey
@@ -460,7 +486,15 @@ updateUserPassword(token: string, password: string){
     );
   }
 
-
+  public setMyUser(email: string, displayName: string) {
+    const myUser = new MyUser(
+      email,
+      displayName
+    );
+    this._myuser.next(myUser);
+    console.log(myUser);
+    Plugins.Storage.set({ key: 'displayName', value: myUser.displayName });
+  }
   
 
   // private storeAuthData(

@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Plugins } from '@capacitor/core';
 import { LoadingController,AlertController, ToastController } from '@ionic/angular';
 // import * as firebase from 'firebase';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 
@@ -12,6 +12,12 @@ import { AuthService, AuthResponseData } from 'src/app/services/auth.service';
 
 import { UserData } from 'src/app/services/user.data';
 import { FirebaseService } from 'src/app/services/firebase.service';
+import { UserProfile } from 'src/app/models/user.model';
+
+export interface MyUserResponse {
+  email:string, 
+  displayName: string, 
+}
 
 @Component({
   selector: 'app-auth',
@@ -105,9 +111,31 @@ return this.myDisplayName;
     });
   }
 
+  // openTryFunction(email: string, password: string, name?: string) {
+  //   let authObs: any
+  //   authObs = this.authService.signup(email, password, name)
+  //   .subscribe(
+  //     () => this.authService.firstDisplayName(name)
+  //   );
+  //   console.log(authObs);
+    
+  // }
 
+  openTryFunction(email: string, password: string, name?: string) {
+    let authObs = this.authService.signup(email, password)
+    console.log();
+    return authObs
+  }
+
+
+  setMyUser(email: string, name: string) {
+    console.log(email);
+    console.log(name);
+    this.authService.setMyUser(email, name);
+  }
 
   authenticate(email: string, password: string, name?: string) {
+    this.setMyUser(email, name);
     this.isLoading = true;
     this.loadingCtrl
       .create({ keyboardClose: true, message: 'Logging in...' })
@@ -118,16 +146,18 @@ return this.myDisplayName;
           authObs = this.authService.login(email, password);
           // this.firebaseLogin(email, password);
         } else {
-          authObs = this.authService.signup(email, password, name);
+          authObs = this.openTryFunction(email, password);
+          // authObs = this.authService.signup(email, password, name);
           console.log(name);
+
         }
         authObs.subscribe(resData => {
           console.log(resData);
           console.log(resData.localId);
-          console.log(resData.displayName);
+          // console.log(resData.displayName);
          
-          this.myDisplayName = resData.displayName;
-          console.log(this.myDisplayName);
+          // this.myDisplayName = resData.displayName;
+          // console.log(this.myDisplayName);
           this.userData.createStorage();
           this.userData.setEmail(resData.email);
           this.userData.setlocalId(resData.localId);
@@ -138,7 +168,7 @@ return this.myDisplayName;
           if (name) {
             console.log("this is the name " + name);
             this.writeUserData(resData.localId, name, resData.email);
-            this.authService.updateTheUser(resData.idToken, name);
+            // this.authService.updateTheUser(resData.idToken, name);
             // this.userData.setFirebaseName(name);
           } else {
             
@@ -158,6 +188,8 @@ return this.myDisplayName;
           loadingEl.dismiss();
           // this.writeUserData(resData.localId, resData.displayName, resData.email);
           // this.add(resData);
+          // this.authService.updateTheUser(resData.idToken, name);
+          // this.authService.firstDisplayName(name);
           this.router.navigateByUrl('/tabs/home');
      
           // this.userData.createStorage(resData.email);

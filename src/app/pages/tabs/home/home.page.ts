@@ -17,6 +17,7 @@ const { Browser } = Plugins;
 })
 export class HomePage {
   public myName: string;
+  public tempDisplayName: string;
   public myUid: string;
   public myToken;
   public userInfo: any;
@@ -34,6 +35,9 @@ VersionNumber:string;
   }
 
   ngOnInit() {
+    console.log(this.myName);
+    console.log(this.myName);
+    console.log("NG on it called");
     this.authUserId();
     // this.myName = JSON.stringify(firebase.auth().currentUser.displayName);
 //   this.userData.getDisplayName().then((result) => {
@@ -50,6 +54,86 @@ ionViewDidEnter() {
 // getToken() {
 //  return this.userData.getIdToken();
 // }
+
+authMyUser() {
+  this.authService.myUser.subscribe(data => {
+    if (data != null) {
+      let dName = data['displayName'];
+      if (dName) {
+        console.log("Received data: ", data);
+        console.log(data['email']);
+        console.log(data['displayName']);
+         this.tempDisplayName = data.displayName;
+         console.log(this.myName);
+      } else {
+        console.log("user has no displayName");
+        
+      }
+
+    } else {
+      console.log("my user data was null");
+      // this.authService.autoLogin();
+      // this.userData.getIdToken();
+      // console.log( this.userData.getIdToken());
+    }
+
+  
+  })
+ 
+}
+
+setTheDisplayName(token: string) {
+  this.authMyUser();
+  let authObs: Observable<AuthResponseData>
+  authObs = this.authService.updateTheUser(token, this.tempDisplayName);
+  authObs.subscribe(resData => {
+    console.log(resData);
+    console.log(resData.localId);
+    console.log(resData.displayName);
+
+    let n = resData.displayName;
+
+    if (n) {
+      this.myName = resData.displayName;
+    } else {
+      this.showDisplayNamePrompt();
+    }
+   
+
+
+ 
+    // this.myDisplayName = resData.displayName;
+    // // this.setTheDisplayName(this.myDisplayName);
+    // console.log(this.myDisplayName);
+    
+
+  
+    
+
+    // this.router.navigateByUrl('/tabs/home');
+
+
+   
+    
+  }, errRes => {
+    console.log(errRes);
+    // loadingEl.dismiss();
+    const code = errRes.error.error.message;
+    let message = 'No Token Passed';
+    if (code === 'INVALID_ID_TOKEN') {
+      message = 'This email address already exists!';
+    } else if (code === 'EMAIL_NOT_FOUND') {
+      message = 'E-Mail address could not be found.';
+    } else if (code === 'INVALID_PASSWORD') {
+      message = 'The password is not correct.';
+    }
+    this.showAlert(message);
+  });
+  // this.authMyUser();
+  // console.log(this.tempDisplayName);
+  // this.authService.updateTheUser(token, this.tempDisplayName);
+  // this.retrieveUserInfo();
+}
      
 
      authUserId() {
@@ -63,6 +147,7 @@ ionViewDidEnter() {
           console.log(this.myToken);
           console.log(data['email']);
           console.log(data['tokenDuration']);
+          this.retrieveUserInfo();
         } else {
           // console.log("data was null");
           // this.authService.autoLogin();
@@ -74,7 +159,8 @@ ionViewDidEnter() {
       })
       
       // this.showUserInfo();
-     this.retrieveUserInfo();
+  // this.setTheDisplayName(this.myToken);
+ 
       // this.getUserStuff();
       }
       
@@ -135,7 +221,7 @@ ionViewDidEnter() {
     }
 
     retrieveUserInfo() {
-      
+      console.log("retireve called");
       let authObs: Observable<AuthResponseData>
       
   authObs = this.authService.getUserData(this.myToken);
@@ -145,12 +231,19 @@ ionViewDidEnter() {
     console.log(resData.users[0].localId);
     console.log(resData.users[0].displayName);
 
-    this.myName = resData.users[0].displayName;
+    let displayName = resData.users[0].displayName;
 
 
 
-    if (this.myName === "") {
+    if (displayName) {
+
+    this.myName = displayName;
+      this.displayNameFlag = true;
+      console.log(this.displayNameFlag)
+    } else {
       this.displayNameFlag = false;
+      console.log(this.displayNameFlag)
+      this.setTheDisplayName(this.myToken);
     }
    
     // this.myDisplayName = resData.displayName;
@@ -230,6 +323,87 @@ ionViewDidEnter() {
         buttons: ['Okay']
       }).then(alertEl => alertEl.present());
   }
+
+
+  async showDisplayNamePrompt() {  
+    const prompt = await this.alertCtrl.create({  
+      header: 'No DisplayName Set!',  
+      message: 'Enter a Display name',  
+      inputs: [  
+        {  
+          name: 'name',  
+          type: 'text',  
+          placeholder: 'DisplayName'  
+        },  
+      ],  
+      buttons: [  
+        {  
+          text: 'Cancel',  
+          handler: data => {  
+            console.log('Cancel clicked');  
+          }  
+        },  
+        {  
+          text: 'Save',  
+          handler: data => {  
+            console.log('Saved clicked');  
+            console.log(data.name);  
+            // this.changeDisplayFromPrompt(data.name);
+            // this.authService.updateTheUser(data.name);
+            this.resetDisplayName(data.name);
+            // this.router.navigate(['/profile']);
+            // this.ionViewWillEnter();
+          }  
+        }  
+      ]  
+    });  
+    await prompt.present();  
+  }  
+
+
+  resetDisplayName(displayName: string) {
+    let authObs: Observable<AuthResponseData>
+    authObs = this.authService.updateTheUser(this.myToken, displayName);
+    authObs.subscribe(resData => {
+      console.log(resData);
+      console.log(resData.localId);
+      console.log(resData.displayName);
+      this.myName = resData.displayName;
+     
+     this.retrieveUserInfo();
+      // this.myDisplayName = resData.displayName;
+      // // this.setTheDisplayName(this.myDisplayName);
+      // console.log(this.myDisplayName);
+      
+  
+    
+      
+  
+      // this.router.navigateByUrl('/tabs/home');
+  
+  
+     
+      
+    }, errRes => {
+      console.log(errRes);
+      // loadingEl.dismiss();
+      const code = errRes.error.error.message;
+      let message = 'No Token Passed';
+      if (code === 'INVALID_ID_TOKEN') {
+        message = 'This email address already exists!';
+      } else if (code === 'EMAIL_NOT_FOUND') {
+        message = 'E-Mail address could not be found.';
+      } else if (code === 'INVALID_PASSWORD') {
+        message = 'The password is not correct.';
+      }
+      this.showAlert(message);
+    });
+  
+  
+  }
+
+
+
   
 
 
