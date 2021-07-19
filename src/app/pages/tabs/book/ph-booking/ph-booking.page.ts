@@ -92,6 +92,12 @@ this.listPhotographers();
       }).then(alertEl => alertEl.present());
   }
 
+
+
+  toggleSingleBool() {
+this.singlePhotoBool = false;
+this.showPhotographers = true;
+  }
   
   async showPrompt(name: string, company: string) {  
     const prompt = await this.alertCtrl.create({  

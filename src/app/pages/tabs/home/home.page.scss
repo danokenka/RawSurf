@@ -82,15 +82,16 @@
 .avatarPadding {
   padding-left: 5px;
 }
-:host {
-  ion-content {
-     --background: url('../../../../assets/img/homenbackground.png');
-      // background-image: url('../../../../../assets/img/background-wave.png');
-  // --background-repeat: repeat;
-  // --background-position: 50% 0;
-  // --background-size: cover;
-  }
-}
+// :host {
+//   ion-content {
+//     //  --background: url('../../../../assets/img/homenbackground.png');
+//      --background: #262626;
+//       // background-image: url('../../../../../assets/img/background-wave.png');
+//   // --background-repeat: repeat;
+//   // --background-position: 50% 0;
+//   // --background-size: cover;
+//   }
+// }
 .twitter {
   color:#5DA9DD;
 }

@@ -1,8 +1,12 @@
 <ion-header>
   <ion-toolbar>
+
+    <div *ngIf="showPhotographers === true">
     <ion-buttons slot="start">
       <ion-back-button defaultHref="tabs"></ion-back-button>
     </ion-buttons>
+
+</div>
     <ion-title>Surf Photo Session</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -105,6 +109,20 @@
 
 <ion-content padding>
 
+    <div class="back-button" *ngIf="singlePhotoBool === true">
+  
+      <ion-button 
+      type="button" 
+      color="secondary" 
+      fill="clear" 
+      expand="block"
+      (click)="toggleSingleBool()"><ion-text color="primary">Back to List of Photographers</ion-text>
+      </ion-button>
+      </div>
+  
+
+
+
   <!-- <ion-button (click)="sendEmail()" expand="block" color="tertiary"> Book </ion-button>  -->
   <!-- <ion-button expand="block" color="tertiary"> Book </ion-button>  -->
 
@@ -160,17 +178,18 @@
 
 
   <div *ngIf="showPhotographers === true">
+
     <ion-list>
 
 
-      <ion-list-header>
+      <ion-list-header color="secondary">
         Click on a Photographer
       </ion-list-header>
 
       <div *ngFor="let photoPeep of photoPeeps">
         <ion-buttons (click)="showPhotographer(photoPeep)">
 
-          <ion-item>
+          <ion-item color="tertiary">
             <ion-avatar slot="start">
               <!-- <div *ngIf="{{photoPeep.name}} === 'Bobby Whittemore'"> -->
               <img src="{{photoPeep.pic}}">
@@ -186,6 +205,7 @@
       </div>
 
     </ion-list>
+
   </div>
 
 
@@ -197,10 +217,9 @@
   </ion-card>
 
   <div *ngIf="singlePhotoBool === true">
-
     <div class="photographer-card">
 
-    <ion-card >
+    <ion-card>
 <!--    
         <img
         class="demo-bg"

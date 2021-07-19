@@ -9,6 +9,15 @@
     // background-repeat: repeat;
     // background-position: 50% 0;
     // background-size: cover;
+    
+}
+// .photographerList {
+//   background-color: darkorange;
+//   --ion-list-background:#c47c17d5;
+// }
+
+.back-button{
+  padding-left: 20px;
 }
 
 .demo-bg {
@@ -20,13 +29,13 @@
     height: auto;
     background-size: cover;
   }
-  :host {
-    ion-content {
-       --background: url('../../../../../assets/img/background-wave.png');
+  // :host {
+  //   ion-content {
+  //      --background: url('../../../../../assets/img/background-wave.png');
 
-        // background-image: url('../../../../../assets/img/background-wave.png');
-    // --background-repeat: repeat;
-    // --background-position: 50% 0;
-    // --background-size: cover;
-    }
-  }
+  //       // background-image: url('../../../../../assets/img/background-wave.png');
+  //   // --background-repeat: repeat;
+  //   // --background-position: 50% 0;
+  //   // --background-size: cover;
+  //   }
+  // }
