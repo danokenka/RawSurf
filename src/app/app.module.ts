@@ -18,6 +18,7 @@ import { EmailComposer } from '@ionic-native/email-composer/ngx';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Storage } from '@ionic/storage-angular';
 // import { AppVersion } from '@ionic-native/app-version/ngx';
+import { Calendar } from '@ionic-native/calendar/ngx';
 
 
   // Initialize Firebase
@@ -54,6 +55,7 @@ import { Storage } from '@ionic/storage-angular';
   providers: [
     EmailComposer,
     Storage,
+    Calendar,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy}],
     
   bootstrap: [AppComponent],

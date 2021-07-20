@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: PhBookingPage
+  },
+  {
+    path: 'create-booking',
+    loadChildren: () => import('./create-booking/create-booking.module').then( m => m.CreateBookingPageModule)
   }
 ];
 

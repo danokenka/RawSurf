@@ -8,6 +8,7 @@ import photographerData from '../../../../data/Photographer-test-data.json';
 //  import { PhotographerObject } from "/Users/dano/Hybrid Dev/IonicDev/RawSurf/src/app/interfaces/photographer";
  import { PhotographersArray } from "/Users/dano/Hybrid Dev/IonicDev/RawSurf/src/app/interfaces/photographer";
  import { Plugins } from '@capacitor/core';
+import { Router } from '@angular/router';
 
  const { Browser } = Plugins;
 
@@ -25,7 +26,7 @@ import photographerData from '../../../../data/Photographer-test-data.json';
 })
 export class PhBookingPage{
 
-  constructor(private emailComposer: EmailComposer, public alertCtrl: AlertController) { }
+  constructor(private emailComposer: EmailComposer, public alertCtrl: AlertController,  private router: Router) { }
 
 
   ngOnInit() {
@@ -247,6 +248,7 @@ this.showPhotographers = true;
 
 
   bookPhotographer() {
+    this.router.navigateByUrl('/tabs/book/ph-booking/create-booking');
     console.log("bookPhotographer was clicked");
     this.regionFlag = false;
     this.showPhotographers = false;
