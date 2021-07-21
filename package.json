@@ -36,6 +36,9 @@
     "cordova-plugin-email-composer": "^0.9.2",
     "firebase": "^8.4.3",
     "firebaseui": "^4.8.0",
+    "intl": "^1.2.5",
+    "ionic2-calendar": "^0.6.9",
+    "moment": "^2.29.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"

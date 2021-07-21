@@ -17,8 +17,12 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { EmailComposer } from '@ionic-native/email-composer/ngx';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Storage } from '@ionic/storage-angular';
-// import { AppVersion } from '@ionic-native/app-version/ngx';
 import { Calendar } from '@ionic-native/calendar/ngx';
+import { NgCalendarModule  } from 'ionic2-calendar';
+// import { AppVersion } from '@ionic-native/app-version/ngx';
+// import { Calendar } from '@ionic-native/calendar/ngx';
+// import { Calendar } from '@ionic-native/calendar';
+
 
 
   // Initialize Firebase
@@ -40,6 +44,7 @@ import { Calendar } from '@ionic-native/calendar/ngx';
     HttpClientModule,
     IonicModule.forRoot(), 
     AppRoutingModule,
+    NgCalendarModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     AngularFireDatabaseModule,

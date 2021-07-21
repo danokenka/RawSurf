@@ -9,8 +9,8 @@ const routes: Routes = [
     component: PhBookingPage
   },
   {
-    path: 'create-booking',
-    loadChildren: () => import('./create-booking/create-booking.module').then( m => m.CreateBookingPageModule)
+    path: 'event-modal',
+    loadChildren: () => import('./event-modal/event-modal.module').then( m => m.EventModalPageModule)
   }
 ];
 

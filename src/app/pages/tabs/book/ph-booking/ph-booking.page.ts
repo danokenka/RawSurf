@@ -1,14 +1,15 @@
 import { Component, Injectable, OnInit } from '@angular/core';
 import {  FormGroup, FormControl, Validators, FormBuilder  } from '@angular/forms';
 // import { EmailComposer } from '@ionic-native/email-composer';
-import { AlertController, NavController } from '@ionic/angular';
+import { AlertController, ModalController, NavController } from '@ionic/angular';
 import { EmailService } from '../../../../services/email.service';
 import { EmailComposer } from '@ionic-native/email-composer/ngx';
 import photographerData from '../../../../data/Photographer-test-data.json';
 //  import { PhotographerObject } from "/Users/dano/Hybrid Dev/IonicDev/RawSurf/src/app/interfaces/photographer";
- import { PhotographersArray } from "/Users/dano/Hybrid Dev/IonicDev/RawSurf/src/app/interfaces/photographer";
+ import { PhotographersArray, PhotographerObj } from "/Users/dano/Hybrid Dev/IonicDev/RawSurf/src/app/interfaces/photographer";
  import { Plugins } from '@capacitor/core';
 import { Router } from '@angular/router';
+import { EventModalPage } from './event-modal/event-modal.page';
 
  const { Browser } = Plugins;
 
@@ -26,7 +27,7 @@ import { Router } from '@angular/router';
 })
 export class PhBookingPage{
 
-  constructor(private emailComposer: EmailComposer, public alertCtrl: AlertController,  private router: Router) { }
+  constructor(private emailComposer: EmailComposer, public alertCtrl: AlertController,  private router: Router, private modalCtrl: ModalController) { }
 
 
   ngOnInit() {
@@ -34,7 +35,7 @@ this.listPhotographers();
 
      }
 
-
+   pO1: PhotographerObj;
   PhotographerObject = photographerData;
  //  photoPeeps = {};
    photoPeeps: any;
@@ -62,6 +63,34 @@ this.listPhotographers();
   selectedRegionCode: string;
   photographerPic: string;
 
+  // PhotographerPass : Array<{
+  //   id: number,
+  //   name: string,
+  //   Company: string,
+  //   Price: number,
+  //   Image: string,
+  //   RegionCode: string,
+  //   Region: string,
+  //   email: string,
+  //   phone: string,
+  //   username: string,
+  //   website: string
+  //                     }> = [];
+
+ PhotographerPass = [
+    0,
+    "John Doe",
+    "John Doe",
+    0,
+    "CF",
+    "../../../../../assets/img/photographers/icon.png",
+    "jDoe",
+    "www.johndoe.surf",
+    "johndoe234@gmail.com",
+    "Florida"
+  ]
+  
+
   regionalArray : Array<{Company: string,
     id: string,
     Image: string,
@@ -83,6 +112,8 @@ this.listPhotographers();
       username: string,
       website: string}> = [];
     newRegArr: any;
+    modelData: any;
+
 
   private showAlert(message: string) {
     this.alertCtrl
@@ -122,6 +153,10 @@ this.showPhotographers = true;
     });  
     await prompt.present();  
   }  
+
+
+
+  
   emailMe() {
     
   }
@@ -179,7 +214,7 @@ this.showPhotographers = true;
       console.log(this.photoPeeps[selectedID]);
   }
 
-  showPhotographer(selectedPhotographer: PhotographersArray) {
+  showPhotographer(selectedPhotographer: PhotographerObj) {
     if (this.showPhotographers != false && this.singlePhotoBool != true) {
       this.showPhotographers = false;
       this.singlePhotoBool = true;
@@ -245,14 +280,124 @@ this.showPhotographers = true;
     console.log(this.PhotographerObject);
   }
 
+  navigateToModal() {
+    // this.router.navigateByUrl('/tabs/book/ph-booking/create-booking');
+    this.openIonModal();
+  }
+
+
+
+
+  async openIonModal() {
+    const modal = await this.modalCtrl.create({
+      component: EventModalPage,
+      componentProps: {
+        pA: this.pO1
+      }
+    });
+  
+    modal.onDidDismiss().then((modelData) => {
+      if (modelData !== null) {
+        this.modelData = modelData.data;
+        console.log('Modal Data : ' + modelData.data);
+      }
+    });
+  
+    return await modal.present();
+  }
+
+
+
 
 
   bookPhotographer() {
-    this.router.navigateByUrl('/tabs/book/ph-booking/create-booking');
+    // this.router.navigateByUrl('/tabs/book/ph-booking/create-booking');
+    var PhotographerPass2 = [
+      this.photographerID, 
+      this.photographerName, 
+      this.photographerCompany,  
+      this.photographerPrice, 
+      this.photographerRegionCode,  
+      this.photographerPic, 
+      this.photographerUserName,
+      this.photographerWebsite,
+      this.photographerEmail,
+      this.photographerRegion,
+    ]
+    console.log(this.PhotographerPass);
+
+    this.PhotographerPass = [
+      this.photographerID, 
+      this.photographerName, 
+      this.photographerCompany,  
+      this.photographerPrice, 
+      this.photographerRegionCode,  
+      this.photographerPic, 
+      this.photographerUserName,
+      this.photographerWebsite,
+      this.photographerEmail,
+      this.photographerRegion,
+    ]
+    console.log(this.PhotographerPass);
+    console.log(this.photographerID);
+    var pO: PhotographerObj;
+    pO = {
+      id: this.photographerID,
+      name: this.photographerName, 
+      Company: this.photographerCompany,  
+      Price: this.photographerPrice, 
+      Image: this.photographerPic, 
+      RegionCode: this.photographerRegionCode, 
+      Region: this.photographerRegion, 
+      email:  this.photographerEmail,
+      phone: this.photographerPhone,
+      username: this.photographerUserName,
+      website: this.photographerWebsite,
+
+    }
+    console.log(pO);
+  //   pO.id = this.photographerID;
+  //   pO.name = this.photographerName;
+  //   pO.Company = this.photographerCompany ;
+  //   pO.Price = this.photographerPrice;
+  //   pO.RegionCode = this.photographerRegionCode;
+  //   pO.Image = this.photographerPic;
+  //   pO.username = this.photographerUserName;
+  //  pO.website = this.photographerWebsite;
+  //   pO.email = this.photographerEmail;
+  //   pO.Region =  this.photographerRegion;
+    console.log(pO);
+    this.pO1 = pO;
+    // this.PhotographerPass.push( );
     console.log("bookPhotographer was clicked");
     this.regionFlag = false;
     this.showPhotographers = false;
     this.singlePhotoBool = false;
+    this.navigateToModal();
+
+
+
+
+    // this.photographerID = selectedPhotographer['ID'];
+    // this.photographerName = selectedPhotographer['name'];
+    // this.photographerCompany = selectedPhotographer['Company'];
+    // this.photographerPrice = selectedPhotographer['Price'];
+    // this.photographerRegionCode = selectedPhotographer['Region'];
+    // this.photographerPic = selectedPhotographer['pic'];
+    // console.log(this.photographerRegionCode);
+    // // console.log(RegionEnum.CF);
+    // // console.log(RegionEnum["CF"]);
+    // this.photographerPhone = selectedPhotographer['phone'];
+    // this.photographerUserName = selectedPhotographer['username'];
+    // this.photographerWebsite = selectedPhotographer['website'];
+    // this.photographerEmail = selectedPhotographer['email'];
+    // this.photographerRegion = RegionEnum[this.photographerRegionCode];
+    // console.log(RegionEnum[this.photographerRegionCode]);
+
+
+
+
+
   }
 
   removeItem(i: string) {

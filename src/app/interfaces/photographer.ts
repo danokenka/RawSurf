@@ -17,3 +17,18 @@ export interface PhotographersArray {
     website: string;
 
 }
+
+export interface PhotographerObj {
+    id: number,
+    name: string,
+    Company: string,
+    Price: number,
+    Image: string,
+    RegionCode: string,
+    Region: string,
+    email: string,
+    phone: string,
+    username: string,
+    website: string
+
+}
