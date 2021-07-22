@@ -23,4 +23,8 @@ stripePay() {
   this.router.navigateByUrl('tabs/book/ph-booking/payments/stripe-pay');
 }
 
+venmoPay() {
+  console.log("coming soon")
+}
+
 }

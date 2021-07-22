@@ -23,9 +23,11 @@ import { PhotographerObj } from 'src/app/interfaces/photographer';
 
 
  
+
 @Component({
   selector: 'app-event-modal',
- templateUrl: './event-modal.page.html',
+  templateUrl: './event-modal.page.html',
+  styleUrls: ['./event-modal.page.scss'],
 })
 export class EventModalPage {
  pA: PhotographerObj;
