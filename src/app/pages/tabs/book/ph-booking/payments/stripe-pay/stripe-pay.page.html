@@ -1,0 +1,114 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>stripe-pay</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+</ion-content> -->
+
+
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Stripe for PWA
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- <ion-grid text-center>
+    <ion-row>
+      <ion-col>
+        Use this Pay button in your PWA's payment page with the attached logic.
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-card class="welcome-card">
+    <ion-button 
+    type="button" 
+    color="secondary" 
+    fill="outline" 
+    expand="block"
+    (click)="payWithStripe()">
+    <ion-img src="/assets/img/payments/paypal-button.png"></ion-img>
+    </ion-button>
+    <ion-card-header>
+      <ion-card-subtitle>Get Started</ion-card-subtitle>
+      <ion-card-title>Stripe Sample</ion-card-title>
+      <ion-row>
+        <ion-col>Total Payment</ion-col>
+        <ion-col> {{currencyIcon}}{{paymentAmount}} </ion-col>
+      </ion-row>
+    </ion-card-header>
+    <ion-card-content>
+      <form action="/" method="post" id="payment-form">
+        <div class="form-row">
+          <div id="card-element">a Stripe Element will be inserted here.  </div> -->
+          <!-- Used to display Element errors -->
+          <!-- <div id="card-errors" role="alert"></div>
+        </div>
+        <ion-button type="submit" color="success" expand="full">Make Payment</ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>  -->
+
+  <div class="container">
+    <h2 class="mt-5 mb-4">Angular Stripe Checkout Example</h2>
+  
+    <div class="col-md-5 mb-2">
+      <ion-button 
+      type="button" 
+      color="secondary" 
+      fill="outline" 
+      expand="block"
+      (click)="makePayment(100)">
+      <button class="btn btn-danger btn-block">Pay $100</button></ion-button>
+    </div>
+    <div class="col-md-5 mb-2">
+      <ion-button 
+      type="button" 
+      color="secondary" 
+      fill="outline" 
+      expand="block"
+      (click)="makePayment(100)">
+      <button class="btn btn-primary btn-block">Pay $50</button></ion-button>
+    </div>
+    <div class="col-md-5">
+      <ion-button 
+      type="button" 
+      color="secondary" 
+      fill="outline" 
+      expand="block"
+      (click)="makePayment(100)">
+      <button class="btn btn-success btn-block">Pay $25</button></ion-button>
+    </div>
+  </div>
+
+  <br>  <br>  <br>
+
+  <!-- <form action="/create-checkout-session" method="POST">
+    <button type="submit">Checkout</button>
+
+    
+  </form> -->
+<!-- 
+  <ion-button 
+  type="button" 
+  color="secondary" 
+  fill="outline" 
+  expand="block"
+  (click)="sendPostRequest()"></ion-button>
+  <ion-button 
+  type="button" 
+  color="secondary" 
+  fill="outline" 
+  expand="block"
+  (click)="sendPostRequest()"></ion-button> -->
+
+</ion-content>

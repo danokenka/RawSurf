@@ -11,6 +11,10 @@ const routes: Routes = [
   {
     path: 'paypal-pay',
     loadChildren: () => import('./paypal-pay/paypal-pay.module').then( m => m.PaypalPayPageModule)
+  },
+  {
+    path: 'stripe-pay',
+    loadChildren: () => import('./stripe-pay/stripe-pay.module').then( m => m.StripePayPageModule)
   }
 ];
 

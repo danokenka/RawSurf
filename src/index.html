@@ -42,8 +42,8 @@
         .catch(err => console.log('Error', err));
     }
   </script>
-
-<script src="https://www.paypal.com/sdk/js?client-id=AanasKV1ptZhJzGUrXMKOdio4BPWASCh6hsENFcmrWwaliz3gpGg6Q29fS2bSSj6aTZs6xBoUyhaDP0z&currency=USD"></script>
+<!-- 
+<script src="https://www.paypal.com/sdk/js?client-id=AanasKV1ptZhJzGUrXMKOdio4BPWASCh6hsENFcmrWwaliz3gpGg6Q29fS2bSSj6aTZs6xBoUyhaDP0z&currency=USD"></script> -->
 
 </head>
 
@@ -60,7 +60,12 @@
 
 <body>
   <app-root></app-root>
-  <noscript>Please enable JavaScript to continue using this application.</noscript>
+  <script
+  src="https://www.paypal.com/sdk/js?client-id=AanasKV1ptZhJzGUrXMKOdio4BPWASCh6hsENFcmrWwaliz3gpGg6Q29fS2bSSj6aTZs6xBoUyhaDP0z"> // Required. Replace YOUR_CLIENT_ID with your sandbox client ID.
+</script>
+<script src="https://js.stripe.com/v3/" async></script>
+
+  <!-- <noscript>Please enable JavaScript to continue using this application.</noscript> -->
 </body>
 
 </html>

@@ -19,6 +19,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Storage } from '@ionic/storage-angular';
 import { Calendar } from '@ionic-native/calendar/ngx';
 import { NgCalendarModule  } from 'ionic2-calendar';
+import { Stripe } from '@ionic-native/stripe/ngx';
 // import { AppVersion } from '@ionic-native/app-version/ngx';
 // import { Calendar } from '@ionic-native/calendar/ngx';
 // import { Calendar } from '@ionic-native/calendar';
@@ -61,6 +62,7 @@ import { NgCalendarModule  } from 'ionic2-calendar';
     EmailComposer,
     Storage,
     Calendar,
+    Stripe,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy}],
     
   bootstrap: [AppComponent],

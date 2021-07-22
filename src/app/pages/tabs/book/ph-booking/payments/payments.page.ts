@@ -19,6 +19,8 @@ export class PaymentsPage implements OnInit {
     this.router.navigateByUrl('tabs/book/ph-booking/payments/paypal-pay');
   }
   
-
+stripePay() {
+  this.router.navigateByUrl('tabs/book/ph-booking/payments/stripe-pay');
+}
 
 }
