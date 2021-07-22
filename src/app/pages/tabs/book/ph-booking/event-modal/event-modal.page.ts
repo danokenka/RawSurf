@@ -69,7 +69,7 @@ pName;
  
   save() {
     this.viewCtrl.dismiss(this.event);
-    this.router.navigateByUrl('/tabs');
+    this.router.navigateByUrl('/tabs/book/ph-booking/payments');
   }
   
 

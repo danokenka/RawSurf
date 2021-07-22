@@ -32,3 +32,16 @@ export interface PhotographerObj {
     website: string
 
 }
+
+export interface Payer {
+  
+        email_address: string,
+        payer_id: string,
+        name: {
+          given_name: string,
+          surname: string
+        }
+        
+ 
+
+}

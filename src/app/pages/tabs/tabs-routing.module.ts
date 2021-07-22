@@ -16,8 +16,8 @@ const routes: Routes = [
         loadChildren: () => import('./book/book.module').then( m => m.BookPageModule)
       },
       {
-        path: 'info',
-        loadChildren: () => import('./info/info.module').then( m => m.InfoPageModule)
+        path: 'bookings',
+        loadChildren: () => import('./bookings/bookings.module').then( m => m.BookingsPageModule)
       },
       {
         path: '',
@@ -30,6 +30,10 @@ const routes: Routes = [
     path: 'info',
     loadChildren: () => import('./info/info.module').then( m => m.InfoPageModule)
   }
+  // {
+  //   path: 'bookings',
+  //   loadChildren: () => import('./bookings/bookings.module').then( m => m.BookingsPageModule)
+  // }
 ];
 
 @NgModule({

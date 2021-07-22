@@ -11,6 +11,10 @@ const routes: Routes = [
   {
     path: 'event-modal',
     loadChildren: () => import('./event-modal/event-modal.module').then( m => m.EventModalPageModule)
+  },
+  {
+    path: 'payments',
+    loadChildren: () => import('./payments/payments.module').then( m => m.PaymentsPageModule)
   }
 ];
 
