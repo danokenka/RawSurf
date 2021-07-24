@@ -76,6 +76,8 @@
 //   --ion-color-light-tint: #f5f6f9;
 // }
 
+
+
 :root {
     /* Set the background of the entire app */
     --ion-background-color: #000000;
@@ -150,6 +152,17 @@
   --ion-color-brandred-shade: #ce3a33;
   --ion-color-brandred-tint: #ec554e;
 }
+
+
+// /* Set text color of the entire app for iOS only */
+// .ios {
+//   --ion-text-color: #000;
+// }
+
+// /* Set text color of the entire app for Material Design only */
+// .md {
+//   --ion-text-color: #222;
+// }
 
 @media (prefers-color-scheme: dark) {
   /*
