@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { Payer,  } from "/Users/dano/Hybrid Dev/IonicDev/RawSurf/src/app/interfaces/photographer";
+import { Payer,  } from "../../../../../../interfaces/photographer";
 
 @Component({
   selector: 'app-paypal-pay',

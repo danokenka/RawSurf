@@ -6,7 +6,7 @@ import { EmailService } from '../../../../services/email.service';
 import { EmailComposer } from '@ionic-native/email-composer/ngx';
 import photographerData from '../../../../data/Photographer-test-data.json';
 //  import { PhotographerObject } from "/Users/dano/Hybrid Dev/IonicDev/RawSurf/src/app/interfaces/photographer";
- import { PhotographersArray, PhotographerObj } from "/Users/dano/Hybrid Dev/IonicDev/RawSurf/src/app/interfaces/photographer";
+ import { PhotographersArray, PhotographerObj } from "../../../../interfaces/photographer";
  import { Plugins } from '@capacitor/core';
 import { Router } from '@angular/router';
 import { EventModalPage } from './event-modal/event-modal.page';
