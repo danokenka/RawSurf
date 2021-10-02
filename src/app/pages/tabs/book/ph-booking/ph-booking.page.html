@@ -183,7 +183,7 @@
 
 
       <ion-list-header color="secondary">
-        Click on a Photographer
+       Choose a Raw Surf Photographer below
       </ion-list-header>
 
       <div *ngFor="let photoPeep of photoPeeps">
@@ -205,6 +205,12 @@
       </div>
 
     </ion-list>
+
+    <ion-button expand="block" routerLink="/tabs/book/ph-booking" routerDirection="forward" fill="outline">
+      <ion-button size="small" expand="block" shape="round" color="secondary">
+        <ion-text color="dark">Book Any Raw Surf Photographer </ion-text>
+      </ion-button>
+    </ion-button>
 
   </div>
 

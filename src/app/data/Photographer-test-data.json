@@ -30,7 +30,7 @@
     "phone": "321-223-7241",
     "website": "www.raw.surf",
     "Image" : "icon.png",
-    "Price" : 110,
+    "Price" : 75,
     "Region" : "CF"
   },{
     "ID" : 2,
@@ -42,43 +42,7 @@
     "phone": "407-473-2848",
     "website": "https://gatorbobs.wixsite.com/surfsupflorida",
     "Image" : "icon.png",
-    "Price" : 90,
+    "Price" : 75,
     "Region" : "NF"
-  },{
-    "ID" : 3,
-    "Company" : " Raul Franco Photography",
-    "name": "Raulito Franco",
-    "username": "renaissance_lens",
-    "pic": "../../../../../assets/img/icon.png",
-    "email": "raulitofranco39@gmail.com",
-    "phone": "786-444-4281",
-    "website": "https://raulitofranco39.wixsite.com/raulfrancophotograph",
-    "Image" : "icon.png",
-    "Price" : 90,
-    "Region" : "SF"
-  },{
-    "ID" : 4,
-    "Company" : "GULFSTER.COM",
-    "name": "GULFSTER",
-    "username": "GULFSTER",
-    "pic": "../../../../../assets/img/icon.png",
-    "email": "GulfsterReport@Gmail.com",
-    "phone": "",
-    "website": "https://www.gulfster.com",
-    "Image" : "icon.png",
-    "Price" : 90,
-    "Region" : "WF"
-  },{
-    "ID" : 5,
-    "Company" : "In Focus Photography LLC",
-    "name": "David Faison",
-    "username": "DFaison",
-    "pic": "../../../../../assets/img/icon.png",
-    "email": "",
-    "phone": "",
-    "website": "https://www.linkedin.com/in/david-faison-10b86235/#",
-    "Image" : "icon.png",
-    "Price" : 90,
-    "Region" : "PF"
   }]
 }
