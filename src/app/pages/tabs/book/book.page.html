@@ -6,66 +6,91 @@
 
 
     <ion-buttons routerLink="/tabs/home" routerDirection="forward" color="clear">
-    <ion-thumbnail slot="start" size="auto">
-      <ion-img src ="assets/img/icon.png"></ion-img>
-    </ion-thumbnail>
-  </ion-buttons>
-    <!-- <ion-title>Book</ion-title> -->
+      <ion-thumbnail slot="start" size="auto">
+        <ion-img src="assets/img/icon.png"></ion-img>
+      </ion-thumbnail>
+    </ion-buttons>
+
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
   <ion-grid class="content">
-    <!-- <ion-row>   
-      <ion-col></ion-col>
-      <ion-col size="auto">
-        <ion-img src ="assets/img/rawsurf-sticker-ss.png"></ion-img>
-      </ion-col>
-      <ion-col></ion-col>
-    </ion-row> -->
+
     <ion-row>
       <ion-col></ion-col>
-   <ion-col size="auto">
-</ion-col>
-   <ion-col size="auto">   
-          <h1>Types of Booking</h1>
-          </ion-col>
-    <ion-col></ion-col>
-  
+      <ion-col size="auto">
+      </ion-col>
+      <ion-col size="auto">
+
+      </ion-col>
+      <ion-col></ion-col>
+
     </ion-row>
 
 
 
 
-    </ion-grid>
+  </ion-grid>
+  <ion-card>
+    <img src="../../../../assets/img/book-pic.jpeg" />
 
-  <br><br><br>
-  <ion-card color="medium">
-    <div class="ion-text-center">
-    <h1>Surf Schools</h1>
-    <h2>Book a session with our surf school partners</h2>
-  </div>
-    <ion-button routerLink="/surftrip" expand="block" routerDirection="forward" color="secondary">  Book Surf School Session </ion-button> 
+    <ion-card-header>
+      <ion-card-subtitle>Let your friends and family enjoy the beach insteaed of capturing surf photos and videos on a
+        mobile phone! </ion-card-subtitle>
+      <ion-card-title> Water shots, High Resolution Photos, and up to 4k Video</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
 
+    </ion-card-content>
+    <ion-button expand="block" routerLink="/tabs/book/ph-booking" routerDirection="forward" fill="outline">
+      <ion-button size="large" expand="block" shape="round" color="secondary">
+        <ion-text color="dark">Book Raw Surf Now </ion-text>
+      </ion-button>
+    </ion-button>
   </ion-card>
-  <ion-card color="medium">
-  <div class="ion-text-center">
-    <h1>Surf Photographer</h1>
-    <h2>Stop having your friends capture photos and videos of you on a mobile phone!
-    </h2><br><br>
-  </div>
-    <ion-button routerLink="/tabs/book/ph-booking" expand="block" routerDirection="forward" color="secondary">  Book a Surf Photographer  </ion-button> 
-    
-  </ion-card>
-  <ion-card color="medium">
-    <div class="ion-text-center">
-    <h1>Surf Trip</h1>
-    <h2>Sit back and relax. We got this one!</h2>
-  </div>
-    <ion-button routerLink="/surftrip" expand="block" routerDirection="forward" color="secondary">  Book a Surf Trip  </ion-button> 
-  
-  </ion-card>
+
+
+  <ion-item>
+
+    <ion-card color="medium">
+      <div class="ion-text-center">
+        <ion-text>
+          <h1>Surf Trip</h1>
+        </ion-text>
+
+        <ion-text>
+          <h2>Don't worry about a thing. Let us handle this one!</h2>
+        </ion-text>
+
+      </div>
+      <ion-button disabled="true" routerLink="/surftrip" expand="block" routerDirection="forward" color="blue"> Coming
+        Soon </ion-button>
+
+    </ion-card>
+  </ion-item>
+
+  <ion-item>
+    <br>
+
+    <ion-card color="medium">
+      <div class="ion-text-center">
+        <ion-text>
+          <h1>Surf Schools</h1>
+        </ion-text>
+
+        <ion-text>
+          <h2>Book a session with our surf school partners</h2>
+        </ion-text>
+
+      </div>
+      <ion-button disabled="true" routerLink="/surftrip" expand="block" routerDirection="forward" color="blue"> Coming
+        Soon </ion-button>
+
+    </ion-card>
+
+  </ion-item>
 
 
 </ion-content>
