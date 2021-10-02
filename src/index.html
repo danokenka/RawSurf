@@ -2,25 +2,70 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8" />
-  <title>Ionic App</title>
+  <meta charset="utf-8"/>
+  <title>Raw Surf App</title>
+  <meta name="version" content="0.0.1">
 
-  <base href="/" />
+  <base href="/"/>
 
-  <meta name="color-scheme" content="light dark" />
-  <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <meta name="format-detection" content="telephone=no" />
-  <meta name="msapplication-tap-highlight" content="no" />
+  <meta name="color-scheme" content="light dark"/>
+  <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <meta name="format-detection" content="telephone=no"/>
+  <meta name="msapplication-tap-highlight" content="no"/>
 
-  <link rel="icon" type="image/png" href="assets/icon/favicon.png" />
+  <link rel="icon" type="image/png" href="assets/img/icon.png"/>
 
   <!-- add to homescreen for ios -->
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#1976d2">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#1976d2">
+	<link rel="apple-touch-icon" href="assets/icons/icon.png">
+
+  <title>Raw Surf Application</title>
+	<style>
+		body {
+			background: #fafafa;
+		}
+		#splash-screen {
+			color:white;
+			text-align:center;
+		}
+	</style>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js')
+        .then(() => console.log('service worker installed'))
+        .catch(err => console.log('Error', err));
+    }
+  </script>
+<!-- 
+<script src="https://www.paypal.com/sdk/js?client-id=AanasKV1ptZhJzGUrXMKOdio4BPWASCh6hsENFcmrWwaliz3gpGg6Q29fS2bSSj6aTZs6xBoUyhaDP0z&currency=USD"></script> -->
+
 </head>
+
+
+<!-- <body id="body" class="sapUiBody">
+  <app-root></app-root>
+	<div id="splash-screen">
+		<h1>Raw Surf as a Progressive Web Application</h1>
+		<img src="src/assets/img/logo.png">
+		<p>Welcome to Raw Surf. Stop having your friends stay outa the water and capture your waves with a mobile phone.</p>
+	</div>
+</body> -->
+
 
 <body>
   <app-root></app-root>
+  <script
+  src="https://www.paypal.com/sdk/js?client-id=AanasKV1ptZhJzGUrXMKOdio4BPWASCh6hsENFcmrWwaliz3gpGg6Q29fS2bSSj6aTZs6xBoUyhaDP0z"> // Required. Replace YOUR_CLIENT_ID with your sandbox client ID.
+</script>
+<script src="https://js.stripe.com/v3/" async></script>
+
+  <!-- <noscript>Please enable JavaScript to continue using this application.</noscript> -->
 </body>
 
 </html>

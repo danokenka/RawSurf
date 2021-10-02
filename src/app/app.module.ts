@@ -13,6 +13,18 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
 import firebase from 'firebase/app';
 import { HttpClientModule } from '@angular/common/http';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { EmailComposer } from '@ionic-native/email-composer/ngx';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Storage } from '@ionic/storage-angular';
+import { Calendar } from '@ionic-native/calendar/ngx';
+import { NgCalendarModule  } from 'ionic2-calendar';
+import { Stripe } from '@ionic-native/stripe/ngx';
+// import { AppVersion } from '@ionic-native/app-version/ngx';
+// import { Calendar } from '@ionic-native/calendar/ngx';
+// import { Calendar } from '@ionic-native/calendar';
+
+
 
   // Initialize Firebase
   export const config = {
@@ -33,12 +45,27 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     IonicModule.forRoot(), 
     AppRoutingModule,
+    NgCalendarModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     AngularFireDatabaseModule,
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    FormsModule, ReactiveFormsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the app is stable
+      // or after 30 seconds (whichever comes first).
+      // registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy}],
+  providers: [
+    EmailComposer,
+    Storage,
+    Calendar,
+    Stripe,
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy}],
+    
   bootstrap: [AppComponent],
+
 })
 export class AppModule {}

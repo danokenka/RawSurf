@@ -1,9 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import firebase from 'firebase/app';
 import 'firebase/auth';
-import { UserProfile } from '../../models/user';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { LoadingController, AlertController } from '@ionic/angular';
+import { AuthService, AuthResponseData} from 'src/app/services/auth.service';
+import { take, map } from 'rxjs/operators';
+import { User, UserProfile } from 'src/app/models/user.model';
+import { BehaviorSubject, from, Observable } from 'rxjs';
+import { Plugins } from '@capacitor/core';
+// import { UserData } from 'src/app/services/user.data';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+
+
 
 
 @Component({
@@ -12,25 +20,46 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
-// public myName: string;
-// public myEmail: string;
-// public myPhotoUrl: string;
-// public myUid: string;
-  constructor(public router: Router, public alertCtrl: AlertController) {}
+  isLoading = false;
+private _user = new BehaviorSubject<User>(null);
+public myUser;
+public myUserProfile;
+public myName: string;
+public myEmail: string;
+public myPhotoUrl: string;
+public myUid: string;
+public myUserId;
+public myToken;
+public userInfo;
+
+
+
+  constructor(public router: Router, public alertCtrl: AlertController, public authService: AuthService, private loadingCtrl: LoadingController
+    // private userData: UserData
+    ) {}
 
 // userProfile = {} as UserProfile;
 // public userArray: string[] = [];
   ionViewWillEnter() {
+      // console.log(this.authService.theDisplayName);
     // console.log("Ion view will enter");
     // this.myName = JSON.stringify(firebase.auth().currentUser.displayName);
+     
     // this.myEmail = JSON.stringify(firebase.auth().currentUser.email);
     // this.myPhotoUrl = JSON.stringify(firebase.auth().currentUser.photoURL);
     // this.myUid = JSON.stringify(firebase.auth().currentUser.uid);
+
+    //  this.getDisplayName();
+    // this.getUserStuff();
   }
 
 
+
   ngOnInit() {
-    
+    // this.getObject();
+    this.authUserId();
+
+  //  this.getphotoUrl();
 //  console.log(firebase.auth().currentUser.email);
 
 //  console.log(JSON.stringify(firebase.auth().currentUser.email));
@@ -39,10 +68,325 @@ export class ProfilePage implements OnInit {
 //  this.myPhotoUrl = JSON.stringify(firebase.auth().currentUser.photoURL);
 //  this.myUid = JSON.stringify(firebase.auth().currentUser.uid)
   }
+  // async getObject() {
+  //   const ret = await Plugins.Storage.get({ key: 'authData' });
+  //   const user = JSON.parse(ret.value);
+  //   this.myUser = user;
+  //   console.log(user.userId);
+  //   console.log(user.token);
+  //   console.log(user.tokenExpirationDat);
+  //   console.log(this.myUser.email);
+  //   this.showUserInfo()
+  // }
+authUserId() {
+this.authService.user.subscribe(data => {
+  console.log("Received data: ", data);
+  this.myUser = data;
+  this.myUid = data.id;
+  console.log(data['id']);
+  this.myToken = data.token
+  console.log(data['_token']);
+  console.log(data['email']);
+  this.myEmail = data['email'];
+  console.log(data['tokenDuration']);
+
+})
+
+// this.showUserInfo();
+this.retrieveUserInfo();
+// this.getUserStuff();
+}
+
+
+
+private showAlert(message: string) {
+  this.alertCtrl
+    .create({
+      header: 'Authentication failed', 
+      message: message, 
+      buttons: ['Okay']
+    }).then(alertEl => alertEl.present());
+}
+
+
+// getUserStuff() {
+//     this.isLoading = true;
+//     this.loadingCtrl
+//       .create({ keyboardClose: true, message: 'Logging in...' })
+//       .then(loadingEl => {
+//         loadingEl.present();
+//         let authObs: Observable<AuthResponseData>
+//         authObs = this.authService.autoLogin();
+//         authObs.subscribe(resData => {
+//           console.log(resData);
+//           console.log(resData.localId);
+//           console.log(resData.displayName);
+
+//           // this.getUserInfo();
+//           this.isLoading = false;
+//           loadingEl.dismiss();
+//           // this.router.navigateByUrl('/tabs/home');
+     
+//           // this.userData.createStorage(resData.email);
+//           // this.authService.myUserData(resData.idToken).subscribe(data => {
+//           //   console.log(data);
+//           //   console.log(data.theUser);
+//           //   console.log(JSON.stringify(data['users']));
+//           //   let myUsers = JSON.stringify(data["users"]);
+//           //   console.log(myUsers["localId"]);
+//           //   console.log(JSON.stringify(myUsers));
+//           //   // this.currentUser = data;
+//           // });
+
+//           // this.authService.myUserData(JSON.stringify(resData.idToken));
+//           // this.saveAuthData(resData);
+//           // this.authService.userId.pipe(
+
+//           // )
+
+//           // let userProfileObs: Observable<UserProfileData>
+//           // console.log(resData.localId);
+
+//           // userProfileObs = this.authService.myUserData(resData.idToken);
+//           // userProfileObs.subscribe((myData) => {
+//           //   console.log(myData);
+          
+//           //   console.log(myData.displayName);
+//           //   console.log(myData.localId);
+//           //   const data = JSON.stringify({
+//           //     userId: myData.localId,
+//           //     email: myData.email, 
+//           //     displayName: myData.displayName,
+//           //     photoUrl: myData.photoUrl
+//           //   });
+//           //   // Plugins.Storage.set({key: 'userProfile', value: data});
+//           // })
+         
+          
+//         }, errRes => {
+//           console.log(errRes);
+//           loadingEl.dismiss();
+//           const code = errRes.error.error.message;
+//           let message = 'Could not sign you up, please try again.';
+//           if (code === 'EMAIL_EXISTS') {
+//             message = 'This email address already exists!';
+//           } else if (code === 'EMAIL_NOT_FOUND') {
+//             message = 'E-Mail address could not be found.';
+//           } else if (code === 'INVALID_PASSWORD') {
+//             message = 'The password is not correct.';
+//           }
+//           this.showAlert(message);
+//         });
+
+//       });
+//       // this.getUserInfo();
+//       // console.log("get User Info called");
+  
+// }
+resetDisplayName(displayName: string) {
+  let authObs: Observable<AuthResponseData>
+  authObs = this.authService.updateTheUser(this.myToken, displayName);
+  authObs.subscribe(resData => {
+    console.log(resData);
+    console.log(resData.localId);
+    console.log(resData.displayName);
+    this.myName = resData.displayName;
+   
+   this.retrieveUserInfo();
+    // this.myDisplayName = resData.displayName;
+    // // this.setTheDisplayName(this.myDisplayName);
+    // console.log(this.myDisplayName);
+    
+
+  
+    
+
+    // this.router.navigateByUrl('/tabs/home');
+
+
+   
+    
+  }, errRes => {
+    console.log(errRes);
+    // loadingEl.dismiss();
+    const code = errRes.error.error.message;
+    let message = 'No Token Passed';
+    if (code === 'INVALID_ID_TOKEN') {
+      message = 'This email address already exists!';
+    } else if (code === 'EMAIL_NOT_FOUND') {
+      message = 'E-Mail address could not be found.';
+    } else if (code === 'INVALID_PASSWORD') {
+      message = 'The password is not correct.';
+    }
+    this.showAlert(message);
+  });
+
+
+}
+
+retrieveUserInfo() {
+      
+  let authObs: Observable<AuthResponseData>
+authObs = this.authService.getUserData(this.myToken);
+authObs.subscribe(resData => {
+this.userInfo = resData.users[0];
+console.log(resData.users[0]);
+console.log(resData.users[0].localId);
+console.log(resData.users[0].displayName);
+this.myName = resData.users[0].displayName;
+
+
+// this.myDisplayName = resData.displayName;
+// // this.setTheDisplayName(this.myDisplayName);
+// console.log(this.myDisplayName);
+
+
+
+
+
+// this.router.navigateByUrl('/tabs/home');
+
+
+
+
+}, errRes => {
+console.log(errRes);
+// loadingEl.dismiss();
+const code = errRes.error.error.message;
+let message = 'No Token Passed';
+if (code === 'INVALID_ID_TOKEN') {
+  message = 'This email address already exists!';
+} else if (code === 'EMAIL_NOT_FOUND') {
+  message = 'E-Mail address could not be found.';
+} else if (code === 'INVALID_PASSWORD') {
+  message = 'The password is not correct.';
+}
+this.showAlert(message);
+});
+
+}
+
+
+// getDisplayName() {
+//   console.log("get Disoplay Name called");
+//   // console.log(firebase.auth().currentUser.uid);
+//   console.log(this.myUid);
+
+
+// return firebase.database().ref('/users/' + this.myUid).once('value').then((snapshot) => {
+//    this.myName = (snapshot.val() && snapshot.val().username) || 'Anonymous';
+
+//    console.log(this.myName);
+//   // ...
+// });
+// }
+
+getEmail() {
+  console.log("get Disoplay Name called");
+  // console.log(firebase.auth().currentUser.uid);
+  console.log(this.myEmail);
+
+  
+return firebase.database().ref('/users/' + this.myEmail).once('value').then((snapshot) => {
+   this.myEmail = (snapshot.val() && snapshot.val().email) || 'Anonymous';
+   console.log(this.myEmail);
+  // ...
+});
+}
+// getDisplayName() {
+//   let authObs: Observable<AuthResponseData>
+//   authObs.subscribe(resData => {
+//     console.log(resData);
+//     console.log(resData.localId);
+//     console.log(resData.displayName);
+//     this.myName = resData.displayName;
+//     console.log(this.myName);
+
+
+   
+    
+//   }, errRes => {
+//     console.log(errRes);
+//     const code = errRes.error.error.message;
+//     let message = 'Could not sign you up, please try again.';
+//     if (code === 'EMAIL_EXISTS') {
+//       message = 'This email address already exists!';
+//     } else if (code === 'EMAIL_NOT_FOUND') {
+//       message = 'E-Mail address could not be found.';
+//     } else if (code === 'INVALID_PASSWORD') {
+//       message = 'The password is not correct.';
+//     }
+//     this.showAlert(message);
+//   });
+
+//   // this.authService.
+//   // this.authService.theDisplayName();
+//   // console.log(this.authService.theDisplayName());
+//   // console.log(this.userProfile.name);
+// // this.userProfile.name
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+// getphotoUrl() {
+//   this.userData.getPhotoUrl().then((photoURL) => {
+//     if(photoURL != null) {
+//       this.myPhotoUrl = photoURL;
+//     } else {
+//       this.myPhotoUrl = "Not Yet Set";
+//     }
+   
+//     // console.log(this.myName);
+//   });
+// }
+
+  // async getDisplayName() {
+  //   const ret = await Plugins.Storage.get({ key: 'userProfile' });
+  //   const user = JSON.parse(ret.value);
+  //   // this.myUser = user;
+  //   console.log(user.name);
+  //   // console.log(user.email);
+  //   this.myName = user.name;
+
+  //   // console.log(user.tokenExpirationDat);
+  //   // console.log(this.myUser.email);
+  //   this.showUserInfo()
+  // }
+
+
+//   showUserInfo() {
+
+//     this.myUid = this.myUser.id;
+// // this.myUid = this.myUser.id;
+// this.myEmail = this.myUser['email'];
+// console.log(this.myEmail);
+// this.myPhotoUrl = this.myUser.photoUrl;
+//     // Plugins.Storage.get({key: 'authData', value: data});
+// // console.log(JSON.stringify(this.myUser));
+// // console.log(JSON.stringify(this.myUser.id));
+// // console.log(JSON.stringify(this.myUser.));
+// // console.log(JSON.stringify(this.myUser.token));
+// // console.log(JSON.stringify(this.myUser.email));
+// // console.log(JSON.stringify(this.myUser.tokenDuration));
+//   }
+
 
 doRefresh(event) {
   console.log('Begin async operation');
-  // this.myName = JSON.stringify(firebase.auth().currentUser.displayName);
+  //  this.myName = JSON.stringify(firebase.auth().currentUser.displayName);
+
+  this.retrieveUserInfo();
+  
     setTimeout(() => {
       console.log('Async operation has ended');
       event.target.complete();
@@ -76,6 +420,8 @@ doRefresh(event) {
             console.log('Saved clicked');  
             console.log(data.name);  
             // this.changeDisplayFromPrompt(data.name);
+            // this.authService.updateTheUser(data.name);
+            this.resetDisplayName(data.name);
             // this.router.navigate(['/profile']);
             // this.ionViewWillEnter();
           }  
@@ -86,16 +432,102 @@ doRefresh(event) {
   }  
 
 
-//   changeDisplayFromPrompt(name: string) {
-//     var user = firebase.auth().currentUser;
+  async showPasswordPrompt() {  
+    const prompt = await this.alertCtrl.create({  
+      header: 'Change Your Password',  
+      message: 'Enter a new Password',  
+      inputs: [  
+        {  
+          name: 'password',  
+          type: 'text',  
+          placeholder: 'New Password'  
+        },  
+      ],  
+      buttons: [  
+        {  
+          text: 'Cancel',  
+          handler: data => {  
+            console.log('Cancel clicked');  
+          }  
+        },  
+        {  
+          text: 'Save',  
+          handler: data => {  
+            console.log('Saved clicked');  
+            console.log(data.name);  
+            // this.changeDisplayFromPrompt(data.name);
+            // this.authService.updateTheUser(data.name);
+            this.resetPassword(data.password);
+            // this.router.navigate(['/profile']);
+            // this.ionViewWillEnter();
+          }  
+        }  
+      ]  
+    });  
+    await prompt.present();  
+  }  
+
+
+  resetPassword(password: string) {
+    let authObs: Observable<AuthResponseData>
+    authObs = this.authService.updateUserPassword(this.myToken, password);
+    authObs.subscribe(resData => {
+      console.log(resData);
+      console.log(resData.localId);
+      console.log(resData.password);
+      // this.myName = resData.displayName;
+     
+    //  this.retrieveUserInfo();
+      // this.myDisplayName = resData.displayName;
+      // // this.setTheDisplayName(this.myDisplayName);
+      // console.log(this.myDisplayName);
+      
   
-//   user.updateProfile({
-//     displayName: name,
-//   }).then(function() {
-//     // Update successful.
-//   }).catch(function(error) {
-//     // An error happened.
-//   });
+    
+      
+  
+      // this.router.navigateByUrl('/tabs/home');
+  
+  
+     
+      
+    }, errRes => {
+      console.log(errRes);
+      // loadingEl.dismiss();
+      const code = errRes.error.error.message;
+      let message = 'No Token Passed';
+      if (code === 'INVALID_ID_TOKEN') {
+        message = 'This email address already exists!';
+      } else if (code === 'EMAIL_NOT_FOUND') {
+        message = 'E-Mail address could not be found.';
+      } else if (code === 'INVALID_PASSWORD') {
+        message = 'The password is not correct.';
+      }
+      this.showAlert(message);
+    });
+  
+  
+  }
+
+
+
+//   changeDisplayFromPrompt(name: string) {
+//     // var user = firebase.auth().currentUser;
+
+//     // if (user) {
+//     //   user.updateProfile({
+//     //     displayName: name,
+//     //   }).then(function() {
+//     //     // Update successful.
+//     //   }).catch(function(error) {
+//     //     // An error happened.
+//     //   });
+//     // } else {
+//     //   console.log("no User !!!!!!!!")
+//     // }
+  
+//     this.authService.updateTheUser(name);
+
 // }
 
 // changeUserName(userProfile: UserProfile) {
@@ -110,6 +542,7 @@ doRefresh(event) {
 // });
 
 // }
+
 
 
 // signOut() {

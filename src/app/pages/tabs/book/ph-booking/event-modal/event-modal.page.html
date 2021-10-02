@@ -1,0 +1,76 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>event-modal</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+</ion-content> -->
+
+
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons start>
+      <button ion-button icon-only (click)="cancel()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Event Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+ 
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label color="primary">Booking Details with {{this.pA.name}}</ion-label>
+      <!-- <ion-input type="text" placeholder="Title" [(ngModel)]="event.title"></ion-input> -->
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Day</ion-label>
+      <ion-datetime displayFormat="MM/DD/YYYY HH:mm" pickerFormat="MMM D:HH:mm" [(ngModel)]="event.startTime" [min]="minDate"></ion-datetime>
+    </ion-item>
+
+  <ion-item>
+    <ion-label>Time</ion-label>
+    <ion-datetime display-format="h:mm A" picker-format="h:mm A"></ion-datetime>
+  </ion-item>
+</ion-list>
+
+<ion-item>
+  <ion-label>Hours</ion-label>
+  <ion-select placeholder="Select One">
+    <ion-select-option value="1">1 hour</ion-select-option>
+    <ion-select-option value="2">2 hours</ion-select-option>
+    <ion-select-option value="3">3 hours</ion-select-option>
+    <ion-select-option value="4">4 hours</ion-select-option>
+    <ion-select-option value="5">5 hours</ion-select-option>
+    <ion-select-option value="6">6 hours</ion-select-option>
+    <ion-select-option value="7">7 hours</ion-select-option>
+    <ion-select-option value="8">8 hours</ion-select-option>
+    <ion-select-option value="9">9 hours</ion-select-option>
+  </ion-select>
+</ion-item>
+
+<ion-item>
+  <ion-label>Make Booking Sharable?</ion-label>
+  <ion-checkbox [(ngModel)]="event.allDay"></ion-checkbox>
+</ion-item>
+ 
+  <button ion-button full icon-left (click)="save()">
+    <ion-icon name="checkmark"></ion-icon> Add Event
+  </button>
+
+  <ion-button 
+  type="button" 
+  color="secondary" 
+  fill="outline" 
+  expand="block"
+  (click)="save()">
+   <ion-text color="light">Book and pay {{this.pA.name}} &nbsp; </ion-text> 
+ 
+  </ion-button>
+
+  
+</ion-content>

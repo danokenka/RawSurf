@@ -2,5 +2,17 @@
 <widget version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <access origin="*" />
   
+  <feature name="Calendar">
+    <param name="ios-package" value="Calendar"/>
+  </feature>
+
+  <feature name="EmailComposer">
+    <param name="ios-package" value="APPEmailComposer"/>
+  </feature>
+
+  <feature name="CordovaStripe">
+    <param name="ios-package" value="CordovaStripe"/>
+  </feature>
+
   
 </widget>

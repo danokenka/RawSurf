@@ -1,0 +1,80 @@
+// .myToolBar {
+//     padding-top: 30px;
+// }
+
+// ion-input::shadow input {
+//     color: var(--ion-color-primary);
+//   }
+
+// /* Change autocomplete styles in WebKit */
+// input:-webkit-autofill,
+// input:-webkit-autofill:hover, 
+// input:-webkit-autofill:focus,
+// textarea:-webkit-autofill,
+// textarea:-webkit-autofill:hover,
+// textarea:-webkit-autofill:focus,
+// select:-webkit-autofill,
+// select:-webkit-autofill:hover,
+// select:-webkit-autofill:focus {
+//   border: 1px solid green;
+//   -webkit-text-fill-color: green;
+//   -webkit-box-shadow: 0 0 0px 1000px #000 inset;
+//   transition: background-color 5000s ease-in-out 0s;
+
+
+//   input:-webkit-autofill,
+//   input:-webkit-autofill:hover, 
+//   input:-webkit-autofill:focus, 
+//   input:-webkit-autofill:active  {
+//     transition: background-color 5000s;
+//     -webkit-text-fill-color: #fff !important;
+
+
+
+
+// form-ion {
+//     // border: 1px solid $input-border-color;
+//     // padding: $input-padding-25;
+//     color: black;
+//     --padding-start: 20px;
+// --padding-top: 20px;
+// --padding-bottom: 10px;
+// --padding-end: 10;
+//     width: 100%;
+//     -webkit-appearance: none;
+//     -moz-appearance: none;
+//     appearance: none;
+//     font-size: 14px;
+//     text-decoration-color: chocolate;
+//     font-weight: 500;
+//     height: auto;
+//     background: black;
+//     line-height: 24px;
+//     -webkit-transition: all 0.3s ease;
+//     -o-transition: all 0.3s ease;
+//     transition: all 0.3s ease;
+// }
+
+// ion-input-md {
+//     --background: black;
+//     --color: white;
+
+// }
+
+ion-input {
+    --placeholder-color: white;
+    // input:-webkit-autofill,
+    // input:-webkit-autofill:hover, 
+    // input:-webkit-autofill:focus, 
+    // input:-webkit-autofill:active  {
+    //   transition: background-color 5000s;
+    //   -webkit-text-fill-color: #fff !important;
+
+}
+
+.warning {
+    padding-left: 15px;
+}
+
+
+

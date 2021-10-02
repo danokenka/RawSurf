@@ -3,9 +3,6 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="tabs"></ion-back-button>
     </ion-buttons>
-    <ion-buttons slot="end" style="color:red" (click)="signOut()" routerLink="/login">
-      Sign Out
-     </ion-buttons>
     <ion-title>profile</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -24,22 +21,71 @@
     <ion-item>
   
     </ion-item>
-    <ion-item>
-      <ion-label>Your Display Name is: </ion-label>
-    </ion-item>
-    <ion-button (click)="showPrompt()" expand="block">  Change User Name  </ion-button> 
-    <!-- <ion-button (click)="changeUserName(userProfile)" routerLink="/tabs" expand="block">  Change User Name  </ion-button>  -->
-    <ion-item>
-      <ion-label>Your Account Email is: </ion-label>
-    </ion-item>
-    <ion-button expand="block">  Change Email  </ion-button> 
-      <!-- <ion-button (click)="signOut()" routerLink="/login" expand="block">  Sign Out  </ion-button>  -->
 
+
+    <ion-row>
+      <ion-col>    <ion-item>
+        <ion-label>Display Name: </ion-label>
+      </ion-item></ion-col>
+      <ion-col></ion-col>
+      <ion-col></ion-col>
+      <ion-col>      <ion-item>
+        <ion-label> {{ myName }}</ion-label>
+      </ion-item></ion-col>
+  
+
+    </ion-row>
+    <ion-row>
+     
+      <ion-button (click)="showPrompt()" expand="block" fill="clear" >  Change User Name  </ion-button> 
+    </ion-row>
+    <br>
+    <ion-row>
+      <ion-col>    
+        <ion-item>
+          <ion-label>Email: </ion-label>
+        </ion-item>
+      </ion-col>
+     
+      <ion-col></ion-col>
+      <ion-col>      <ion-item>
+        <ion-label> {{ myEmail }}</ion-label>
+      </ion-item></ion-col>
+  
+
+    </ion-row>
+    <br>
+    <ion-row>
+     
+      <ion-button (click)="showPasswordPrompt()" expand="block" fill="clear" >  Change Password </ion-button> 
+    </ion-row>
+ 
+
+    
+ 
+
+    <!-- <ion-button (click)="changeUserName(userProfile)" routerLink="/tabs" expand="block">  Change User Name  </ion-button>  -->
+
+    <!-- <ion-button (click)="showPrompt()" expand="block">  Change User Name  </ion-button>  -->
+   
+    <!-- <ion-item>
+      <ion-label>Account Email: </ion-label>      <ion-label> {{ myEmail }}</ion-label>
+    </ion-item> -->
+    <!-- <ion-button expand="block">  Change Email  </ion-button>  -->
+      <!-- <ion-button (click)="signOut()" routerLink="/login" expand="block">  Sign Out  </ion-button>  -->
+      <ion-item>
+        <ion-label>Your photoURL is: </ion-label>
+        <ion-thumbnail slot="end" size="auto">
+          <ion-avatar><ion-img src = "assets/img/userProfilePic1.png"></ion-img></ion-avatar>
+          
+        </ion-thumbnail>
+      </ion-item>
+      <!-- <ion-item>
+        <ion-label>Your uid is: <br>{{ myUid }}</ion-label>
+      </ion-item> -->
     
   </ion-list>
 
 
-<p>Your photoURL is: </p>
-<p>Your uid is: </p>
 
 </ion-content>
