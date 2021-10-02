@@ -1,346 +1,128 @@
-<ion-header >
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-title class="title3" size="large" color="dark">Raw Surf </ion-title>
+  </ion-toolbar>
+  <ion-toolbar class="toolProfile3">
 
-  <ion-toolbar class="toolProfile3" >
-<!-- 
-    <ion-buttons slot="start">
-      <ion-menu-button color="light"></ion-menu-button>
-    </ion-buttons> 
+    <ion-button expand="outline" slot="end">
+      <ion-buttons slot="end">
+        <ion-menu-button color="light" size="large"></ion-menu-button>
+      </ion-buttons>
+    </ion-button>
 
-    <ion-row>
-      <ion-col size="3">  
-  
+    <div class="pad-rt">
+      <ion-col sixe="auto">
+        <ion-row>
+          <ion-buttons routerLink="/profile" routerDirection="forward" color="clear">
 
-      </ion-col>
-      <ion-col size="auto"><p class="toolProfile">Raw Surf</p></ion-col>
-      <ion-col size="3"></ion-col>
-      <ion-col>  <ion-buttons routerLink="/tabs/home" routerDirection="forward" color="clear">
-        <ion-thumbnail class="toolProfile">
-          <ion-img src ="assets/img/icon.png"></ion-img>
-        </ion-thumbnail>
-      </ion-buttons></ion-col>
+            <ion-avatar>
+              <ion-img src="assets/img/userProfilePic1.png"></ion-img>
+            </ion-avatar>
 
-      <ion-col size="3"></ion-col>
-
- 
-    </ion-row> -->
-    <ion-buttons slot="end">
-      <ion-menu-button color="light"></ion-menu-button>
-    </ion-buttons> 
-
-    <ion-title>Raw Surf </ion-title>
-<!-- 
-    <ion-row>
-  
-      <ion-col>
-       <ion-row>
-        <ion-buttons routerLink="/tabs/home" routerDirection="forward" color="clear">
-          <ion-thumbnail >
-            <ion-img src ="assets/img/icon.png"></ion-img>
-          </ion-thumbnail>
-        </ion-buttons>
-       </ion-row>
-       <ion-row>
-         Raw Surf
-       </ion-row>
-       </ion-col>
-    </ion-row>
-    
-
-      </ion-toolbar>
-
-
-      <ion-toolbar> -->
-
-        
-        
-    
-              <ion-col sixe="auto">
-               <ion-row>
-                <ion-buttons routerLink="/profile" routerDirection="forward" color="clear">
-             
-                    <ion-avatar>
-                      <ion-img src ="assets/img/userProfilePic1.png"></ion-img>
-                    </ion-avatar>
-           
-                </ion-buttons>
-               </ion-row>
-               <ion-row>
-                {{ myName }}
-               </ion-row>
-               </ion-col>
-       
-            
-        
-              </ion-toolbar>
-
-
-  <!-- <ion-toolbar>
-    <ion-title>Welcome</ion-title>
-  </ion-toolbar> -->
-  <!-- <ion-toolbar class="myToolBar"> -->
-    <!-- <ion-buttons slot="start">
-      <ion-menu-button color="light"></ion-menu-button>
-    </ion-buttons> -->
-
-<!-- <ion-row>
-  <ion-col><p class="toolProfile">Raw Surf</p></ion-col>
-  <ion-col class="superTop">  <ion-buttons routerLink="/tabs/home" routerDirection="forward" color="clear">
-    <ion-thumbnail  size="auto">
-      <ion-img src ="assets/img/icon.png"></ion-img>
-    </ion-thumbnail>
-  </ion-buttons></ion-col>
-  <ion-col></ion-col>
-</ion-row> -->
-
-  <!-- <ion-buttons routerLink="/profile" routerDirection="forward" color="clear">
-    <ion-icon name="person-circle-outline" class="toolProfile"></ion-icon>
-  </ion-buttons> -->
-
-
-    <!-- <ion-title>
-      <p align="right" style="color:white;">Home</p>
-      
-    </ion-title> -->
-  <!-- </ion-toolbar> -->
-<!-- 
-    <ion-toolbar>
-<ion-row>
-    <ion-col>  
-      <ion-row>  
-        <ion-buttons routerLink="/tabs/home" routerDirection="forward" expand="block" color="clear">
-
-          <ion-avatar>
-              <ion-img src ="assets/img/userProfilePic1.png"></ion-img>
-          </ion-avatar>
           </ion-buttons>
-      </ion-row>
-      <ion-row>
-
-          <ion-buttons routerLink="/profile" routerDirection="forward" color="primary">
-          <ion-button color="primary" expand="block">   {{ myName}}</ion-button>
-        </ion-buttons>
-      </ion-row>
-</ion-col>
-</ion-row>
-      
-
-  </ion-toolbar> -->
-
-
-
-  <!-- <ion-toolbar> <p align="left" style="color:white;">Good Day Mate!</p></ion-toolbar> -->
+        </ion-row>
+        <ion-row>
+          {{ myName }}
+        </ion-row>
+      </ion-col>
+    </div>
+  </ion-toolbar>
 </ion-header>
+
+
 
 <ion-content class="ion-padding">
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content     pullingIcon="arrow-down-outline" 
-    pullingText="Pull to refresh" 
-    refreshingSpinner="crescent"
-    refreshingText="Refreshing..."></ion-refresher-content>
+    <ion-refresher-content pullingIcon="arrow-down-outline" pullingText="Pull to refresh" refreshingSpinner="crescent"
+      refreshingText="Refreshing..."></ion-refresher-content>
   </ion-refresher>
-  <!-- <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header> -->
-
-  <!-- <p [innerHTML]="user.email"></p> -->
-  
-  <!-- <ion-button (click)="signUp()">  
-  Sign Up
-</ion-button>  
-<ion-button (click)="login()">  
-  Login
-</ion-button>  
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div> -->
-<!-- 
-<div>Hello {{myName}}. Glad to see you!</div> -->
-
-  <!-- <ion-button (click)="signOut()" routerLink="/login" expand="block">  Sign Out  </ion-button>  -->
-  <!-- <ion-button (click)="getUserInfo()" expand="block">  User email  </ion-button>  -->
 
 
   <div class="theRest">
     <ion-card>
-    <ion-grid class="content">
-    <ion-text>
-      <ion-row>     <ion-col></ion-col>       <ion-col class="hello" size="auto"> Hello, </ion-col>
-        <ion-col size="auto">
-          <ion-buttons routerLink="/profile" routerDirection="forward" color="clear">
-            <div *ngIf="myName">
-              <div class="userName">{{ myName }}</div>
-            </div>
-          
-          </ion-buttons>
-        
-        
-        </ion-col>
-        <ion-col></ion-col>    
-     
-      </ion-row>
+      <ion-grid class="content">
+        <ion-text>
+          <ion-row>
+            <ion-col></ion-col>
+            <ion-col class="hello" size="auto">
+              Hello,
+            </ion-col>
+            <ion-col size="auto">
+              <ion-buttons routerLink="/profile" routerDirection="forward" color="clear">
+                <div *ngIf="myName">
+                  <div class="userName">{{ myName }}
+                  </div>
+                </div>
+              </ion-buttons>
+            </ion-col>
+            <ion-col></ion-col>
+          </ion-row>
+        </ion-text>
+      </ion-grid>
+    </ion-card>
 
-  
-
-    </ion-text>
-  </ion-grid>
-  </ion-card>
-
-
-
-
-<!-- 
-  <div class="theRest">
     <ion-card>
-    <ion-grid class="content">
-    <ion-text>
-      <ion-row>     <ion-col></ion-col>       <ion-col class="hello" size="auto">
-        
-        <ion-list>
-
-          <ion-list-header>
-          Surf Schools and WavesPools
-        
-        </ion-list-header>
-        </ion-list>
-        <ion-label>
-          Ohana Surf School
-        </ion-label>
-
-      </ion-col>
-        <ion-col size="auto">
-        
-        
-        </ion-col>
-        <ion-col></ion-col>    
-     
-      </ion-row>
-
-  
-
-    </ion-text>
-  </ion-grid>
-  </ion-card>
-</div> -->
-<!-- <ion-card color="secondary"> -->
-
-
-  <!-- <ion-grid class="content">
-    <ion-row>
-      <ion-col></ion-col>
-   <ion-col size="auto"></ion-col>
-   <ion-col size="auto" class="theRest">   
-          <h1>Raw Surf App</h1>
+      <ion-grid>
+        <ion-row>
+          <ion-col></ion-col>
+          <ion-col></ion-col>
+          <ion-col></ion-col>
+          <ion-col size="auto">
+            <h2>
+              <ion-text color="tertiary">Raw Surf Links:</ion-text>
+            </h2>
           </ion-col>
-    <ion-col></ion-col>
-  
-    </ion-row>
+          <ion-col></ion-col>
+          <ion-col></ion-col>
+          <ion-col></ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col></ion-col>
+          <ion-col>
+            <div class="social-icons" (click)="socialMedia('FACEBOOK')">
+              <ion-icon name="logo-facebook" color="blue"></ion-icon>
+            </div>
+          </ion-col>
+          <ion-col></ion-col>
+          <ion-col>
+            <div class="social-icons" (click)="socialMedia('INSTAGRAM')">
+              <ion-icon class="insta" name="logo-instagram"></ion-icon>
+            </div>
+          </ion-col>
+          <ion-col></ion-col>
+          <ion-col>
+            <div class="social-icons" (click)="socialMedia('TWITTER')">
+              <ion-icon class="twitter" name="logo-twitter"></ion-icon>
+            </div>
+          </ion-col>
+          <ion-col></ion-col>
+          <ion-col>
+            <div class="social-icons" (click)="socialMedia('YOUTUBE')">
+              <ion-icon name="logo-youtube" class="youtube"></ion-icon>
+            </div>
+          </ion-col>
+          <ion-col></ion-col>
+          <ion-col>
+            <div class="social-icons" (click)="socialMedia('VENMO')">
+              <ion-icon class="venmo" name="logo-venmo"></ion-icon>
+            </div>
+          </ion-col>
+          <ion-col></ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card>
 
-   
-    <ion-row>
-      <ion-col></ion-col>
-  
-      <ion-col size="auto"> 
-  
-          <ion-text>
-            <ion-row>            <ion-col class="theRest" size="auto"> Hello </ion-col>
-              <ion-col size="auto">
-                <ion-buttons routerLink="/profile" routerDirection="forward" color="clear">
-                  <div class="userName">{{ myName }}</div>
-                </ion-buttons>
-              
-              
-              </ion-col>
-              <ion-col></ion-col>
-              <ion-col></ion-col>
-              <ion-col></ion-col>
-            </ion-row>
-
-            
-
-          </ion-text>
-          <ion-text class="theRest">
-        Thanks for downloading an early release of The Raw Surf App. <br><br>
-        Check in frequently to see what new features have been added. 
-      </ion-text>
-     </ion-col>
- 
-      <ion-col></ion-col>
-  
-    </ion-row>
-  </ion-grid>
-</ion-card> -->
-
-<ion-card >
-  <ion-grid>
-    <ion-row>
-     <ion-col></ion-col>
-     <ion-col></ion-col>
-     <ion-col></ion-col>
-     <ion-col size="auto"> <h2><ion-text color="tertiary">Raw Surf Links:</ion-text></h2>
-    </ion-col>
-    <ion-col></ion-col>
-      <ion-col></ion-col>
-      <ion-col></ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col></ion-col>
-      <ion-col>
-        <div class="social-icons" (click)="socialMedia('FACEBOOK')">
-          <ion-icon name="logo-facebook" color="blue"></ion-icon>
-        </div>
-    </ion-col>
-    <ion-col></ion-col>
-      <ion-col>
-        <div class="social-icons" (click)="socialMedia('INSTAGRAM')">
-        <ion-icon class="insta" name="logo-instagram"></ion-icon>
-      </div>
-    </ion-col>
-    <ion-col></ion-col>
-      <ion-col>  <div class="social-icons" (click)="socialMedia('TWITTER')">
-        <ion-icon class="twitter" name="logo-twitter"></ion-icon>
-      </div>
-    </ion-col>
-    <ion-col></ion-col>
-      <ion-col> 
-        <div class="social-icons" (click)="socialMedia('YOUTUBE')">
-        <ion-icon name="logo-youtube" class="youtube" ></ion-icon>
-      </div>
-    </ion-col>
-    <ion-col></ion-col>
-      <ion-col><div class="social-icons" (click)="socialMedia('VENMO')">
-        <ion-icon class="venmo" name="logo-venmo"></ion-icon>
-      </div>
-    </ion-col>
-      <ion-col></ion-col>
-
-    </ion-row>
-
-    <!-- <ion-row>   
-      <ion-col></ion-col>
-      <ion-col size="auto">
-        <ion-img src ="assets/img/icon.png"></ion-img>
-      </ion-col>
-      <ion-col></ion-col>
-    </ion-row> -->
+    <ion-grid>
+      <ion-row>
+        <ion-col></ion-col>
+        <ion-col size="auto">
+          <ion-img src="assets/img/icon.png"></ion-img>
+        </ion-col>
+        <ion-col></ion-col>
+      </ion-row>
 
     </ion-grid>
-</ion-card>
-
-  <ion-grid>
-  <ion-row>   
-    <ion-col></ion-col>
-    <ion-col size="auto">
-      <ion-img src ="assets/img/icon.png"></ion-img>
-    </ion-col>
-    <ion-col></ion-col>
-  </ion-row>
-
-  </ion-grid>
-</div>
+  </div>
 
 
 </ion-content>
