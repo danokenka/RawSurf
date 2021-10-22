@@ -36,6 +36,10 @@ const routes: Routes = [
   {
     path: 'auth',
     loadChildren: () => import('./pages/auth/auth.module').then( m => m.AuthPageModule)
+  },
+  {
+    path: 'beach-read',
+    loadChildren: () => import('./pages/beach-read/beach-read.module').then( m => m.BeachReadPageModule)
   }
 
   // {

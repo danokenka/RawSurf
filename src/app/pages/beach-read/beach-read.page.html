@@ -1,0 +1,117 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>beach-read</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+
+
+  <ion-item>
+    <ion-label>Brevard Beaches</ion-label>
+    <ion-select placeholder="Select One" [(ngModel)]="value1" (ionChange)="showPoints(value1)">
+      <ion-select-option *ngFor="let p of myObj" [value]="p.attributes.NAME">
+        {{ p.attributes.NAME }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <!-- <li *ngFor="let beachName of beachNames | async">
+
+  <span class="badge">{{beachName.name}}</span> 
+
+
+
+</li> -->
+<!-- <ul>
+  <li>
+    {{stringI}}
+    </li>
+
+</ul> -->
+
+<!-- <ion-card>
+
+  <img src="img/advance-card-map-madison.png">
+  <ion-fab right top>
+    <button ion-fab>
+      <ion-icon name="pin"></ion-icon>
+    </button>
+  </ion-fab>
+
+  <ion-item>
+    <ion-icon name="football" item-start large></ion-icon>
+    <h2>Museum of Football</h2>
+    <p>11 N. Way St, Madison, WI 53703</p>
+  </ion-item>
+
+  <ion-item>
+    <ion-icon name="wine" item-start large ></ion-icon>
+    <h2>Institute of Fine Cocktails</h2>
+    <p>14 S. Hop Avenue, Madison, WI 53703</p>
+  </ion-item>
+
+  <ion-item>
+    <span item-start>18 min</span>
+    <span item-start>(2.6 mi)</span>
+    <button ion-button icon-start clear item-end>
+      <ion-icon name="navigate"></ion-icon>
+      Start
+    </button>
+  </ion-item>
+
+</ion-card> -->
+<!-- <ion-list no-lines>
+<button ion-item *ngFor="let beachName of beachNames" (click)="itemSelected(beachName)">
+  {{ beachName }}
+</button> 
+</ion-list> -->
+
+<!-- <ion-list no-lines>
+  <button ion-item (click)="readBeachData()">
+    {{ name }}
+  </button> 
+  </ion-list> -->
+<!-- 
+  <input type=”text” [(ngModel)]=”searchTerm” name=”searchTerm” placeholder=”Search”>
+<ul>
+<li *ngFor="let x of cakes|filter:searchTerm">
+<div>
+<span appHighlight [search]="searchTerm">{{x.name}}-</span>
+Type:<span appHighlight [search]="searchTerm">{{x.type}}-</span>
+PPU:<span appHighlight [search]="searchTerm">{{x.ppu}}</span>
+</div>
+<span>Batters</span>
+<ul>
+<li *ngFor="let y of x.batters.batter">
+<span appHighlight [search]="searchTerm" >{{y.id}}:</span>
+<span appHighlight [search]="searchTerm">{{y.type}}</span>
+</li>
+</ul>
+<span>Toppings</span>
+<ul>
+<li *ngFor="let z of x.topping">
+<span appHighlight [search]="searchTerm">{{z.id}}:</span>
+<span appHighlight [search]="searchTerm">{{z.type}}</span>
+</li>
+</ul>
+</li>
+</ul> -->
+
+
+</ion-content>
