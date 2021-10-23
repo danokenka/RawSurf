@@ -9,5 +9,6 @@ export const environment = {
     appId: "1:1024438702340:web:50e2307752644c4368c051",
     measurementId: "G-SKHZ0M3L7L"
   },
-  firebaseAPIKey: 'AIzaSyDnn5mVvbqRL2j77zgMrQX0yYFppGmwP14'
+  firebaseAPIKey: 'AIzaSyDnn5mVvbqRL2j77zgMrQX0yYFppGmwP14',
+  mapsAPIKey: 'AIzaSyATEysSRZ5VV3_Si5baC-ewNKqqsh67YDo'
 };

@@ -7,8 +7,10 @@
 <ion-content>
 
 
-
-
+<!--
+  Ion selector but beach names are too long
+-->
+<!-- 
   <ion-item>
     <ion-label>Brevard Beaches</ion-label>
     <ion-select placeholder="Select One" [(ngModel)]="value1" (ionChange)="showPoints(value1)">
@@ -16,7 +18,50 @@
         {{ p.attributes.NAME }}
       </ion-select-option>
     </ion-select>
-  </ion-item>
+  </ion-item> -->
+
+<!--
+  Infinate Scroll To hand long names better
+-->
+  <!-- <ion-button (click)="toggleInfiniteScroll()" expand="block">
+    Brevard Beaches
+  </ion-button> -->
+
+  <div *ngIf="!showBeaches">
+    <ion-button (click)="viewBreveardBeaches()" expand="block">
+    View Brevard Beaches
+  </ion-button>
+  </div>
+  <div *ngIf="showBeaches">
+<h2>Brevard Beaches</h2>
+  <ion-list *ngFor="let p of myObj">  
+    <ion-button fill="clear" (click)="showPoints(p.attributes.NAME)">    
+        {{ p.attributes.NAME }}
+
+
+    </ion-button></ion-list>
+  </div>
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+
+  <!-- Sliding list-->
+<!-- List of Sliding Items -->
+<!-- <ion-list *ngFor="let p of myObj" [value]="p.attributes.NAME">
+  <ion-item-sliding>
+    <ion-item >
+      <ion-label>  {{ p.attributes.NAME }}</ion-label>
+    </ion-item>
+    <ion-item-options side="end">
+      <ion-item-option (click)="showPoints(p.attributes.NAME)">Unread</ion-item-option>
+    </ion-item-options>
+  </ion-item-sliding>
+
+</ion-list> -->
 
 
 
@@ -25,11 +70,6 @@
 
 
 
-
-
-
-
-  
 
   <!-- <li *ngFor="let beachName of beachNames | async">
 

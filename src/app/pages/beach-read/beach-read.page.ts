@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import firebase from 'firebase/app';
+import { IonInfiniteScroll } from '@ionic/angular';
 
 @Component({
   selector: 'app-beach-read',
@@ -7,6 +8,7 @@ import firebase from 'firebase/app';
   styleUrls: ['./beach-read.page.scss'],
 })
 export class BeachReadPage implements OnInit {
+  @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
   database = firebase.database();
   beachNames;
   beachesNames;
@@ -15,16 +17,19 @@ export class BeachReadPage implements OnInit {
   beachList: string[] = [];
   searchTerm: string = "";
   refToUser;
-
+  showBeaches = false;
   constructor() { }
 
   ngOnInit() {
     // this.readBeachData();
-this.retrieveBeachNames();
-  }
 
+  }
+  viewBreveardBeaches() {
+    this.retrieveBeachNames();
+  }
   // Used to Get all Beach Names from JSON
   retrieveBeachNames(){
+    this.showBeaches = true;
     var myUrlPath = 'Beaches/State/Florida/Region/Central/features';
       var brevardRef = firebase.database().ref(myUrlPath);
 
@@ -35,6 +40,31 @@ this.retrieveBeachNames();
 
   }
 
+// Selected Beach Name
+  showPoints(value1){
+  this.showBeaches = false
+    console.log(value1)
+    
+      }
+
+      
+      loadData(event) {
+        setTimeout(() => {
+          console.log('Done');
+          event.target.complete();
+    
+          // App logic to determine if all data is loaded
+          // and disable the infinite scroll
+          if (this.myObj.length == 1000) {
+            event.target.disabled = true;
+          }
+        }, 500);
+      }
+
+      toggleInfiniteScroll() {
+        this.infiniteScroll.disabled = !this.infiniteScroll.disabled;
+      }
+    
 
 //   readBeachData() {
 //     for (this.i = 0; this.i < 61; this.i++) {
@@ -89,9 +119,6 @@ this.retrieveBeachNames();
   //   //   });
   // }
 
-  showPoints(value1){
-console.log(value1)
-  }
   // addToList(name: string): void {
   //   this.beachList.push(name);
   //   console.log(this.beachList)
